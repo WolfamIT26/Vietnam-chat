@@ -3,7 +3,18 @@
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
   }
   to {
     opacity: 1;
@@ -14,11 +25,11 @@
 @keyframes messageAppear {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.9) translateY(10px);
   }
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translateY(0);
   }
 }
 
@@ -29,7 +40,7 @@
   }
   30% {
     opacity: 1;
-    transform: translateY(-10px);
+    transform: translateY(-8px);
   }
 }
 
@@ -49,4 +60,44 @@
   50% {
     opacity: 0.5;
   }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Smooth transitions for interactive elements */
+::-webkit-input-placeholder {
+  transition: color 0.3s ease;
+}
+
+::-moz-placeholder {
+  transition: color 0.3s ease;
+}
+
+:-ms-input-placeholder {
+  transition: color 0.3s ease;
 }

@@ -26,26 +26,47 @@ def start_ngrok(app, port=None):
             pass
 
     try:
-        # Try using pyngrok's tunnel (if it can auto-download or has ngrok cached)
+        # If there's already a tunnel open for this port, reuse it to avoid endpoint conflicts
+        try:
+            existing = ngrok.get_tunnels()
+        except Exception:
+            existing = []
+
+        for t in existing:
+            # t.addr can be like "http://localhost:5000" or ":5000" depending on platform
+            addr = getattr(t, 'addr', '') or ''
+            if str(port) in addr or addr.endswith(f":{port}") or addr.endswith(f"localhost:{port}"):
+                public_url = t.public_url
+                app.logger.info(f"[NGROK] Reusing existing tunnel: {public_url}")
+                app.config["BASE_URL"] = public_url
+                return public_url
+
+        # No existing matching tunnel found — open a new one
         tunnel = ngrok.connect(port, bind_tls=True)
         public_url = tunnel.public_url
     except Exception as e:
-        # Fallback: try calling ngrok binary directly from PATH
-        print(f"[NGROK] pyngrok failed ({e}), trying ngrok binary directly...")
+        # If pyngrok fails due to an already-online endpoint, try to return an existing tunnel;
+        # otherwise fall back to asking the user to run ngrok manually.
+        msg = str(e)
+        print(f"[NGROK] pyngrok failed ({e}), attempting fallback checks...")
         try:
-            # Start ngrok in background using subprocess
-            result = subprocess.run(
-                ['ngrok', 'http', str(port), '--log=stdout'],
-                capture_output=False,
-                text=True,
-                timeout=5
-            )
-            # This won't work as-is since ngrok runs in foreground,
-            # so we fall back to a simpler approach:
-            # Just tell user to run ngrok separately
-            raise Exception("Please run ngrok separately: ngrok http " + str(port))
-        except FileNotFoundError:
-            raise Exception("ngrok binary not found in PATH. Please install ngrok.")
+            existing = ngrok.get_tunnels()
+            for t in existing:
+                addr = getattr(t, 'addr', '') or ''
+                if str(port) in addr or addr.endswith(f":{port}") or addr.endswith(f"localhost:{port}"):
+                    public_url = t.public_url
+                    app.logger.info(f"[NGROK] Found existing tunnel after error: {public_url}")
+                    app.config["BASE_URL"] = public_url
+                    return public_url
+        except Exception:
+            pass
+
+        # Final fallback: instruct the user to run ngrok manually (more reliable than trying
+        # to spawn a background ngrok binary from here in every environment).
+        if 'ngrok' in msg and 'already online' in msg:
+            raise Exception("Existing ngrok endpoint detected. Please stop the other ngrok process or use a different subdomain and try again.")
+        # If ngrok binary isn't available or another error occurred, surface a helpful message
+        raise Exception("ngrok tunnel could not be started automatically. Please run: ngrok http " + str(port))
 
     # Save public url into app config for the app to consume if needed
     app.config["BASE_URL"] = public_url

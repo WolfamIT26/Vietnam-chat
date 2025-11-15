@@ -9,11 +9,10 @@ import io from 'socket.io-client';
 let SOCKET_URL = process.env.REACT_APP_SOCKET_URL;
 
 if (!SOCKET_URL) {
-  // If running behind proxy (port 3000 -> 5000), try backend at :5000
-  // If REACT_APP_SOCKET_URL not set, assume backend is at same hostname but port 5000
-  const protocol = window.location.protocol; // http: or https:
-  const hostname = window.location.hostname;
-  SOCKET_URL = `${protocol}//${hostname}:5000`;
+  // Default: use the same origin (hostname + protocol + port) where the app is loaded from
+  // This way: localhost:3000 -> localhost:3000 (via proxy), ngrok URL -> ngrok URL
+  // Only if specifically needed (e.g., dev server behind proxy), override REACT_APP_SOCKET_URL
+  SOCKET_URL = window.location.origin;
 }
 
 console.log('');
@@ -92,13 +91,14 @@ export const joinUserRoom = (userId) => {
   console.log(`[JOIN] ✅ Join event emitted for user_id: ${userId}\n`);
 };
 
-// Gửi tin nhắn qua Socket (có hỗ trợ reply_to, forward_from)
+// Gửi tin nhắn qua Socket (có hỗ trợ reply_to, forward_from, client_message_id)
 export const sendMessage = (senderId, receiverId, content, opts = {}) => {
   const sock = getSocket();
   const payload = {
     sender_id: senderId,
     receiver_id: receiverId,
     content,
+    client_message_id: opts.client_message_id || null,
     reply_to_id: opts.reply_to_id || null,
     forward_from_id: opts.forward_from_id || null,
   };
@@ -141,6 +141,16 @@ export const onReceiveMessage = (callback) => {
     console.log('\n========== [RECEIVE_MESSAGE] CLIENT ==========');
     console.log('Received:', data);
     console.log('========== \n');
+    callback(data);
+  });
+};
+
+// Lắng nghe message_sent_ack (server xác nhận message đã lưu)
+export const onMessageSentAck = (callback) => {
+  const sock = getSocket();
+  sock.off('message_sent_ack');
+  sock.on('message_sent_ack', (data) => {
+    console.log('[MESSAGE_SENT_ACK]', data);
     callback(data);
   });
 };

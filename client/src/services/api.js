@@ -10,7 +10,17 @@ import axios from 'axios';
 // the backend is actually running on 5000. Keep environment override.
 // In development we prefer using a relative base URL so CRA's proxy can avoid CORS.
 // If you set REACT_APP_API_URL explicitly, it will be used (useful for production).
-const API_URL = process.env.REACT_APP_API_URL !== undefined ? process.env.REACT_APP_API_URL : '';
+// If REACT_APP_API_URL is set, use it. Otherwise default to the current origin so
+// built clients and ngrok-hosted pages call the same host that served the page.
+let API_URL = process.env.REACT_APP_API_URL !== undefined ? process.env.REACT_APP_API_URL : '';
+if (!API_URL) {
+  // When running in browser, prefer the page origin (works for localhost dev or ngrok public URL).
+  if (typeof window !== 'undefined' && window.location && window.location.origin) {
+    API_URL = window.location.origin;
+  } else {
+    API_URL = '';
+  }
+}
 
 
 // If REACT_APP_MOCK_API is set to 'true', use an in-memory mock implementation
@@ -177,6 +187,9 @@ export const messageAPI = {
   
   sendMessage: (senderId, receiverId, content) =>
     api.post('/messages', { sender_id: senderId, receiver_id: receiverId, content }),
+  
+  sendFile: (formData) =>
+    api.post('/messages/upload', formData),
   
   getConversations: () => api.get('/messages/conversations'),
 };

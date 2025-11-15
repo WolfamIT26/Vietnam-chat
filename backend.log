@@ -1,0 +1,1795 @@
+📁 Project root: /Users/melaniepham/Documents/Viet/HK1 Năm 3/CUOI KY/Vietnam Chat
+🚀 Preparing Flask backend...
+📍 Using backend port: 5000
+📦 Installing requirements (may take a moment)...
+[notice] To update, run: python3.12 -m pip install --upgrade pip
+✅ Requirements satisfied
+📍 Port: 5000
+🌐 Local URL: http://localhost:5000
+
+🌐 ngrok is enabled — will create public tunnel
+
+▶️  Starting Flask app using /Users/melaniepham/Documents/Viet/HK1 Năm 3/CUOI KY/Vietnam Chat/.venv/bin/python (PORT=5000)
+WARNING:werkzeug:Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+
+
+================================================================================
+🌐 [NGROK] PUBLIC URL - SHARE THIS WITH FRIENDS:
+================================================================================
+   https://unmodelled-higher-jeanette.ngrok-free.dev
+================================================================================
+   API Base:     https://unmodelled-higher-jeanette.ngrok-free.dev
+   Socket URL:   https://unmodelled-higher-jeanette.ngrok-free.dev
+================================================================================
+
+
+ * Serving Flask app 'app'
+ * Debug mode: off
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.30:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:43] "GET /socket.io/?EIO=4&transport=polling&t=nd999o04 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:43] "POST /socket.io/?EIO=4&transport=polling&t=ndaqn41h&sid=cv4AMKu5S3KfgGONAAAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:43] "GET /socket.io/?EIO=4&transport=polling&t=ndaqohqz&sid=cv4AMKu5S3KfgGONAAAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:43] "GET /socket.io/?EIO=4&transport=polling&t=ndaqzsmu&sid=cv4AMKu5S3KfgGONAAAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:45] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:45] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:45] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:45] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:45] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:45] "GET /socket.io/?EIO=4&transport=polling&t=najdupf3 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:45] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:45] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:45] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:45] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:45] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:45] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:45] "GET /socket.io/?EIO=4&transport=polling&t=nayjm7v3 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:46] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:46] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:46] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:46] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:46] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:46] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:46] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:46] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:46] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:46] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:46] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:46] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:47] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:47] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:47] "OPTIONS /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:47] "GET /socket.io/?EIO=4&transport=polling&t=nbyhr149 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:47] "GET /socket.io/?EIO=4&transport=polling&t=nbfyr0al HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:47] "GET /socket.io/?EIO=4&transport=polling&t=ncmenl2j HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:47] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:47] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:47] "GET /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:47] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:47] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:47] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:48] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:48] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:48] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:48] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:48] "OPTIONS /messages?sender_id=11&receiver_id=13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:48] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:48] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:48] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:48] "GET /messages?sender_id=11&receiver_id=13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:48] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:48] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:49] "GET /socket.io/?EIO=4&transport=polling&t=nd8j7i2d HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:49] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:49] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:49] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:49] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:49] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:49] "POST /socket.io/?EIO=4&transport=polling&t=nd8xn0zs&sid=nYghv8COccWuRuTnAAAH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:49] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:49] "GET /socket.io/?EIO=4&transport=polling&t=nd8xo2o4&sid=nYghv8COccWuRuTnAAAH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:49] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:49] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:49] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:50] "GET /socket.io/?EIO=4&transport=polling&t=nd9cg7zy&sid=nYghv8COccWuRuTnAAAH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:50] "POST /socket.io/?EIO=4&transport=polling&t=nd9ci8c4&sid=nYghv8COccWuRuTnAAAH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:50] "GET /messages?sender_id=11&receiver_id=13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:50] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:51] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:53] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:53] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:53] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:53] "OPTIONS /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:53] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:53] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:53] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:53] "GET /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:55] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:55] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:55] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:55] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:56] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:58] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:58] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:58] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:55:58] "GET /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:01] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:01] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:01] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:01] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:02] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:02] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:02] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:02] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:03] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:04] "OPTIONS /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:04] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:04] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:04] "GET /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:30] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:31] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:31] "OPTIONS /users HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:31] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:31] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:31] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:31] "GET /users HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:31] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:34] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:34] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:34] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:34] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:34] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:49] "GET /socket.io/?EIO=4&transport=websocket&sid=nYghv8COccWuRuTnAAAH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:52] "GET /socket.io/?EIO=4&transport=polling&t=nelc18jn HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:52] "GET /socket.io/?EIO=4&transport=polling&t=nerm66y6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:52] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:52] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:52] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:52] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:52] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:52] "POST /socket.io/?EIO=4&transport=polling&t=nermaznn&sid=wyxuGMyfRHiIv3tJAAAK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:52] "GET /socket.io/?EIO=4&transport=polling&t=nermaf6i&sid=wyxuGMyfRHiIv3tJAAAK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:52] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:52] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:52] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:52] "OPTIONS /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:52] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:52] "GET /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:52] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:52] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:52] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:52] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:52] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:52] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:52] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:53] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:53] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:53] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:53] "GET /socket.io/?EIO=4&transport=polling&t=nelf04yx&sid=OyK2ZRQ3JUWaQ4REAAAJ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:53] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:53] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:53] "POST /socket.io/?EIO=4&transport=polling&t=nelezxts&sid=OyK2ZRQ3JUWaQ4REAAAJ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:53] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:53] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:53] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:53] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:53] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:54] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:54] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:54] "OPTIONS /messages?sender_id=11&receiver_id=13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:54] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:54] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:54] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:54] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:55] "GET /messages?sender_id=11&receiver_id=13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:56:55] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:02] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:02] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:02] "OPTIONS /users HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:02] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:02] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:02] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:02] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:02] "GET /users HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:03] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:03] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:03] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:03] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:03] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:08] "GET /socket.io/?EIO=4&transport=websocket&sid=OyK2ZRQ3JUWaQ4REAAAJ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "GET /socket.io/?EIO=4&transport=websocket&sid=wyxuGMyfRHiIv3tJAAAK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "GET /socket.io/?EIO=4&transport=websocket&sid=cv4AMKu5S3KfgGONAAAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "GET /socket.io/?EIO=4&transport=polling&t=nf4vhczp HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "POST /socket.io/?EIO=4&transport=polling&t=nf4vmfxi&sid=mNtdWT8rmRql4i7wAAAN HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "GET /socket.io/?EIO=4&transport=polling&t=nf4vn869&sid=mNtdWT8rmRql4i7wAAAN HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "OPTIONS /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "GET /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "GET /socket.io/?EIO=4&transport=polling&t=neyewvhv HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:09] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:10] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:10] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:10] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:10] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:10] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:10] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:10] "POST /socket.io/?EIO=4&transport=polling&t=neytaz5j&sid=0mtL5-VYt9JcwhNRAAAP HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:10] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:10] "GET /socket.io/?EIO=4&transport=polling&t=neyta1ko&sid=0mtL5-VYt9JcwhNRAAAP HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:10] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:10] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:10] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:11] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:11] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:11] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:11] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:11] "OPTIONS /messages?sender_id=11&receiver_id=13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:11] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:11] "GET /messages?sender_id=11&receiver_id=13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:11] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:12] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "GET /socket.io/?EIO=4&transport=websocket&sid=mNtdWT8rmRql4i7wAAAN HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "GET /socket.io/?EIO=4&transport=polling&t=nfildr62 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "POST /socket.io/?EIO=4&transport=polling&t=nfilr4sa&sid=GjDZQjf8nwvos0KSAAAR HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "GET /socket.io/?EIO=4&transport=polling&t=nfilr18r&sid=GjDZQjf8nwvos0KSAAAR HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "OPTIONS /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "GET /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:27] "GET /messages/conversations HTTP/1.1" 200 -
+[CHAT][NHẬN] [CONNECT] Connected from 127.0.0.1, sid=m-dGuLPGKSxnWW3jAAAB
+[CHAT][NHẬN] [JOIN] sid=m-dGuLPGKSxnWW3jAAAB data={'username': 'viet123', 'room': 'chat_room'}
+Using explicit room: chat_room
+[CHAT][GỬI] ✅ User joined room: chat_room
+[CHAT][NHẬN] Current user_sockets mapping: {}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[CHAT][NHẬN] [JOIN] sid=m-dGuLPGKSxnWW3jAAAB data={'username': 'viet123', 'room': 'chat_room'}
+Using explicit room: chat_room
+[CHAT][GỬI] ✅ User joined room: chat_room
+[CHAT][NHẬN] Current user_sockets mapping: {}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] sender=11 receiver=13
+[MESSAGES] count=3
+[CHAT][NHẬN] [CONNECT] Connected from 127.0.0.1, sid=UjxvvxtoljN5ClZzAAAI
+[MESSAGES] sender=11 receiver=13
+[CHAT][NHẬN] [JOIN] sid=UjxvvxtoljN5ClZzAAAI data={'user_id': 11}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=11 → sid=UjxvvxtoljN5ClZzAAAI
+[CHAT][GỬI] ✅ User joined room: user-11
+[CHAT][NHẬN] Current user_sockets mapping: {11: 'UjxvvxtoljN5ClZzAAAI'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] count=3
+[CHAT][NHẬN] [JOIN] sid=UjxvvxtoljN5ClZzAAAI data={'user_id': 11}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=11 → sid=UjxvvxtoljN5ClZzAAAI
+[CHAT][GỬI] ✅ User joined room: user-11
+[CHAT][NHẬN] Current user_sockets mapping: {11: 'UjxvvxtoljN5ClZzAAAI'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[CHAT][NHẬN] [DISCONNECT] sid=UjxvvxtoljN5ClZzAAAI
+[CHAT][NHẬN] ✅ Removed user_id=11 from mapping
+[CHAT][GỬI] [DISCONNECT] END
+[CHAT][NHẬN] [CONNECT] Connected from 127.0.0.1, sid=ZVqu3AURkNJ5q67QAAAL
+[CHAT][NHẬN] [JOIN] sid=ZVqu3AURkNJ5q67QAAAL data={'user_id': 14}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=14 → sid=ZVqu3AURkNJ5q67QAAAL
+[CHAT][GỬI] ✅ User joined room: user-14
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'ZVqu3AURkNJ5q67QAAAL'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] sender=14 receiver=11
+[MESSAGES] count=2
+[CHAT][NHẬN] [CONNECT] Connected from 127.0.0.1, sid=CQz66vrx0HQ_WjvRAAAM
+[CHAT][NHẬN] [JOIN] sid=CQz66vrx0HQ_WjvRAAAM data={'user_id': 11}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=11 → sid=CQz66vrx0HQ_WjvRAAAM
+[CHAT][GỬI] ✅ User joined room: user-11
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'ZVqu3AURkNJ5q67QAAAL', 11: 'CQz66vrx0HQ_WjvRAAAM'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[CHAT][NHẬN] [JOIN] sid=CQz66vrx0HQ_WjvRAAAM data={'user_id': 11}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=11 → sid=CQz66vrx0HQ_WjvRAAAM
+[CHAT][GỬI] ✅ User joined room: user-11
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'ZVqu3AURkNJ5q67QAAAL', 11: 'CQz66vrx0HQ_WjvRAAAM'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] sender=11 receiver=13
+[MESSAGES] count=3
+[CHAT][NHẬN] [DISCONNECT] sid=CQz66vrx0HQ_WjvRAAAM
+[CHAT][NHẬN] ✅ Removed user_id=11 from mapping
+[CHAT][GỬI] [DISCONNECT] END
+[CHAT][NHẬN] [DISCONNECT] sid=ZVqu3AURkNJ5q67QAAAL
+[CHAT][NHẬN] ✅ Removed user_id=14 from mapping
+[CHAT][GỬI] [DISCONNECT] END
+[CHAT][NHẬN] [DISCONNECT] sid=m-dGuLPGKSxnWW3jAAAB
+[CHAT][GỬI] [DISCONNECT] END
+[CHAT][NHẬN] [CONNECT] Connected from 127.0.0.1, sid=7Jt-cjRUDhvE6ys5AAAO
+[CHAT][NHẬN] [JOIN] sid=7Jt-cjRUDhvE6ys5AAAO data={'user_id': 14}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=14 → sid=7Jt-cjRUDhvE6ys5AAAO
+[CHAT][GỬI] ✅ User joined room: user-14
+[CHAT][NHẬN] Current user_sockets mapping: {14: '7Jt-cjRUDhvE6ys5AAAO'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] sender=14 receiver=11
+[MESSAGES] count=2
+[CHAT][NHẬN] [JOIN] sid=7Jt-cjRUDhvE6ys5AAAO data={'user_id': 14}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=14 → sid=7Jt-cjRUDhvE6ys5AAAO
+[CHAT][GỬI] ✅ User joined room: user-14
+[CHAT][NHẬN] Current user_sockets mapping: {14: '7Jt-cjRUDhvE6ys5AAAO'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[CHAT][NHẬN] [CONNECT] Connected from 127.0.0.1, sid=gLBa1qmb07UuXHWIAAAQ
+[CHAT][NHẬN] [JOIN] sid=gLBa1qmb07UuXHWIAAAQ data={'user_id': 11}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=11 → sid=gLBa1qmb07UuXHWIAAAQ
+[CHAT][GỬI] ✅ User joined room: user-11
+[CHAT][NHẬN] Current user_sockets mapping: {14: '7Jt-cjRUDhvE6ys5AAAO', 11: 'gLBa1qmb07UuXHWIAAAQ'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[CHAT][NHẬN] [JOIN] sid=gLBa1qmb07UuXHWIAAAQ data={'user_id': 11}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=11 → sid=gLBa1qmb07UuXHWIAAAQ
+[CHAT][GỬI] ✅ User joined room: user-11
+[CHAT][NHẬN] Current user_sockets mapping: {14: '7Jt-cjRUDhvE6ys5AAAO', 11: 'gLBa1qmb07UuXHWIAAAQ'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] sender=11 receiver=13
+[MESSAGES] count=3
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [SEND_MESSAGE] sid=7Jt-cjRUDhvE6ys5AAAO sender_id=14 receiver_id=11 client_msg_id=client_1763233041748_kzgpgg9uu content_preview=hi
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=False
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][GỬI] ✅ Message saved to DB: message_id=91, timestamp=2025-11-15 18:57:21.761454
+[CHAT][GỬI] 📋 Sending ACK to sender: {'client_message_id': 'client_1763233041748_kzgpgg9uu', 'message_id': 91, 'status': 'sent'}
+[CHAT][GỬI] 📤 Emitting to receiver room 'user-11'...
+[CHAT][GỬI] ✅ Emitted to user-11
+[CHAT][GỬI] [SEND_MESSAGE] END - SUCCESS
+[CHAT][NHẬN] [DISCONNECT] sid=7Jt-cjRUDhvE6ys5AAAO
+[CHAT][NHẬN] ✅ Removed user_id=14 from mapping
+[CHAT][GỬI] [DISCONNECT] END
+[CHAT][NHẬN] [CONNECT] Connected from 127.0.0.1, sid=yDfwLk4rX12IYFpcAAAS
+[CHAT][NHẬN] [JOIN] sid=yDfwLk4rX12IYFpcAAAS data={'user_id': 14}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=14 → sid=yDfwLk4rX12IYFpcAAAS
+[CHAT][GỬI] ✅ User joined room: user-14
+[CHAT][NHẬN] Current user_sockets mapping: {11: 'gLBa1qmb07UuXHWIAAAQ', 14: 'yDfwLk4rX12IYFpcAAAS'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] sender=14 receiver=11
+[MESSAGES] count=3
+[CHAT][NHẬN] [JOIN] sid=yDfwLk4rX12IYFpcAAAS data={'user_id': 14}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=14 → sid=yDfwLk4rX12IYFpcAAAS
+[CHAT][GỬI] ✅ User joined room: user-14
+[CHAT][NHẬN] Current user_sockets mapping: {11: 'gLBa1qmb07UuXHWIAAAQ', 14: 'yDfwLk4rX12IYFpcAAAS'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [SEND_MESSAGE] sid=yDfwLk4rX12IYFpcAAAS sender_id=14 receiver_id=11 client_msg_id=client_1763233050270_ivvp4vkcr content_preview=vi
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=False
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][GỬI] ✅ Message saved to DB: message_id=92, timestamp=2025-11-15 18:57:30.272545
+[CHAT][GỬI] 📋 Sending ACK to sender: {'client_message_id': 'client_1763233050270_ivvp4vkcr', 'message_id': 92, 'status': 'sent'}
+[CHAT][GỬI] 📤 Emitting to receiver room 'user-11'...
+[CHAT][GỬI] ✅ Emitted to user-11
+[CHAT][GỬI] [SEND_MESSAGE] END - SUCCESS
+[CHAT][NHẬN] [TYPING] sender=11 receiver=13 typing=True
+[CHAT][GỬI] user_typing -> room=user-13
+[CHAT][NHẬN] [TYPING] sender=11 receiver=13 typing=True
+[CHAT][GỬI] user_typing -> room=user-13
+[CHAT][NHẬN] [SEND_MESSAGE] sid=gLBa1qmb07UuXHWIAAAQ sender_id=11 receiver_id=13 client_msg_id=client_1763233046004_lewpcb8la content_preview=ok
+[CHAT][NHẬN] [TYPING] sender=11 receiver=13 typing=False
+[CHAT][GỬI] user_typing -> room=user-13
+[CHAT][GỬI] ✅ Message saved to DB: message_id=93, timestamp=2025-11-15 18:57:34.103219
+[CHAT][GỬI] 📋 Sending ACK to sender: {'client_message_id': 'client_1763233046004_lewpcb8la', 'message_id': 93, 'status': 'sent'}
+[CHAT][GỬI] 📤 Emitting to receiver room 'user-13'...
+[CHAT][GỬI] ✅ Emitted to user-13
+[CHAT][GỬI] [SEND_MESSAGE] END - SUCCESS
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:37] "OPTIONS /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:37] "GET /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:45] "OPTIONS /messages?sender_id=11&receiver_id=14 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:57:46] "GET /messages?sender_id=11&receiver_id=14 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:14] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:14] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:14] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:14] "OPTIONS /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:14] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:15] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:15] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:15] "GET /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:17] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:17] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:17] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:17] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:17] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:55] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:55] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:55] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:55] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:55] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:55] "OPTIONS /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:55] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:55] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:55] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:55] "GET /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:55] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:55] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:56] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:56] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:56] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:56] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:56] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:56] "OPTIONS /messages?sender_id=11&receiver_id=14 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:56] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:56] "GET /users/me HTTP/1.1" 200 -
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [SEND_MESSAGE] sid=yDfwLk4rX12IYFpcAAAS sender_id=14 receiver_id=11 client_msg_id=client_1763233056319_zb1qti136 content_preview=uhjkllll
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=False
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][GỬI] ✅ Message saved to DB: message_id=94, timestamp=2025-11-15 18:57:36.323390
+[CHAT][GỬI] 📋 Sending ACK to sender: {'client_message_id': 'client_1763233056319_zb1qti136', 'message_id': 94, 'status': 'sent'}
+[CHAT][GỬI] 📤 Emitting to receiver room 'user-11'...
+[CHAT][GỬI] ✅ Emitted to user-11
+[CHAT][GỬI] [SEND_MESSAGE] END - SUCCESS
+[MESSAGES] sender=11 receiver=12
+[MESSAGES] count=12
+[CHAT][NHẬN] [TYPING] sender=11 receiver=12 typing=True
+[CHAT][GỬI] user_typing -> room=user-12
+[CHAT][NHẬN] [TYPING] sender=11 receiver=12 typing=True
+[CHAT][GỬI] user_typing -> room=user-12
+[CHAT][NHẬN] [SEND_MESSAGE] sid=gLBa1qmb07UuXHWIAAAQ sender_id=11 receiver_id=12 client_msg_id=client_1763233053646_vf36sxnzz content_preview=vv
+[CHAT][NHẬN] [TYPING] sender=11 receiver=12 typing=False
+[CHAT][GỬI] user_typing -> room=user-12
+[CHAT][GỬI] ✅ Message saved to DB: message_id=95, timestamp=2025-11-15 18:57:41.746490
+[CHAT][GỬI] 📋 Sending ACK to sender: {'client_message_id': 'client_1763233053646_vf36sxnzz', 'message_id': 95, 'status': 'sent'}
+[CHAT][GỬI] 📤 Emitting to receiver room 'user-12'...
+[CHAT][GỬI] ✅ Emitted to user-12
+[CHAT][GỬI] [SEND_MESSAGE] END - SUCCESS
+[MESSAGES] sender=11 receiver=14
+[MESSAGES] count=5
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [SEND_MESSAGE] sid=gLBa1qmb07UuXHWIAAAQ sender_id=11 receiver_id=14 client_msg_id=client_1763233061641_suhlp2uu4 content_preview=fgfdf
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=False
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][GỬI] ✅ Message saved to DB: message_id=96, timestamp=2025-11-15 18:57:49.738624
+[CHAT][GỬI] 📋 Sending ACK to sender: {'client_message_id': 'client_1763233061641_suhlp2uu4', 'message_id': 96, 'status': 'sent'}
+[CHAT][GỬI] 📤 Emitting to receiver room 'user-14'...
+[CHAT][GỬI] ✅ Emitted to user-14
+[CHAT][GỬI] [SEND_MESSAGE] END - SUCCESS
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [SEND_MESSAGE] sid=gLBa1qmb07UuXHWIAAAQ sender_id=11 receiver_id=14 client_msg_id=client_1763233072321_pkpurqzpl content_preview=dfd
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=False
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][GỬI] ✅ Message saved to DB: message_id=97, timestamp=2025-11-15 18:58:00.420097
+[CHAT][GỬI] 📋 Sending ACK to sender: {'client_message_id': 'client_1763233072321_pkpurqzpl', 'message_id': 97, 'status': 'sent'}
+[CHAT][GỬI] 📤 Emitting to receiver room 'user-14'...
+[CHAT][GỬI] ✅ Emitted to user-14
+[CHAT][GỬI] [SEND_MESSAGE] END - SUCCESS
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [SEND_MESSAGE] sid=gLBa1qmb07UuXHWIAAAQ sender_id=11 receiver_id=14 client_msg_id=client_1763233076378_h86oy147l content_preview=dggfd
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=False
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][GỬI] ✅ Message saved to DB: message_id=98, timestamp=2025-11-15 18:58:04.475997
+[CHAT][GỬI] 📋 Sending ACK to sender: {'client_message_id': 'client_1763233076378_h86oy147l', 'message_id': 98, 'status': 'sent'}
+[CHAT][GỬI] 📤 Emitting to receiver room 'user-14'...
+[CHAT][GỬI] ✅ Emitted to user-14
+[CHAT][GỬI] [SEND_MESSAGE] END - SUCCESS
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=False
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=False
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=False
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [SEND_MESSAGE] sid=gLBa1qmb07UuXHWIAAAQ sender_id=11 receiver_id=14 client_msg_id=client_1763233079151_0b20irm2a content_preview=dđf
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=False
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][GỬI] ✅ Message saved to DB: message_id=99, timestamp=2025-11-15 18:58:07.255168
+[CHAT][GỬI] 📋 Sending ACK to sender: {'client_message_id': 'client_1763233079151_0b20irm2a', 'message_id': 99, 'status': 'sent'}
+[CHAT][GỬI] 📤 Emitting to receiver room 'user-14'...
+[CHAT][GỬI] ✅ Emitted to user-14
+[CHAT][GỬI] [SEND_MESSAGE] END - SUCCESS
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=False
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [JOIN] sid=yDfwLk4rX12IYFpcAAAS data={'user_id': 14}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=14 → sid=yDfwLk4rX12IYFpcAAAS
+[CHAT][GỬI] ✅ User joined room: user-14
+[CHAT][NHẬN] Current user_sockets mapping: {11: 'gLBa1qmb07UuXHWIAAAQ', 14: 'yDfwLk4rX12IYFpcAAAS'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] sender=14 receiver=11
+[MESSAGES] count=9
+[CHAT][NHẬN] [JOIN] sid=gLBa1qmb07UuXHWIAAAQ data={'user_id': 11}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=11 → sid=gLBa1qmb07UuXHWIAAAQ
+[CHAT][GỬI] ✅ User joined room: user-11
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:57] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:57] "GET /messages?sender_id=11&receiver_id=14 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:57] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:57] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:57] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:58:57] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:01] "GET /socket.io/?EIO=4&transport=websocket&sid=0mtL5-VYt9JcwhNRAAAP HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:02] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:02] "GET /socket.io/?EIO=4&transport=polling&t=nhd476ky HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:02] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:02] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:02] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:02] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:02] "POST /socket.io/?EIO=4&transport=polling&t=nhdjg3og&sid=C-glA3S-CRI2c5dfAAAT HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:02] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:02] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:02] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:02] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:02] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:03] "GET /socket.io/?EIO=4&transport=polling&t=nhdjh486&sid=C-glA3S-CRI2c5dfAAAT HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:03] "OPTIONS /messages?sender_id=11&receiver_id=14 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:03] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:03] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:03] "GET /messages?sender_id=11&receiver_id=14 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:03] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:07] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:07] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:07] "OPTIONS /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:07] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:07] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:08] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:08] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:08] "GET /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:14] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:14] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:14] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:14] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:14] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:14] "OPTIONS /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:14] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:14] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:14] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:14] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:14] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:14] "GET /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:14] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:14] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:14] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:14] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:14] "OPTIONS /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:14] "OPTIONS /messages?sender_id=11&receiver_id=14 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:14] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:15] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:15] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:15] "GET /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:15] "GET /messages?sender_id=11&receiver_id=14 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:15] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:15] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:15] "GET /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "OPTIONS /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "GET /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:21] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:22] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:22] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:22] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:22] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:22] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:22] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:22] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:22] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:22] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:22] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:22] "OPTIONS /messages?sender_id=11&receiver_id=14 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:22] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:22] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:23] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:23] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:23] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:23] "GET /messages?sender_id=11&receiver_id=14 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:23] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "OPTIONS /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "GET /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:31] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:32] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:32] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:32] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:32] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:32] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:32] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:32] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:32] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:32] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:32] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:32] "OPTIONS /messages?sender_id=11&receiver_id=14 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:32] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:32] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:33] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:33] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:33] "GET /messages?sender_id=11&receiver_id=14 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:33] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:33] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:44] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:44] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:44] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:44] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:44] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:44] "OPTIONS /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:44] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:44] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:44] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:44] "GET /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:44] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:44] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:45] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:45] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:45] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:45] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:45] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:45] "OPTIONS /messages?sender_id=11&receiver_id=14 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:45] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:46] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:46] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:46] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:46] "GET /messages?sender_id=11&receiver_id=14 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:46] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:46] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 01:59:46] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:03] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:03] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:03] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:03] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:03] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:03] "OPTIONS /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:03] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:03] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:03] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:03] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:03] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:03] "GET /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:03] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:03] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:03] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:03] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:03] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:03] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:03] "OPTIONS /messages?sender_id=11&receiver_id=14 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:04] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:04] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:04] "GET /groups HTTP/1.1" 200 -
+[CHAT][NHẬN] Current user_sockets mapping: {11: 'gLBa1qmb07UuXHWIAAAQ', 14: 'yDfwLk4rX12IYFpcAAAS'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] sender=11 receiver=14
+[MESSAGES] count=9
+[CHAT][NHẬN] [DISCONNECT] sid=gLBa1qmb07UuXHWIAAAQ
+[CHAT][NHẬN] ✅ Removed user_id=11 from mapping
+[CHAT][GỬI] [DISCONNECT] END
+[CHAT][NHẬN] [CONNECT] Connected from 127.0.0.1, sid=7tAhrDGgZBqEHXm_AAAU
+[MESSAGES] sender=11 receiver=14
+[MESSAGES] count=9
+[CHAT][NHẬN] [JOIN] sid=7tAhrDGgZBqEHXm_AAAU data={'user_id': 11}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=11 → sid=7tAhrDGgZBqEHXm_AAAU
+[CHAT][GỬI] ✅ User joined room: user-11
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 11: '7tAhrDGgZBqEHXm_AAAU'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[CHAT][NHẬN] [JOIN] sid=7tAhrDGgZBqEHXm_AAAU data={'user_id': 11}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=11 → sid=7tAhrDGgZBqEHXm_AAAU
+[CHAT][GỬI] ✅ User joined room: user-11
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 11: '7tAhrDGgZBqEHXm_AAAU'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[CHAT][NHẬN] [JOIN] sid=yDfwLk4rX12IYFpcAAAS data={'user_id': 14}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=14 → sid=yDfwLk4rX12IYFpcAAAS
+[CHAT][GỬI] ✅ User joined room: user-14
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 11: '7tAhrDGgZBqEHXm_AAAU'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] sender=14 receiver=11
+[MESSAGES] count=9
+[CHAT][NHẬN] [JOIN] sid=7tAhrDGgZBqEHXm_AAAU data={'user_id': 11}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=11 → sid=7tAhrDGgZBqEHXm_AAAU
+[CHAT][GỬI] ✅ User joined room: user-11
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 11: '7tAhrDGgZBqEHXm_AAAU'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] sender=11 receiver=14
+[MESSAGES] count=9
+[CHAT][NHẬN] [JOIN] sid=yDfwLk4rX12IYFpcAAAS data={'user_id': 14}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=14 → sid=yDfwLk4rX12IYFpcAAAS
+[CHAT][GỬI] ✅ User joined room: user-14
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 11: '7tAhrDGgZBqEHXm_AAAU'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[CHAT][NHẬN] [JOIN] sid=yDfwLk4rX12IYFpcAAAS data={'user_id': 14}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=14 → sid=yDfwLk4rX12IYFpcAAAS
+[CHAT][GỬI] ✅ User joined room: user-14
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 11: '7tAhrDGgZBqEHXm_AAAU'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] sender=14 receiver=11
+[MESSAGES] count=9
+[CHAT][NHẬN] [JOIN] sid=7tAhrDGgZBqEHXm_AAAU data={'user_id': 11}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=11 → sid=7tAhrDGgZBqEHXm_AAAU
+[CHAT][GỬI] ✅ User joined room: user-11
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 11: '7tAhrDGgZBqEHXm_AAAU'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[CHAT][NHẬN] [JOIN] sid=7tAhrDGgZBqEHXm_AAAU data={'user_id': 11}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=11 → sid=7tAhrDGgZBqEHXm_AAAU
+[CHAT][GỬI] ✅ User joined room: user-11
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 11: '7tAhrDGgZBqEHXm_AAAU'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] sender=11 receiver=14
+[MESSAGES] count=9
+[CHAT][NHẬN] [JOIN] sid=yDfwLk4rX12IYFpcAAAS data={'user_id': 14}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=14 → sid=yDfwLk4rX12IYFpcAAAS
+[CHAT][GỬI] ✅ User joined room: user-14
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 11: '7tAhrDGgZBqEHXm_AAAU'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[CHAT][NHẬN] [JOIN] sid=yDfwLk4rX12IYFpcAAAS data={'user_id': 14}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=14 → sid=yDfwLk4rX12IYFpcAAAS
+[CHAT][GỬI] ✅ User joined room: user-14
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 11: '7tAhrDGgZBqEHXm_AAAU'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] sender=14 receiver=11
+[MESSAGES] count=9
+[CHAT][NHẬN] [JOIN] sid=7tAhrDGgZBqEHXm_AAAU data={'user_id': 11}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=11 → sid=7tAhrDGgZBqEHXm_AAAU
+[CHAT][GỬI] ✅ User joined room: user-11
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 11: '7tAhrDGgZBqEHXm_AAAU'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[CHAT][NHẬN] [JOIN] sid=7tAhrDGgZBqEHXm_AAAU data={'user_id': 11}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=11 → sid=7tAhrDGgZBqEHXm_AAAU
+[CHAT][GỬI] ✅ User joined room: user-11
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 11: '7tAhrDGgZBqEHXm_AAAU'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] sender=11 receiver=14
+[MESSAGES] count=9
+[MESSAGES] sender=14 receiver=11
+[CHAT][NHẬN] [JOIN] sid=yDfwLk4rX12IYFpcAAAS data={'user_id': 14}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=14 → sid=yDfwLk4rX12IYFpcAAAS
+[CHAT][GỬI] ✅ User joined room: user-14
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 11: '7tAhrDGgZBqEHXm_AAAU'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] count=9
+[MESSAGES] sender=11 receiver=14
+[MESSAGES] count=9
+[CHAT][NHẬN] [JOIN] sid=7tAhrDGgZBqEHXm_AAAU data={'user_id': 11}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=11 → sid=7tAhrDGgZBqEHXm_AAAU
+[CHAT][GỬI] ✅ User joined room: user-11
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 11: '7tAhrDGgZBqEHXm_AAAU'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [SEND_MESSAGE] sid=yDfwLk4rX12IYFpcAAAS sender_id=14 receiver_id=11 client_msg_id=client_1763233200722_7v0zkfmwd content_preview=ugyjhj
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=False
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][GỬI] ✅ Message saved to DB: message_id=100, timestamp=2025-11-15 19:00:00.731753
+[CHAT][GỬI] 📋 Sending ACK to sender: {'client_message_id': 'client_1763233200722_7v0zkfmwd', 'message_id': 100, 'status': 'sent'}
+[CHAT][GỬI] 📤 Emitting to receiver room 'user-11'...
+[CHAT][GỬI] ✅ Emitted to user-11
+[CHAT][GỬI] [SEND_MESSAGE] END - SUCCESS
+[CHAT][NHẬN] [JOIN] sid=yDfwLk4rX12IYFpcAAAS data={'user_id': 14}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=14 → sid=yDfwLk4rX12IYFpcAAAS
+[CHAT][GỬI] ✅ User joined room: user-14
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 11: '7tAhrDGgZBqEHXm_AAAU'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] sender=14 receiver=11
+[MESSAGES] count=10
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [SEND_MESSAGE] sid=yDfwLk4rX12IYFpcAAAS sender_id=14 receiver_id=11 client_msg_id=client_1763233204351_xh04m5dcl content_preview=gtyhujik
+[MESSAGES] sender=11 receiver=14
+[CHAT][NHẬN] [TYPING] sender=14 receiver=11 typing=False
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][GỬI] ✅ Message saved to DB: message_id=101, timestamp=2025-11-15 19:00:04.359789
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:04] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:04] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:04] "GET /messages?sender_id=11&receiver_id=14 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:04] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:22] "OPTIONS /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:22] "GET /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:23] "OPTIONS /messages?sender_id=11&receiver_id=13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:23] "GET /messages?sender_id=11&receiver_id=13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:24] "GET /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:29] "OPTIONS /messages?sender_id=11&receiver_id=14 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:30] "GET /messages?sender_id=11&receiver_id=14 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:30] "OPTIONS /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:31] "GET /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:57] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:57] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:57] "OPTIONS /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:57] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:57] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:58] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:58] "GET /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:58] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:59] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:59] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:59] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:59] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:00:59] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:01:01] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:01:02] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:01:02] "GET /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:01:02] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:01:08] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:01:08] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:01:08] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:01:08] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:01:08] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:01:08] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:01:08] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:01:08] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "GET /socket.io/?EIO=4&transport=polling&t=nln20a97 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "POST /socket.io/?EIO=4&transport=polling&t=nln33rsk&sid=1NGaT1SilgOTIkqAAAAV HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "GET /socket.io/?EIO=4&transport=polling&t=nln33u65&sid=1NGaT1SilgOTIkqAAAAV HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "OPTIONS /messages?sender_id=6&receiver_id=8 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "GET /socket.io/?EIO=4&transport=polling&t=nln43z7s&sid=1NGaT1SilgOTIkqAAAAV HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "GET /messages?sender_id=6&receiver_id=8 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:13] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:40] "GET /socket.io/?EIO=4&transport=polling&t=nm8g5xnh HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:40] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:40] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:40] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:40] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:40] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:40] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:40] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:40] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:40] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:40] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:40] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:40] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:40] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:40] "POST /socket.io/?EIO=4&transport=polling&t=nm8gdu4a&sid=0nSkgX5dDBctfIJpAAAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:40] "GET /socket.io/?EIO=4&transport=polling&t=nm8gef04&sid=0nSkgX5dDBctfIJpAAAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:40] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:40] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:40] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:40] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:40] "OPTIONS /messages?sender_id=12&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:40] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:40] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:40] "GET /messages?sender_id=12&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:40] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:41] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:46] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:46] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:46] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:46] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:46] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:46] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:46] "OPTIONS /messages?sender_id=12&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:46] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:46] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:46] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:46] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:46] "OPTIONS /messages?sender_id=6&receiver_id=8 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:46] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:46] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:46] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:46] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:46] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:46] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:46] "GET /messages?sender_id=12&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:46] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:46] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:46] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:46] "GET /messages?sender_id=6&receiver_id=8 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:46] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:46] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:46] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:47] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:47] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:47] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:47] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:47] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:47] "OPTIONS /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:47] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:47] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:47] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:47] "GET /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:47] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:47] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:47] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:47] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:47] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:47] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:47] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:47] "OPTIONS /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:48] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:48] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:48] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:48] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:48] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:48] "GET /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:48] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:02:48] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:00] "GET /socket.io/?EIO=4&transport=websocket&sid=C-glA3S-CRI2c5dfAAAT HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:01] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:01] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:01] "GET /socket.io/?EIO=4&transport=polling&t=nmhvn3qc HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:01] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:01] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:01] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:01] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:01] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:01] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:01] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:01] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:01] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:02] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:02] "POST /socket.io/?EIO=4&transport=polling&t=nmia7qjq&sid=jxfCvyXes9QqtjkIAAAZ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:02] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:02] "GET /socket.io/?EIO=4&transport=polling&t=nmia8o2h&sid=jxfCvyXes9QqtjkIAAAZ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:02] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:02] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:02] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:02] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:02] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:03] "OPTIONS /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:03] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:03] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:03] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:03] "GET /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:04] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:06] "OPTIONS /messages?sender_id=11&receiver_id=13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:06] "GET /messages?sender_id=11&receiver_id=13 HTTP/1.1" 200 -
+[CHAT][GỬI] 📋 Sending ACK to sender: {'client_message_id': 'client_1763233204351_xh04m5dcl', 'message_id': 101, 'status': 'sent'}
+[CHAT][GỬI] 📤 Emitting to receiver room 'user-11'...
+[CHAT][GỬI] ✅ Emitted to user-11
+[CHAT][GỬI] [SEND_MESSAGE] END - SUCCESS
+[MESSAGES] count=11
+[CHAT][NHẬN] [JOIN] sid=7tAhrDGgZBqEHXm_AAAU data={'user_id': 11}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=11 → sid=7tAhrDGgZBqEHXm_AAAU
+[CHAT][GỬI] ✅ User joined room: user-11
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 11: '7tAhrDGgZBqEHXm_AAAU'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=True
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][NHẬN] [SEND_MESSAGE] sid=7tAhrDGgZBqEHXm_AAAU sender_id=11 receiver_id=14 client_msg_id=client_1763233207833_5b3b5fdy2 content_preview=fff
+[CHAT][NHẬN] [TYPING] sender=11 receiver=14 typing=False
+[CHAT][GỬI] user_typing -> room=user-14
+[CHAT][GỬI] ✅ Message saved to DB: message_id=102, timestamp=2025-11-15 19:00:15.936946
+[CHAT][GỬI] 📋 Sending ACK to sender: {'client_message_id': 'client_1763233207833_5b3b5fdy2', 'message_id': 102, 'status': 'sent'}
+[CHAT][GỬI] 📤 Emitting to receiver room 'user-14'...
+[CHAT][GỬI] ✅ Emitted to user-14
+[CHAT][GỬI] [SEND_MESSAGE] END - SUCCESS
+[MESSAGES] sender=11 receiver=12
+[MESSAGES] count=13
+[MESSAGES] sender=11 receiver=13
+[MESSAGES] count=4
+[MESSAGES] sender=11 receiver=12
+[MESSAGES] count=13
+[MESSAGES] sender=11 receiver=14
+[MESSAGES] count=12
+[MESSAGES] sender=11 receiver=12
+[MESSAGES] count=13
+[CHAT][NHẬN] [CONNECT] Connected from 127.0.0.1, sid=__VtZSSkJvJm96e_AAAW
+[MESSAGES] sender=6 receiver=8
+[MESSAGES] count=7
+[CHAT][NHẬN] [JOIN] sid=__VtZSSkJvJm96e_AAAW data={'user_id': 6}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=6 → sid=__VtZSSkJvJm96e_AAAW
+[CHAT][GỬI] ✅ User joined room: user-6
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 11: '7tAhrDGgZBqEHXm_AAAU', 6: '__VtZSSkJvJm96e_AAAW'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[CHAT][NHẬN] [JOIN] sid=__VtZSSkJvJm96e_AAAW data={'user_id': 6}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=6 → sid=__VtZSSkJvJm96e_AAAW
+[CHAT][GỬI] ✅ User joined room: user-6
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 11: '7tAhrDGgZBqEHXm_AAAU', 6: '__VtZSSkJvJm96e_AAAW'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[CHAT][NHẬN] [TYPING] sender=6 receiver=8 typing=True
+[CHAT][GỬI] user_typing -> room=user-8
+[CHAT][NHẬN] [TYPING] sender=6 receiver=8 typing=True
+[CHAT][GỬI] user_typing -> room=user-8
+[CHAT][NHẬN] [SEND_MESSAGE] sid=__VtZSSkJvJm96e_AAAW sender_id=6 receiver_id=8 client_msg_id=client_1763233348694_28had81pj content_preview=hi
+[CHAT][NHẬN] [TYPING] sender=6 receiver=8 typing=False
+[CHAT][GỬI] user_typing -> room=user-8
+[CHAT][GỬI] ✅ Message saved to DB: message_id=103, timestamp=2025-11-15 19:02:28.701639
+[CHAT][GỬI] 📋 Sending ACK to sender: {'client_message_id': 'client_1763233348694_28had81pj', 'message_id': 103, 'status': 'sent'}
+[CHAT][GỬI] 📤 Emitting to receiver room 'user-8'...
+[CHAT][GỬI] ✅ Emitted to user-8
+[CHAT][GỬI] [SEND_MESSAGE] END - SUCCESS
+[CHAT][NHẬN] [CONNECT] Connected from 127.0.0.1, sid=jOj8z-jpUteJe2ohAAAY
+[MESSAGES] sender=12 receiver=11
+[MESSAGES] count=13
+[CHAT][NHẬN] [JOIN] sid=jOj8z-jpUteJe2ohAAAY data={'user_id': 12}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=12 → sid=jOj8z-jpUteJe2ohAAAY
+[CHAT][GỬI] ✅ User joined room: user-12
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 11: '7tAhrDGgZBqEHXm_AAAU', 6: '__VtZSSkJvJm96e_AAAW', 12: 'jOj8z-jpUteJe2ohAAAY'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[CHAT][NHẬN] [JOIN] sid=jOj8z-jpUteJe2ohAAAY data={'user_id': 12}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=12 → sid=jOj8z-jpUteJe2ohAAAY
+[CHAT][GỬI] ✅ User joined room: user-12
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 11: '7tAhrDGgZBqEHXm_AAAU', 6: '__VtZSSkJvJm96e_AAAW', 12: 'jOj8z-jpUteJe2ohAAAY'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[CHAT][NHẬN] [TYPING] sender=12 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=12 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [SEND_MESSAGE] sid=jOj8z-jpUteJe2ohAAAY sender_id=12 receiver_id=11 client_msg_id=client_1763233364260_mmqgxzcp3 content_preview=hi
+[CHAT][NHẬN] [TYPING] sender=12 receiver=11 typing=False
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][GỬI] ✅ Message saved to DB: message_id=104, timestamp=2025-11-15 19:02:44.263337
+[CHAT][GỬI] 📋 Sending ACK to sender: {'client_message_id': 'client_1763233364260_mmqgxzcp3', 'message_id': 104, 'status': 'sent'}
+[CHAT][GỬI] 📤 Emitting to receiver room 'user-11'...
+[CHAT][GỬI] ✅ Emitted to user-11
+[CHAT][GỬI] [SEND_MESSAGE] END - SUCCESS
+[CHAT][NHẬN] [JOIN] sid=jOj8z-jpUteJe2ohAAAY data={'user_id': 12}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=12 → sid=jOj8z-jpUteJe2ohAAAY
+[CHAT][GỬI] ✅ User joined room: user-12
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 11: '7tAhrDGgZBqEHXm_AAAU', 6: '__VtZSSkJvJm96e_AAAW', 12: 'jOj8z-jpUteJe2ohAAAY'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] sender=12 receiver=11
+[CHAT][NHẬN] [JOIN] sid=__VtZSSkJvJm96e_AAAW data={'user_id': 6}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=6 → sid=__VtZSSkJvJm96e_AAAW
+[CHAT][GỬI] ✅ User joined room: user-6
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 11: '7tAhrDGgZBqEHXm_AAAU', 6: '__VtZSSkJvJm96e_AAAW', 12: 'jOj8z-jpUteJe2ohAAAY'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] count=14
+[MESSAGES] sender=6 receiver=8
+[MESSAGES] count=8
+[MESSAGES] sender=14 receiver=11
+[CHAT][NHẬN] [JOIN] sid=yDfwLk4rX12IYFpcAAAS data={'user_id': 14}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=14 → sid=yDfwLk4rX12IYFpcAAAS
+[CHAT][GỬI] ✅ User joined room: user-14
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 11: '7tAhrDGgZBqEHXm_AAAU', 6: '__VtZSSkJvJm96e_AAAW', 12: 'jOj8z-jpUteJe2ohAAAY'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] count=12
+[MESSAGES] sender=11 receiver=12
+[MESSAGES] count=14
+[CHAT][NHẬN] [JOIN] sid=7tAhrDGgZBqEHXm_AAAU data={'user_id': 11}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=11 → sid=7tAhrDGgZBqEHXm_AAAU
+[CHAT][GỬI] ✅ User joined room: user-11
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 11: '7tAhrDGgZBqEHXm_AAAU', 6: '__VtZSSkJvJm96e_AAAW', 12: 'jOj8z-jpUteJe2ohAAAY'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[CHAT][NHẬN] [DISCONNECT] sid=7tAhrDGgZBqEHXm_AAAU
+[CHAT][NHẬN] ✅ Removed user_id=11 from mapping
+[CHAT][GỬI] [DISCONNECT] END
+[CHAT][NHẬN] [CONNECT] Connected from 127.0.0.1, sid=fgl1Z0nXuEVIAtJ-AAAa
+[CHAT][NHẬN] [JOIN] sid=fgl1Z0nXuEVIAtJ-AAAa data={'user_id': 11}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=11 → sid=fgl1Z0nXuEVIAtJ-AAAa
+[CHAT][GỬI] ✅ User joined room: user-11
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 6: '__VtZSSkJvJm96e_AAAW', 12: 'jOj8z-jpUteJe2ohAAAY', 11: 'fgl1Z0nXuEVIAtJ-AAAa'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[CHAT][NHẬN] [JOIN] sid=fgl1Z0nXuEVIAtJ-AAAa data={'user_id': 11}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=11 → sid=fgl1Z0nXuEVIAtJ-AAAa
+[CHAT][GỬI] ✅ User joined room: user-11
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 6: '__VtZSSkJvJm96e_AAAW', 12: 'jOj8z-jpUteJe2ohAAAY', 11: 'fgl1Z0nXuEVIAtJ-AAAa'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] sender=11 receiver=12
+[MESSAGES] count=14
+[MESSAGES] sender=11 receiver=13
+[MESSAGES] count=4
+[CHAT][NHẬN] [TYPING] sender=12 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=12 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=12 receiver=11 typing=True
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:20] "OPTIONS /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:21] "GET /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "OPTIONS /messages?sender_id=12&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "OPTIONS /messages?sender_id=6&receiver_id=8 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "GET /messages?sender_id=12&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "GET /messages?sender_id=6&receiver_id=8 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "GET /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:25] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:26] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:26] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:26] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:26] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:26] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:26] "OPTIONS /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:26] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:26] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:26] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:26] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:26] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:26] "GET /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:26] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:26] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:26] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:26] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:26] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:26] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:27] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:28] "OPTIONS /messages?sender_id=11&receiver_id=14 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:29] "GET /messages?sender_id=11&receiver_id=14 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:29] "OPTIONS /messages?sender_id=11&receiver_id=13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:29] "GET /messages?sender_id=11&receiver_id=13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:30] "OPTIONS /messages?sender_id=11&receiver_id=10 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:31] "GET /messages?sender_id=11&receiver_id=10 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:31] "OPTIONS /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:03:32] "GET /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:57] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:57] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:57] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:57] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:57] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:57] "OPTIONS /messages?sender_id=12&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:57] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:57] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:57] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:57] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:57] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:57] "GET /messages?sender_id=12&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:57] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "OPTIONS /messages?sender_id=6&receiver_id=8 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "OPTIONS /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "GET /messages?sender_id=6&receiver_id=8 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "GET /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:58] "OPTIONS /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:59] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:59] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:59] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:59] "GET /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:59] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:59] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:59] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:59] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:04:59] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:18] "GET /socket.io/?EIO=4&transport=websocket&sid=jxfCvyXes9QqtjkIAAAZ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:19] "GET /socket.io/?EIO=4&transport=polling&t=npglih0l HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:19] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:19] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:19] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:19] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:19] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:20] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:20] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:20] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:20] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:20] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:20] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:20] "POST /socket.io/?EIO=4&transport=polling&t=nph048wl&sid=V_B1mmdr_GF4gjc_AAAb HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:20] "GET /socket.io/?EIO=4&transport=polling&t=nph05m6t&sid=V_B1mmdr_GF4gjc_AAAb HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:20] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:20] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:20] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:20] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:21] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:21] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:21] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:21] "OPTIONS /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:21] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:21] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:21] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:21] "GET /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:22] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:23] "GET /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:24] "OPTIONS /messages?sender_id=11&receiver_id=14 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:25] "GET /messages?sender_id=11&receiver_id=14 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:25] "OPTIONS /messages?sender_id=11&receiver_id=13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:26] "GET /messages?sender_id=11&receiver_id=13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:27] "OPTIONS /messages?sender_id=11&receiver_id=10 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:27] "GET /messages?sender_id=11&receiver_id=10 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:28] "OPTIONS /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:29] "GET /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:31] "OPTIONS /messages?sender_id=11&receiver_id=8 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:32] "GET /messages?sender_id=11&receiver_id=8 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:34] "GET /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:40] "GET /socket.io/?EIO=4&transport=websocket&sid=V_B1mmdr_GF4gjc_AAAb HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:41] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:41] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:41] "GET /socket.io/?EIO=4&transport=polling&t=npxg70ji HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:41] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:41] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:41] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:42] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:42] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:42] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:42] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:42] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:42] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:42] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:42] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:42] "POST /socket.io/?EIO=4&transport=polling&t=npxum7j9&sid=URgecDDTvpwKfRdAAAAd HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:42] "GET /socket.io/?EIO=4&transport=polling&t=npxunoot&sid=URgecDDTvpwKfRdAAAAd HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:42] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:42] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:43] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:43] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:43] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:43] "OPTIONS /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:43] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:43] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:43] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:43] "GET /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:05:44] "GET /messages/conversations HTTP/1.1" 200 -
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=12 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=12 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=12 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=12 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [SEND_MESSAGE] sid=jOj8z-jpUteJe2ohAAAY sender_id=12 receiver_id=11 client_msg_id=client_1763233397239_rjbg1mdi0 content_preview=hihhiia
+[CHAT][NHẬN] [TYPING] sender=12 receiver=11 typing=False
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][GỬI] ✅ Message saved to DB: message_id=105, timestamp=2025-11-15 19:03:17.249586
+[CHAT][GỬI] 📋 Sending ACK to sender: {'client_message_id': 'client_1763233397239_rjbg1mdi0', 'message_id': 105, 'status': 'sent'}
+[CHAT][GỬI] 📤 Emitting to receiver room 'user-11'...
+[CHAT][GỬI] ✅ Emitted to user-11
+[CHAT][GỬI] [SEND_MESSAGE] END - SUCCESS
+[CHAT][NHẬN] [TYPING] sender=12 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[MESSAGES] sender=11 receiver=12
+[MESSAGES] count=15
+[CHAT][NHẬN] [TYPING] sender=12 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [TYPING] sender=12 receiver=11 typing=True
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][NHẬN] [SEND_MESSAGE] sid=jOj8z-jpUteJe2ohAAAY sender_id=12 receiver_id=11 client_msg_id=client_1763233402836_abrf1pn0v content_preview=hjk
+[CHAT][NHẬN] [TYPING] sender=12 receiver=11 typing=False
+[CHAT][GỬI] user_typing -> room=user-11
+[CHAT][GỬI] ✅ Message saved to DB: message_id=106, timestamp=2025-11-15 19:03:22.838165
+[CHAT][GỬI] 📋 Sending ACK to sender: {'client_message_id': 'client_1763233402836_abrf1pn0v', 'message_id': 106, 'status': 'sent'}
+[CHAT][GỬI] 📤 Emitting to receiver room 'user-11'...
+[CHAT][GỬI] ✅ Emitted to user-11
+[CHAT][GỬI] [SEND_MESSAGE] END - SUCCESS
+[CHAT][NHẬN] [JOIN] sid=jOj8z-jpUteJe2ohAAAY data={'user_id': 12}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=12 → sid=jOj8z-jpUteJe2ohAAAY
+[CHAT][GỬI] ✅ User joined room: user-12
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 6: '__VtZSSkJvJm96e_AAAW', 12: 'jOj8z-jpUteJe2ohAAAY', 11: 'fgl1Z0nXuEVIAtJ-AAAa'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] sender=12 receiver=11
+[MESSAGES] count=16
+[CHAT][NHẬN] [JOIN] sid=__VtZSSkJvJm96e_AAAW data={'user_id': 6}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=6 → sid=__VtZSSkJvJm96e_AAAW
+[CHAT][GỬI] ✅ User joined room: user-6
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 6: '__VtZSSkJvJm96e_AAAW', 12: 'jOj8z-jpUteJe2ohAAAY', 11: 'fgl1Z0nXuEVIAtJ-AAAa'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] sender=6 receiver=8
+[MESSAGES] count=8
+[MESSAGES] sender=11 receiver=12
+[MESSAGES] count=16
+[CHAT][NHẬN] [JOIN] sid=fgl1Z0nXuEVIAtJ-AAAa data={'user_id': 11}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=11 → sid=fgl1Z0nXuEVIAtJ-AAAa
+[CHAT][GỬI] ✅ User joined room: user-11
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 6: '__VtZSSkJvJm96e_AAAW', 12: 'jOj8z-jpUteJe2ohAAAY', 11: 'fgl1Z0nXuEVIAtJ-AAAa'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[CHAT][NHẬN] [JOIN] sid=yDfwLk4rX12IYFpcAAAS data={'user_id': 14}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=14 → sid=yDfwLk4rX12IYFpcAAAS
+[CHAT][GỬI] ✅ User joined room: user-14
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 6: '__VtZSSkJvJm96e_AAAW', 12: 'jOj8z-jpUteJe2ohAAAY', 11: 'fgl1Z0nXuEVIAtJ-AAAa'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] sender=14 receiver=11
+[MESSAGES] count=12
+[MESSAGES] sender=11 receiver=14
+[MESSAGES] count=12
+[MESSAGES] sender=11 receiver=13
+[MESSAGES] count=4
+[MESSAGES] sender=11 receiver=10
+[MESSAGES] count=2
+[MESSAGES] sender=11 receiver=12
+[MESSAGES] count=16
+[CHAT][NHẬN] [JOIN] sid=jOj8z-jpUteJe2ohAAAY data={'user_id': 12}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=12 → sid=jOj8z-jpUteJe2ohAAAY
+[CHAT][GỬI] ✅ User joined room: user-12
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 6: '__VtZSSkJvJm96e_AAAW', 12: 'jOj8z-jpUteJe2ohAAAY', 11: 'fgl1Z0nXuEVIAtJ-AAAa'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] sender=12 receiver=11
+[MESSAGES] count=16
+[CHAT][NHẬN] [JOIN] sid=__VtZSSkJvJm96e_AAAW data={'user_id': 6}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=6 → sid=__VtZSSkJvJm96e_AAAW
+[CHAT][GỬI] ✅ User joined room: user-6
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 6: '__VtZSSkJvJm96e_AAAW', 12: 'jOj8z-jpUteJe2ohAAAY', 11: 'fgl1Z0nXuEVIAtJ-AAAa'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] sender=6 receiver=8
+[MESSAGES] count=8
+[CHAT][NHẬN] [JOIN] sid=yDfwLk4rX12IYFpcAAAS data={'user_id': 14}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=14 → sid=yDfwLk4rX12IYFpcAAAS
+[CHAT][GỬI] ✅ User joined room: user-14
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 6: '__VtZSSkJvJm96e_AAAW', 12: 'jOj8z-jpUteJe2ohAAAY', 11: 'fgl1Z0nXuEVIAtJ-AAAa'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] sender=14 receiver=11
+[MESSAGES] count=12
+[MESSAGES] sender=11 receiver=12
+[MESSAGES] count=16
+[CHAT][NHẬN] [JOIN] sid=fgl1Z0nXuEVIAtJ-AAAa data={'user_id': 11}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=11 → sid=fgl1Z0nXuEVIAtJ-AAAa
+[CHAT][GỬI] ✅ User joined room: user-11
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 6: '__VtZSSkJvJm96e_AAAW', 12: 'jOj8z-jpUteJe2ohAAAY', 11: 'fgl1Z0nXuEVIAtJ-AAAa'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[CHAT][NHẬN] [DISCONNECT] sid=fgl1Z0nXuEVIAtJ-AAAa
+[CHAT][NHẬN] ✅ Removed user_id=11 from mapping
+[CHAT][GỬI] [DISCONNECT] END
+[CHAT][NHẬN] [CONNECT] Connected from 127.0.0.1, sid=4XFe0w7RYD-wjXOfAAAc
+[CHAT][NHẬN] [JOIN] sid=4XFe0w7RYD-wjXOfAAAc data={'user_id': 11}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=11 → sid=4XFe0w7RYD-wjXOfAAAc
+[CHAT][GỬI] ✅ User joined room: user-11
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 6: '__VtZSSkJvJm96e_AAAW', 12: 'jOj8z-jpUteJe2ohAAAY', 11: '4XFe0w7RYD-wjXOfAAAc'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[CHAT][NHẬN] [JOIN] sid=4XFe0w7RYD-wjXOfAAAc data={'user_id': 11}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=11 → sid=4XFe0w7RYD-wjXOfAAAc
+[CHAT][GỬI] ✅ User joined room: user-11
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 6: '__VtZSSkJvJm96e_AAAW', 12: 'jOj8z-jpUteJe2ohAAAY', 11: '4XFe0w7RYD-wjXOfAAAc'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] sender=11 receiver=12
+[MESSAGES] count=16
+[MESSAGES] sender=11 receiver=12
+[MESSAGES] count=16
+[MESSAGES] sender=11 receiver=14
+[MESSAGES] count=12
+[MESSAGES] sender=11 receiver=13
+[MESSAGES] count=4
+[MESSAGES] sender=11 receiver=10
+[MESSAGES] count=2
+[MESSAGES] sender=11 receiver=12
+[MESSAGES] count=16
+[MESSAGES] sender=11 receiver=8
+[MESSAGES] count=4
+[MESSAGES] sender=11 receiver=12
+[MESSAGES] count=16
+[CHAT][NHẬN] [DISCONNECT] sid=4XFe0w7RYD-wjXOfAAAc
+[CHAT][NHẬN] ✅ Removed user_id=11 from mapping
+[CHAT][GỬI] [DISCONNECT] END
+[CHAT][NHẬN] [CONNECT] Connected from 127.0.0.1, sid=g41mfNVDofFAwKp-AAAe
+[CHAT][NHẬN] [JOIN] sid=g41mfNVDofFAwKp-AAAe data={'user_id': 11}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=11 → sid=g41mfNVDofFAwKp-AAAe
+[CHAT][GỬI] ✅ User joined room: user-11
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 6: '__VtZSSkJvJm96e_AAAW', 12: 'jOj8z-jpUteJe2ohAAAY', 11: 'g41mfNVDofFAwKp-AAAe'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[CHAT][NHẬN] [JOIN] sid=g41mfNVDofFAwKp-AAAe data={'user_id': 11}
+[CHAT][NHẬN] ✅ Stored mapping: user_id=11 → sid=g41mfNVDofFAwKp-AAAe
+[CHAT][GỬI] ✅ User joined room: user-11
+[CHAT][NHẬN] Current user_sockets mapping: {14: 'yDfwLk4rX12IYFpcAAAS', 6: '__VtZSSkJvJm96e_AAAW', 12: 'jOj8z-jpUteJe2ohAAAY', 11: 'g41mfNVDofFAwKp-AAAe'}
+[CHAT][GỬI] [JOIN] END - SUCCESS
+[MESSAGES] sender=11 receiver=12
+[MESSAGES] count=16
+[CHAT][NHẬN] [TYPING] sender=11 receiver=12 typing=True
+[CHAT][GỬI] user_typing -> room=user-12
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:31] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:31] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:31] "OPTIONS /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:31] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:32] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:32] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:32] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:32] "GET /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:47] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:47] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:47] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:47] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:47] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:47] "OPTIONS /messages?sender_id=12&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:47] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:47] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:47] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:47] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:47] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:47] "GET /messages?sender_id=12&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:48] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:48] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:48] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:48] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:48] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:48] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:48] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:48] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:48] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:48] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:48] "OPTIONS /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:48] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:48] "OPTIONS /messages?sender_id=6&receiver_id=8 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:48] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:48] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:48] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:48] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:48] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:48] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:48] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:48] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:48] "GET /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:48] "GET /messages?sender_id=6&receiver_id=8 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:48] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:48] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:49] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:49] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:49] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:49] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:49] "OPTIONS /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:49] "OPTIONS /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:49] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:49] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:49] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:50] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:50] "GET /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:50] "GET /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:50] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:50] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:50] "GET /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:56] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:56] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:56] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:56] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:56] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:56] "OPTIONS /messages?sender_id=12&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:56] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:56] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:56] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:56] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:56] "GET /messages?sender_id=12&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:56] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "OPTIONS /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "OPTIONS /messages?sender_id=6&receiver_id=8 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "GET /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "GET /messages?sender_id=6&receiver_id=8 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "OPTIONS /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "OPTIONS /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:57] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:58] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:58] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:58] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:58] "GET /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:58] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:58] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:58] "GET /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:58] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:06:58] "GET /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "OPTIONS /messages?sender_id=12&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "GET /messages?sender_id=12&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "OPTIONS /messages?sender_id=6&receiver_id=8 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "OPTIONS /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "GET /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "GET /messages?sender_id=6&receiver_id=8 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:15] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:16] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:16] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:16] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:16] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:16] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:16] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:16] "OPTIONS /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:16] "OPTIONS /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:17] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:17] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:17] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:17] "GET /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:17] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:17] "GET /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:07:18] "GET /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:05] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:05] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:05] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:05] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:05] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:05] "OPTIONS /messages?sender_id=12&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:05] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:05] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:05] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:05] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:05] "GET /messages?sender_id=12&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:05] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:05] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "OPTIONS /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "OPTIONS /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "OPTIONS /messages?sender_id=6&receiver_id=8 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "GET /messages?sender_id=6&receiver_id=8 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "GET /messages?sender_id=14&receiver_id=11 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "OPTIONS /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "OPTIONS /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "OPTIONS /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "OPTIONS /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "OPTIONS /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:06] "OPTIONS /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:07] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:07] "GET /messages/conversations HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:07] "GET /groups HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:07] "GET /users/me HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:07] "GET /friends/requests HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:07] "GET /users/suggestions?limit=6 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:07] "GET /friends HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:07] "GET /messages?sender_id=11&receiver_id=12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2025 02:08:08] "GET /friends HTTP/1.1" 200 -

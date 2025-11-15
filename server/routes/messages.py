@@ -2,6 +2,9 @@ from flask import Blueprint, request, jsonify
 from models.message_model import Message
 from config.database import db
 from sqlalchemy import or_
+import os
+from werkzeug.utils import secure_filename
+import time
 
 messages_bp = Blueprint('messages', __name__, url_prefix='/messages')
 
@@ -50,6 +53,7 @@ def get_messages():
             'sender_id': m.sender_id,
             'receiver_id': m.receiver_id,
             'content': m.content,
+            'file_url': m.file_url,
             'timestamp': m.timestamp.isoformat()
         } for m in msgs
     ]
@@ -115,3 +119,59 @@ def get_conversations():
     # sort by last_ts desc
     result.sort(key=lambda x: x.get('last_ts') or '', reverse=True)
     return jsonify(result)
+
+
+@messages_bp.route('/upload', methods=['POST'])
+def upload_file():
+    """Upload a file as a message"""
+    try:
+        sender_id = request.form.get('sender_id')
+        receiver_id = request.form.get('receiver_id')
+        
+        if not sender_id or not receiver_id:
+            return jsonify({'error': 'Missing sender_id or receiver_id'}), 400
+        
+        if 'file' not in request.files:
+            return jsonify({'error': 'No file provided'}), 400
+        
+        file = request.files['file']
+        if file.filename == '':
+            return jsonify({'error': 'Empty filename'}), 400
+        
+        # Create uploads directory
+        upload_dir = os.path.join(os.path.dirname(__file__), '..', 'storage', 'uploads')
+        os.makedirs(upload_dir, exist_ok=True)
+        
+        # Save file with timestamp prefix
+        filename = secure_filename(file.filename)
+        prefix = f'{int(time.time())}_{sender_id}_'
+        saved_filename = prefix + filename
+        filepath = os.path.join(upload_dir, saved_filename)
+        file.save(filepath)
+        print(f"[UPLOAD] File saved: {filepath}")
+        
+        # Create message with file URL
+        file_url = f'/uploads/files/{saved_filename}'
+        msg = Message(
+            sender_id=int(sender_id),
+            receiver_id=int(receiver_id),
+            content=filename,
+            file_url=file_url
+        )
+        
+        db.session.add(msg)
+        db.session.commit()
+        print(f"[UPLOAD] Message created: {msg.id}")
+        
+        return jsonify({
+            'id': msg.id,
+            'content': msg.content,
+            'file_url': file_url,
+            'timestamp': msg.timestamp.isoformat()
+        }), 201
+    except Exception as e:
+        db.session.rollback()
+        print(f"[UPLOAD ERROR] {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return jsonify({'error': str(e)}), 500

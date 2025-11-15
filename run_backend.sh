@@ -39,8 +39,9 @@ echo "📍 Using backend port: $BACKEND_PORT"
 
 # Install requirements (no-op if already satisfied)
 if [ -f "$SERVER_DIR/requirements.txt" ]; then
-	echo "� Installing requirements (may take a moment)..."
-	"$PIP_BIN" install -r "$SERVER_DIR/requirements.txt"
+	echo "📦 Installing requirements (may take a moment)..."
+	"$PIP_BIN" install -r "$SERVER_DIR/requirements.txt" 2>&1 | tail -1
+	echo "✅ Requirements satisfied"
 else
 	echo "⚠️  requirements.txt not found in $SERVER_DIR — please create it or install dependencies manually."
 fi

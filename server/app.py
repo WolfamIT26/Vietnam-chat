@@ -1,4 +1,4 @@
-from flask import Flask, request, make_response
+from flask import Flask, request, make_response, send_from_directory
 from flask_socketio import SocketIO
 from config.settings import Config
 from config.database import db, migrate
@@ -7,15 +7,27 @@ import logging
 import os
 
 # Initialize Flask app
-app = Flask(__name__)
+# Serve client build (if present) as static files so the same public URL can serve frontend + API
+CLIENT_BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'client', 'build'))
+if os.path.isdir(CLIENT_BUILD_DIR):
+    app = Flask(__name__, static_folder=CLIENT_BUILD_DIR, static_url_path='')
+else:
+    app = Flask(__name__)
 app.config.from_object(Config)
 
 # Initialize extensions
 socketio = SocketIO(app, cors_allowed_origins="*")
 
-# Simple CORS handling for development: only allow the React dev origin(s).
+# Simple CORS handling for development: allow React dev server + ngrok + localhost origins
 # We avoid adding a new dependency so this works out-of-the-box.
-ALLOWED_ORIGINS = {"http://localhost:3000", "http://127.0.0.1:3000"}
+# Include both localhost and any ngrok/public URL for flexibility
+ALLOWED_ORIGINS = {
+    "http://localhost:3000", 
+    "http://127.0.0.1:3000",
+    "http://localhost:5000",
+    "http://127.0.0.1:5000",
+}
+# For ngrok URLs, we'll check in the handler and allow them (see add_cors_headers below)
 
 
 @app.after_request
@@ -118,6 +130,18 @@ with app.app_context():
         app.logger.debug('Model import failed during create_all prep')
     try:
         db.create_all()
+        # Add file_url column if it doesn't exist (for existing databases)
+        from sqlalchemy import inspect
+        inspector = inspect(db.engine)
+        columns = [col['name'] for col in inspector.get_columns('message')]
+        if 'file_url' not in columns:
+            try:
+                with db.engine.connect() as conn:
+                    conn.execute(db.text('ALTER TABLE message ADD COLUMN file_url VARCHAR(500)'))
+                    conn.commit()
+                app.logger.info('Added file_url column to message table')
+            except Exception as e:
+                app.logger.debug(f'Could not add file_url column: {e}')
     except Exception as e:
         app.logger.warning(f"Could not create tables automatically: {e}")
     # If DB is empty, create a few demo users for development convenience
@@ -138,6 +162,28 @@ from sockets.chat_events import register_chat_events
 from sockets.signaling_events import register_signaling_events
 register_chat_events(socketio)
 register_signaling_events(socketio)
+
+
+# If a client build exists, serve it at the root so the ngrok/public URL shows the React app.
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve_client(path):
+    """Serve files from client/build if present, otherwise return 404 for unknown routes.
+
+    This keeps API and socket routes working (they are registered earlier). Any path that
+    doesn't match an API route will fall through to this handler and return the React
+    app's index.html so client-side routing works over the public ngrok URL.
+    """
+    if not os.path.isdir(CLIENT_BUILD_DIR):
+        # No static build available; let Flask handle 404s normally
+        return make_response(('Not Found', 404))
+
+    # Serve static assets if they exist; otherwise serve index.html for client-side routing
+    requested = path or 'index.html'
+    full_path = os.path.join(CLIENT_BUILD_DIR, requested)
+    if os.path.exists(full_path) and os.path.isfile(full_path):
+        return send_from_directory(CLIENT_BUILD_DIR, requested)
+    return send_from_directory(CLIENT_BUILD_DIR, 'index.html')
 
 # Logging setup
 logging.basicConfig(level=logging.INFO)

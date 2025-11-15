@@ -4,7 +4,7 @@ import React, { useState } from 'react';
  * MessageBubble - Hiển thị một tin nhắn (sent hoặc received)
  * Props: { message, isSent, onReply, onReaction }
  */
-const MessageBubble = ({ message, isSent, onReply, onReaction }) => {
+const MessageBubble = ({ message, isSent, onReply, onReaction, onEmojiHover }) => {
   const [showActions, setShowActions] = useState(false);
 
   const emoticons = ['❤️', '😂', '😮', '😢', '🔥', '👍'];
@@ -29,10 +29,39 @@ const MessageBubble = ({ message, isSent, onReply, onReaction }) => {
       )}
 
       <div className="message-content">
-        <p>{message.content}</p>
-        <span className="message-time">
-          {new Date(message.timestamp).toLocaleTimeString('vi-VN')}
-        </span>
+        {message.file_url ? (
+          <div style={{ marginBottom: '8px' }}>
+            <a
+              href={message.file_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                color: isSent ? '#fff' : '#667eea',
+                textDecoration: 'underline',
+                wordBreak: 'break-word'
+              }}
+            >
+              📎 {message.content}
+            </a>
+          </div>
+        ) : (
+          <p>{message.content}</p>
+        )}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '6px' }}>
+          <span className="message-time">
+            {new Date(message.timestamp).toLocaleTimeString('vi-VN')}
+          </span>
+          {/* Show status icon if sent by current user */}
+          {isSent && message.status && (
+            <span style={{ fontSize: '12px', minWidth: '16px' }} title={`Status: ${message.status}`}>
+              {message.status === 'sending' && '⏳'}
+              {message.status === 'sent' && '✓'}
+              {message.status === 'delivered' && '✓✓'}
+              {message.status === 'seen' && '👁'}
+              {message.status === 'failed' && '❌'}
+            </span>
+          )}
+        </div>
       </div>
 
       {/* Show reactions if any */}
@@ -71,6 +100,12 @@ const MessageBubble = ({ message, isSent, onReply, onReaction }) => {
                 cursor: 'pointer',
                 fontSize: '16px',
                 padding: '2px 4px',
+              }}
+              onMouseEnter={() => {
+                if (onEmojiHover) onEmojiHover(message.id, emoji);
+              }}
+              onMouseLeave={() => {
+                if (onEmojiHover) onEmojiHover(message.id, null);
               }}
               onClick={() => {
                 if (onReaction) onReaction(message.id, emoji);
