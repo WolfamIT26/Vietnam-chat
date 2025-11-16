@@ -2,6 +2,7 @@ from flask_socketio import emit, join_room, leave_room
 from flask import request
 from models.user_model import User
 from models.message_model import Message
+from models.message_reaction_model import MessageReaction
 from config.database import db
 import logging
 
@@ -122,14 +123,51 @@ def register_chat_events(socketio):
         reaction = data.get('reaction')  # emoji like '❤️', '😂', etc
         
         print(f"[CHAT][NHẬN] [REACTION] message_id={message_id} user={user_id} reaction={reaction}")
-        
-        # Broadcast reaction to all clients
-        reaction_data = {
-            'message_id': message_id,
-            'user_id': user_id,
-            'reaction': reaction
-        }
-        socketio.emit('message_reaction', reaction_data, broadcast=True)
+        if not message_id or not user_id or not reaction:
+            print('[REACTION] Missing fields')
+            return
+
+        try:
+            # avoid duplicate same-reaction by same user
+            exists = MessageReaction.query.filter_by(message_id=message_id, user_id=user_id, reaction_type=reaction).first()
+            if exists:
+                print('[REACTION] Reaction already exists, ignoring')
+            else:
+                mr = MessageReaction(message_id=message_id, user_id=user_id, reaction_type=reaction)
+                db.session.add(mr)
+                db.session.commit()
+                print(f'[REACTION] Saved reaction id={mr.id}')
+
+            # Aggregate reactions for this message
+            reactions = MessageReaction.query.filter_by(message_id=message_id).all()
+            agg = {}
+            for r in reactions:
+                agg.setdefault(r.reaction_type, []).append(r.user_id)
+
+            # Emit aggregated reactions to interested parties (sender & receiver rooms)
+            msg = Message.query.get(message_id)
+            target_rooms = set()
+            if msg:
+                target_rooms.add(f'user-{msg.sender_id}')
+                target_rooms.add(f'user-{msg.receiver_id}')
+            else:
+                # fallback: broadcast
+                target_rooms = None
+
+            payload = {
+                'message_id': message_id,
+                'reactions': agg
+            }
+            if target_rooms:
+                for r in target_rooms:
+                    try:
+                        socketio.emit('message_reaction', payload, room=r)
+                    except Exception as e:
+                        print(f'[REACTION] Error emitting to {r}: {e}')
+            else:
+                socketio.emit('message_reaction', payload, broadcast=True)
+        except Exception as e:
+            print(f'[REACTION] Error saving/emitting reaction: {e}')
 
     @socketio.on('send_sticker')
     def handle_send_sticker(data):
@@ -215,6 +253,77 @@ def register_chat_events(socketio):
             'is_typing': is_typing
         }, room=receiver_room)
         print(f"[CHAT][GỬI] user_typing -> room={receiver_room}")
+
+    @socketio.on('edit_message')
+    def handle_edit_message(data):
+        """Allow sender to edit their message. data: { message_id, user_id, new_content }"""
+        message_id = data.get('message_id')
+        user_id = data.get('user_id')
+        new_content = data.get('new_content')
+        print(f"[CHAT][NHẬN] [EDIT] message_id={message_id} user={user_id}")
+        if not message_id or not user_id or new_content is None:
+            print('[EDIT] Missing fields')
+            return
+        try:
+            msg = Message.query.get(message_id)
+            if not msg:
+                print('[EDIT] Message not found')
+                return
+            if int(msg.sender_id) != int(user_id):
+                print('[EDIT] User not owner of message')
+                return
+            msg.content = new_content
+            from datetime import datetime
+            msg.timestamp = datetime.utcnow()
+            db.session.commit()
+            # Emit update to participants
+            target_rooms = [f'user-{msg.sender_id}', f'user-{msg.receiver_id}']
+            payload = {
+                'message_id': message_id,
+                'new_content': new_content,
+                'timestamp': msg.timestamp.isoformat()
+            }
+            for r in set(target_rooms):
+                try:
+                    socketio.emit('message_edited', payload, room=r)
+                except Exception as e:
+                    print(f'[EDIT] Error emitting to {r}: {e}')
+            print('[EDIT] Success')
+        except Exception as e:
+            db.session.rollback()
+            print('[EDIT] Error:', e)
+
+    @socketio.on('recall_message')
+    def handle_recall_message(data):
+        """Allow sender to recall (delete) a message. data: { message_id, user_id }"""
+        message_id = data.get('message_id')
+        user_id = data.get('user_id')
+        print(f"[CHAT][NHẬN] [RECALL] message_id={message_id} user={user_id}")
+        if not message_id or not user_id:
+            print('[RECALL] Missing fields')
+            return
+        try:
+            msg = Message.query.get(message_id)
+            if not msg:
+                print('[RECALL] Message not found')
+                return
+            if int(msg.sender_id) != int(user_id):
+                print('[RECALL] User not owner of message')
+                return
+            # Simple recall: delete row from DB
+            db.session.delete(msg)
+            db.session.commit()
+            payload = {'message_id': message_id}
+            target_rooms = [f'user-{user_id}', f'user-{msg.receiver_id}']
+            for r in set(target_rooms):
+                try:
+                    socketio.emit('message_recalled', payload, room=r)
+                except Exception as e:
+                    print(f'[RECALL] Error emitting to {r}: {e}')
+            print('[RECALL] Success')
+        except Exception as e:
+            db.session.rollback()
+            print('[RECALL] Error:', e)
 
     @socketio.on('disconnect')
     def handle_disconnect(data=None):

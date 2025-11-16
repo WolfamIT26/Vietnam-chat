@@ -70,6 +70,7 @@ const ChatBox = () => {
   const SEND_SCALE = 1.22;
   const pressResetTimeoutRef = useRef(null);
   const pickerClearTimeoutRef = useRef(null);
+  const [pickerCloseSignal, setPickerCloseSignal] = useState(0);
   
   // Ref để scroll xuống cuối chat
   const messagesEndRef = useRef(null);
@@ -99,11 +100,54 @@ const ChatBox = () => {
     ]);
   };
 
-  // Thêm emoji vào input (không gửi ngay)
-  const handleAddEmoji = (emoji) => {
-    setMessageText((prev) => prev + emoji);
-    // Auto-focus input để user có thể continue typing hoặc gửi
-    document.querySelector('.message-input')?.focus();
+  // Prepare a sticker to be sent when the user hits send/enter (don't send immediately)
+  // (stickers are sent immediately via handleSendSticker)
+
+  // Thêm emoji vào input; nếu sendNow=true thì gửi ngay lập tức
+  const handleAddEmoji = (emoji, sendNow = false) => {
+    if (!sendNow) {
+      setMessageText((prev) => prev + emoji);
+      // Auto-focus input để user có thể continue typing hoặc gửi
+      document.querySelector('.message-input')?.focus();
+      return;
+    }
+
+    // Send immediately (used for multi-emoji send)
+    if (!selectedUser || !currentUserId) return;
+    const clientMessageId = `client_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    setIsSending(true);
+
+    sendMessage(currentUserId, selectedUser.id, emoji, {
+      client_message_id: clientMessageId,
+      reply_to_id: replyTo?.id || null,
+    });
+
+    const newMessage = {
+      id: clientMessageId,
+      content: emoji,
+      timestamp: new Date().toISOString(),
+      isSent: true,
+      sender_id: currentUserId,
+      status: 'sending',
+      reply_to_id: replyTo?.id || null,
+    };
+
+    setMessages((prev) => [...prev, newMessage]);
+    setReplyTo(null);
+    // Stop typing indicator when sending
+    sendTyping(currentUserId, selectedUser.id, false);
+
+    const ackTimeout = setTimeout(() => {
+      setMessages((prev) =>
+        prev.map((m) => (m.id === clientMessageId ? { ...m, status: 'failed' } : m))
+      );
+      setIsSending(false);
+      keepScaledRef.current = false;
+      setPressScale(1);
+    }, 3000);
+
+    // Store timeout id on the optimistic message so ACK handling can clear it
+    setMessages((prev) => prev.map((m) => (m.id === clientMessageId ? { ...m, _ackTimeout: ackTimeout } : m)));
   };
 
   // Helper to set selectedUser + save to localStorage
@@ -372,7 +416,19 @@ const ChatBox = () => {
             seen.add(m.id);
             // Ensure timestamp is always present (use server timestamp, never recalculate)
             const timestamp = m.timestamp ? new Date(m.timestamp).toISOString() : new Date().toISOString();
-            acc.push({ ...m, timestamp, isSent: m.sender_id === currentUserId });
+
+            // Backwards-compat: some messages saved as sticker may only have content set to the URL
+            // If server didn't return message_type/sticker_url, detect common image/GIF URLs and treat them as stickers.
+            const msgCopy = { ...m };
+            if ((!msgCopy.message_type || msgCopy.message_type === 'text') && msgCopy.content && typeof msgCopy.content === 'string') {
+              const lower = msgCopy.content.toLowerCase();
+              if (lower.endsWith('.gif') || lower.endsWith('.png') || lower.endsWith('.jpg') || lower.includes('giphy.com') || lower.includes('media.giphy.com')) {
+                msgCopy.message_type = 'sticker';
+                msgCopy.sticker_url = msgCopy.sticker_url || msgCopy.content;
+              }
+            }
+
+            acc.push({ ...msgCopy, timestamp, isSent: msgCopy.sender_id === currentUserId });
             return acc;
           }, []);
           setMessages(normalized);
@@ -412,7 +468,10 @@ const ChatBox = () => {
     setMessages((prev) => [...prev, newMessage]);
     setMessageText('');
     setReplyTo(null);  // Reset reply state
-    
+
+    // Signal pickers (sticker/emoji) to close
+    setPickerCloseSignal((s) => s + 1);
+
     // Stop typing
     sendTyping(currentUserId, selectedUser.id, false);
     
@@ -503,6 +562,37 @@ const ChatBox = () => {
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
+  };
+
+  // Retry sending a failed message (called from MessageBubble '🔁' button)
+  const handleRetry = (failedMessage) => {
+    if (!selectedUser || !currentUserId) return;
+
+    // Create a fresh client message id for retry to follow the same ACK flow
+    const clientMessageId = `client_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+    // Replace the failed message in the UI with a new optimistic message (status=sending)
+    setMessages((prev) => prev.map((m) => (m.id === failedMessage.id ? {
+      ...m,
+      id: clientMessageId,
+      status: 'sending',
+      timestamp: new Date().toISOString(),
+      _ackTimeout: null,
+    } : m)));
+
+    // Emit via socket
+    sendMessage(currentUserId, selectedUser.id, failedMessage.content || failedMessage.sticker_url || '', {
+      client_message_id: clientMessageId,
+      reply_to_id: failedMessage.reply_to_id || null,
+    });
+
+    // Set ACK timeout to mark as failed if server doesn't ACK
+    const ackTimeout = setTimeout(() => {
+      setMessages((prev) => prev.map((m) => (m.id === clientMessageId ? { ...m, status: 'failed' } : m)));
+    }, 3000);
+
+    // Attach timeout id to the optimistic message so ACK handler can clear it
+    setMessages((prev) => prev.map((m) => (m.id === clientMessageId ? { ...m, _ackTimeout: ackTimeout } : m)));
   };
 
   return (
@@ -879,6 +969,7 @@ const ChatBox = () => {
                         key={idx}
                         message={messageWithReactions}
                         isSent={msg.isSent}
+                        onRetry={handleRetry}
                         onReply={(message) => {
                           setReplyTo(message);
                           // Auto-focus input
@@ -915,6 +1006,7 @@ const ChatBox = () => {
             </div>
 
             {/* Reply Preview */}
+            
             {replyTo && (
               <div style={{
                 background: '#f0f0f0',
@@ -945,7 +1037,7 @@ const ChatBox = () => {
 
             {/* Message Input */}
             <form onSubmit={handleSendMessage} className="message-input-form">
-              <StickerButton onSelectSticker={handleSendSticker} onAddEmoji={handleAddEmoji} />
+              <StickerButton onSelectSticker={handleSendSticker} onAddEmoji={handleAddEmoji} pickerCloseSignal={pickerCloseSignal} />
               <input
                 type="text"
                 value={messageText}

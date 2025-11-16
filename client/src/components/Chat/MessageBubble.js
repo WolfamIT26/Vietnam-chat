@@ -1,10 +1,22 @@
 import React, { useState } from 'react';
+import twemoji from 'twemoji';
+
+// ---------------------------------------------------------------------------
+// HẰNG SỐ KÍCH THƯỚC CHUNG CHO MESSAGE
+// - MESSAGE_STICKER_SIZE: kích thước (px) cho sticker hiển thị trong khung tin
+// - STATUS_ICON_FONT_SIZE: kích thước (px) cho icon trạng thái (✓, ✓✓, 👁, ...)
+// - STATUS_ICON_MIN_WIDTH: min-width (px) để tránh layout nhảy khi đổi icon
+// Thay các hằng số dưới đây để điều chỉnh nhanh giao diện.
+// ---------------------------------------------------------------------------
+const MESSAGE_STICKER_SIZE = 24; // px
+const STATUS_ICON_FONT_SIZE = 8; // px (thay nếu muốn nhỏ hơn)
+const STATUS_ICON_MIN_WIDTH = 14; // px
 
 /**
  * MessageBubble - Hiển thị một tin nhắn (sent hoặc received)
  * Props: { message, isSent, onReply, onReaction }
  */
-const MessageBubble = ({ message, isSent, onReply, onReaction, onEmojiHover }) => {
+const MessageBubble = ({ message, isSent, onReply, onReaction, onEmojiHover, onRetry }) => {
   const [showActions, setShowActions] = useState(false);
 
   const emoticons = ['❤️', '😂', '😮', '😢', '🔥', '👍'];
@@ -30,16 +42,21 @@ const MessageBubble = ({ message, isSent, onReply, onReaction, onEmojiHover }) =
 
       <div className="message-content">
         {message.message_type === 'sticker' ? (
-          // Hiển thị sticker
-          <img 
-            src={message.sticker_url} 
-            alt="sticker" 
-            style={{ 
-              maxWidth: 200, 
-              maxHeight: 200, 
-              borderRadius: 8 
-            }} 
-          />
+          // Hiển thị sticker inside a rounded tile (matches picker style)
+          <div style={{ display: 'inline-block', background: '#f6f7fb', padding: 8, borderRadius: 12 }}>
+            <img
+              src={message.sticker_url}
+              alt="sticker"
+              // Dùng MESSAGE_STICKER_SIZE ở đầu file để dễ sửa
+              style={{
+                width: MESSAGE_STICKER_SIZE,
+                height: MESSAGE_STICKER_SIZE,
+                objectFit: 'contain',
+                borderRadius: 8,
+                display: 'block',
+              }}
+            />
+          </div>
         ) : message.file_url ? (
           <div style={{ marginBottom: '8px' }}>
             <a
@@ -56,7 +73,10 @@ const MessageBubble = ({ message, isSent, onReply, onReaction, onEmojiHover }) =
             </a>
           </div>
         ) : (
-          <p>{message.content}</p>
+          // Render text with Twemoji to make emoji consistent across platforms
+          <div>
+            <span dangerouslySetInnerHTML={{ __html: twemoji.parse(message.content || '', { folder: 'svg', ext: '.svg' }) }} />
+          </div>
         )}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '6px' }}>
           <span className="message-time">
@@ -64,13 +84,30 @@ const MessageBubble = ({ message, isSent, onReply, onReaction, onEmojiHover }) =
           </span>
           {/* Show status icon if sent by current user */}
           {isSent && message.status && (
-            <span style={{ fontSize: '12px', minWidth: '16px' }} title={`Status: ${message.status}`}>
+            // Kích thước icon trạng thái dùng hằng số để dễ chỉnh về sau
+            <span style={{ fontSize: STATUS_ICON_FONT_SIZE, minWidth: STATUS_ICON_MIN_WIDTH }} title={`Status: ${message.status}`}>
               {message.status === 'sending' && '⏳'}
               {message.status === 'sent' && '✓'}
               {message.status === 'delivered' && '✓✓'}
               {message.status === 'seen' && '👁'}
               {message.status === 'failed' && '❌'}
             </span>
+          )}
+          {/* Retry button for failed outgoing messages */}
+          {isSent && message.status === 'failed' && onRetry && (
+            <button
+              onClick={() => onRetry(message)}
+              style={{
+                marginLeft: 6,
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: '14px',
+              }}
+              title="Thử gửi lại"
+            >
+              🔁
+            </button>
           )}
         </div>
       </div>
@@ -171,3 +208,4 @@ const MessageBubble = ({ message, isSent, onReply, onReaction, onEmojiHover }) =
 };
 
 export default MessageBubble;
+

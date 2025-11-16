@@ -1,6 +1,6 @@
-# Zalo Chat - Frontend ReactJS
+# ChatViet - Frontend ReactJS
 
-Frontend ứng dụng web chat giống Zalo, kết nối với Flask backend thông qua HTTP API + WebSocket (Socket.IO).
+Frontend ứng dụng web chat "ChatViet", kết nối với Flask backend thông qua HTTP API + WebSocket (Socket.IO).
 
 ## 🚀 Tính năng
 

@@ -54,6 +54,9 @@ def get_messages():
             'receiver_id': m.receiver_id,
             'content': m.content,
             'file_url': m.file_url,
+            'message_type': m.message_type,
+            'sticker_id': m.sticker_id,
+            'sticker_url': m.sticker_url,
             'timestamp': m.timestamp.isoformat()
         } for m in msgs
     ]
@@ -97,10 +100,18 @@ def get_conversations():
             key = ('user', other)
 
         if key not in conv_map:
+            # Show a friendly preview depending on message type
+            if m.message_type == 'sticker':
+                preview = '[Sticker]'
+            elif m.file_url:
+                preview = '[File] '
+            else:
+                preview = m.content
+
             conv_map[key] = {
                 'type': key[0],
                 'id': key[1],
-                'last_message': m.content,
+                'last_message': preview,
                 'last_ts': m.timestamp.isoformat(),
             }
 
