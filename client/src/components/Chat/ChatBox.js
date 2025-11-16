@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { initializeSocket, sendMessage, onReceiveMessage, joinUserRoom, sendReaction, onReaction, sendTyping, onTyping, onMessageSentAck, sendSticker } from '../../services/socket';
+import { initializeSocket, sendMessage, onReceiveMessage, joinUserRoom, sendReaction, onReaction, sendTyping, onTyping, onMessageSentAck, sendSticker, requestContactsList, onCommandResponse, sendFriendRequest, onFriendRequestReceived, sendFriendAccept, sendFriendReject, onFriendAccepted, onFriendRejected, sendBlockUser, sendUnblockUser, onUserBlocked, requestContactsSync, onContactUpdated, onUserStatusChanged } from '../../services/socket';
 import { userAPI, messageAPI, groupAPI } from '../../services/api';
 import MessageBubble from './MessageBubble';
 import StickerButton from './StickerButton';
@@ -33,6 +33,7 @@ const ChatBox = () => {
   const [currentUserProfile, setCurrentUserProfile] = useState(null);
   const [groups, setGroups] = useState([]);
   const [friendRequests, setFriendRequests] = useState([]);
+  const [blockedTargets, setBlockedTargets] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [filterTab, setFilterTab] = useState('conversations');
@@ -44,6 +45,9 @@ const ChatBox = () => {
   const [editProfileOpen, setEditProfileOpen] = useState(false);
   const [otherProfileOpen, setOtherProfileOpen] = useState(false);
   const [otherProfileUser, setOtherProfileUser] = useState(null);
+  
+  // Dialog states
+  const [confirmDialog, setConfirmDialog] = useState({ open: false, title: '', onConfirm: null });
   
   // New states for reply/forward/reaction
   const [replyTo, setReplyTo] = useState(null);
@@ -269,6 +273,171 @@ const ChatBox = () => {
       console.log('[TYPING]', data);
       setRemotePeerIsTyping(data.is_typing);
     });
+
+    // Listen for incoming friend requests in real-time
+    onFriendRequestReceived((payload) => {
+      try {
+        // payload: { event: 'FRIEND_REQUEST_RECEIVED', from_user: '123' }
+        const fromId = payload?.from_user;
+        // Add to friendRequests state so it appears in UI (use minimal shape)
+        setFriendRequests((prev) => {
+          // avoid duplicates by from_user
+          if (prev.some((r) => String(r.user_id) === String(fromId))) return prev;
+          const newReq = { rel_id: `fr_${Date.now()}_${fromId}`, user_id: fromId, username: `User ${fromId}` };
+          return [newReq, ...prev];
+        });
+        // Simple user-visible notification
+        alert('Bạn có lời mời kết bạn mới!');
+      } catch (e) {
+        console.error('Error handling friend_request_received:', e);
+      }
+    });
+
+    // Listen for accepted/rejected notifications (when someone accepts/rejects your outgoing request)
+    onFriendAccepted((payload) => {
+      try {
+        // payload: { event: 'FRIEND_ACCEPTED', user_id: '123' }
+        const accepterId = payload?.user_id;
+        alert(`Lời mời của bạn đã được chấp nhận bởi người dùng ${accepterId}`);
+        // refresh friends list if on contacts tab
+        if (filterTab === 'contacts') {
+          const token = localStorage.getItem('token');
+          if (token) requestContactsList(token);
+          else (async () => { const resp = await userAPI.getFriends(); setUsers(resp.data || []); })();
+        }
+      } catch (e) {
+        console.error('Error handling friend accepted:', e);
+      }
+    });
+
+    onFriendRejected((payload) => {
+      try {
+        const rejectorId = payload?.user_id;
+        alert(`Lời mời của bạn đã bị từ chối bởi người dùng ${rejectorId}`);
+      } catch (e) {
+        console.error('Error handling friend rejected:', e);
+      }
+    });
+
+    // Central handler for command responses (contacts list, friend request sent, etc.)
+    onCommandResponse((resp) => {
+      if (!resp) return;
+      try {
+        if (resp.action === 'CONTACTS_LIST_RESULT') {
+          if (resp.status === 'SUCCESS') {
+            const mapped = (resp.data || []).map((c) => ({
+              id: c.id,
+              username: c.name,
+              display_name: c.name,
+              status: c.online ? 'online' : 'offline'
+            }));
+            setUsers(mapped);
+          } else {
+            console.error('Contacts command error:', resp.error);
+            setUsers([]);
+          }
+        }
+
+        if (resp.action === 'FRIEND_REQUEST_SENT') {
+          if (resp.status === 'SUCCESS') {
+            // optionally refresh suggestions and notify user
+            alert('Lời mời kết bạn đã gửi');
+            (async () => {
+              try {
+                const sugg = await userAPI.getSuggestions(6);
+                setSuggestions(sugg.data || []);
+                if (filterTab === 'contacts') {
+                  const token = localStorage.getItem('token');
+                  if (token) requestContactsList(token);
+                }
+              } catch (e) {
+                console.error('Error refreshing suggestions after friend request', e);
+              }
+            })();
+          } else {
+            alert('Gửi lời mời thất bại: ' + (resp.error || ''));
+          }
+        }
+        if (resp.action === 'BLOCK_USER') {
+          if (resp.status === 'SUCCESS') {
+            alert('Chặn thành công');
+          } else {
+            alert('Chặn thất bại: ' + (resp.error || ''));
+          }
+        }
+
+        if (resp.action === 'UNBLOCK_USER') {
+          if (resp.status === 'SUCCESS') {
+            alert('Bỏ chặn thành công');
+          } else {
+            alert('Bỏ chặn thất bại: ' + (resp.error || ''));
+          }
+        }
+
+        if (resp.action === 'CONTACTS_SYNC_RESULT') {
+          if (resp.status === 'SUCCESS') {
+            // server returns 'friends' array
+            const friends = resp.friends || resp.data || [];
+            alert(`Đồng bộ xong - tìm thấy ${friends.length} bạn trên ChatApp`);
+          } else {
+            alert('Đồng bộ danh bạ thất bại: ' + (resp.error || ''));
+          }
+        }
+      } catch (e) {
+        console.error('Error handling command response:', e);
+      }
+    });
+
+    // User blocked notifications (someone blocked you)
+    onUserBlocked((payload) => {
+      try {
+        const by = payload?.by_user;
+        alert(`Người dùng ${by} đã chặn bạn`);
+      } catch (e) {
+        console.error('Error handling user_blocked:', e);
+      }
+    });
+
+    // Contact updated event
+    onContactUpdated((payload) => {
+      try {
+        // payload: { event: 'CONTACT_UPDATED', data: [...] }
+        console.log('Contact updated payload', payload);
+        alert('Danh bạ được cập nhật từ server');
+      } catch (e) {
+        console.error('Error handling contact_updated:', e);
+      }
+    });
+
+    // Listen for user status changes (online/offline)
+    onUserStatusChanged((data) => {
+      try {
+        // data: { user_id: '123', status: 'online' | 'offline' }
+        const changedUserId = data?.user_id;
+        const newStatus = data?.status;
+        console.log(`[STATUS_CHANGE] User ${changedUserId} is now ${newStatus}`);
+        
+        // Update users list with new status
+        setUsers((prev) => {
+          return prev.map((user) => {
+            if (String(user.id) === String(changedUserId)) {
+              return { ...user, status: newStatus };
+            }
+            return user;
+          });
+        });
+        
+        // If the selected user's status changed, update it too
+        if (selectedUser && String(selectedUser.id) === String(changedUserId)) {
+          setSelectedUser((prev) => {
+            if (prev) return { ...prev, status: newStatus };
+            return prev;
+          });
+        }
+      } catch (e) {
+        console.error('Error handling user_status_changed:', e);
+      }
+    });
   }, [currentUserId]);
 
   // Auto-scroll xuống cuối khi có tin nhắn mới
@@ -331,9 +500,16 @@ const ChatBox = () => {
           });
           setUsers(convs);
         } else if (filterTab === 'contacts') {
-          const resp = await userAPI.getFriends();
-          // friends endpoint returns users
-          setUsers(resp.data || []);
+          // Request contacts via socket command (GET_CONTACTS_LIST). Fallback to REST if token missing.
+          const token = localStorage.getItem('token');
+          if (token) {
+            // send request via socket; global onCommandResponse handler will process the result
+            requestContactsList(token);
+          } else {
+            // fallback to REST
+            const resp = await userAPI.getFriends();
+            setUsers(resp.data || []);
+          }
         } else {
           const resp = await userAPI.getUsers();
           setUsers(resp.data || []);
@@ -625,6 +801,27 @@ const ChatBox = () => {
           >👥</button>
           <button
             className="nav-btn"
+            title="Đồng bộ danh bạ"
+            onClick={async () => {
+              try {
+                const token = localStorage.getItem('token');
+                if (!token) {
+                  alert('Cần đăng nhập để đồng bộ danh bạ');
+                  return;
+                }
+                // Example: pull contacts from localStorage or prompt for a few numbers for demo
+                const raw = window.prompt('Nhập danh bạ (phân tách bởi dấu phẩy):', '+84901234,+84881234');
+                if (!raw) return;
+                const arr = raw.split(',').map(s => s.trim()).filter(Boolean);
+                requestContactsSync(arr, token);
+                alert('Đã gửi yêu cầu đồng bộ danh bạ');
+              } catch (e) {
+                console.error('Contact sync error', e);
+              }
+            }}
+          >🔁</button>
+          <button
+            className="nav-btn"
             title="Cloud của tôi"
             onClick={() => {
               // quick action: open uploads folder in a new tab (not implemented server-side)
@@ -742,6 +939,8 @@ const ChatBox = () => {
           />
         </div>
         <div className="filter-bar">
+          <button className={`filter ${filterTab==='conversations'?'active':''}`} onClick={() => setFilterTab('conversations')}>💬 Nhắn tin</button>
+          <button className={`filter ${filterTab==='contacts'?'active':''}`} onClick={() => setFilterTab('contacts')}>👥 Bạn bè</button>
           <button className={`filter ${filterTab==='priority'?'active':''}`} onClick={() => setFilterTab('priority')}>Ưu tiên</button>
           <button className={`filter ${filterTab==='others'?'active':''}`} onClick={() => setFilterTab('others')}>Khác</button>
           <button className={`filter ${filterTab==='all'?'active':''}`} onClick={() => setFilterTab('all')}>Tất cả</button>
@@ -770,31 +969,84 @@ const ChatBox = () => {
                         <div className="friend-actions">
                           <button
                             className="btn-accept"
-                            onClick={async (e) => {
+                            onClick={(e) => {
                               e.stopPropagation();
-                              try {
-                                await userAPI.acceptFriend(r.user_id);
-                                const resp = await userAPI.getFriendRequests();
-                                setFriendRequests(resp.data || []);
-                                const usersResp = await userAPI.getUsers();
-                                setUsers(usersResp.data || []);
-                              } catch (err) {
-                                console.error('Lỗi chấp nhận:', err);
-                              }
+                              (async () => {
+                                try {
+                                  const token = localStorage.getItem('token');
+                                  if (token) {
+                                    // If we have token and socket flow, find likely request_id if present, otherwise try to match by user_id
+                                    // Here we stored minimal friend request (rel_id) for incoming realtime events as `fr_<ts>_<from>`.
+                                    // If backend provides real request_id in userAPI.getFriendRequests, prefer that. Use REST fallback to get request id.
+                                    const resp = await userAPI.getFriendRequests();
+                                    const reqs = resp.data || [];
+                                    const found = reqs.find(x => String(x.user_id) === String(r.user_id));
+                                    const request_id = found ? found.rel_id : null;
+                                    if (request_id) {
+                                      sendFriendAccept({ request_id, token });
+                                    } else {
+                                      // fallback: call REST accept
+                                      await userAPI.acceptFriend(r.user_id);
+                                    }
+                                  } else {
+                                    await userAPI.acceptFriend(r.user_id);
+                                  }
+
+                                  // remove the request from friendRequests list
+                                  setFriendRequests(prev => prev.filter(x => String(x.user_id) !== String(r.user_id)));
+                                  
+                                  // add to users (friends) list if not already there
+                                  setUsers(prev => {
+                                    const alreadyExists = prev.some(u => String(u.id) === String(r.user_id));
+                                    if (alreadyExists) return prev;
+                                    return [...prev, {
+                                      id: r.user_id,
+                                      username: r.username,
+                                      avatar_url: r.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(r.username)}&background=667eea&color=fff`
+                                    }];
+                                  });
+                                  
+                                  // show success message
+                                  alert(`✅ Đã kết bạn với ${r.username}`);
+                                } catch (err) {
+                                  console.error('Lỗi chấp nhận:', err);
+                                  alert('Lỗi khi chấp nhận lời mời');
+                                }
+                              })();
                             }}
-                            title="Chấp nhận"
+                            title="Đồng ý kết bạn"
                           >
-                            ✓
+                            Đồng ý
                           </button>
                           <button
                             className="btn-decline"
                             onClick={(e) => {
                               e.stopPropagation();
-                              setFriendRequests(prev => prev.filter(x => x.rel_id !== r.rel_id));
+                              (async () => {
+                                try {
+                                  const token = localStorage.getItem('token');
+                                  if (token) {
+                                    const resp = await userAPI.getFriendRequests();
+                                    const reqs = resp.data || [];
+                                    const found = reqs.find(x => String(x.user_id) === String(r.user_id));
+                                    const request_id = found ? found.rel_id : null;
+                                    if (request_id) {
+                                      sendFriendReject({ request_id, token });
+                                    } else {
+                                      // fallback: simply remove locally (or call REST if available)
+                                      setFriendRequests(prev => prev.filter(x => x.rel_id !== r.rel_id));
+                                    }
+                                  } else {
+                                    setFriendRequests(prev => prev.filter(x => x.rel_id !== r.rel_id));
+                                  }
+                                } catch (err) {
+                                  console.error('Lỗi từ chối:', err);
+                                }
+                              })();
                             }}
-                            title="Từ chối"
+                            title="Từ chối lời mời"
                           >
-                            ✕
+                            Từ chối
                           </button>
                         </div>
                       </div>
@@ -826,20 +1078,34 @@ const ChatBox = () => {
                             <button
                               className="btn-add-friend"
                               onClick={async (e) => {
-                                e.stopPropagation();
-                                try {
-                                  await userAPI.addFriend(u.id);
-                                  const resp = await userAPI.getSuggestions(6);
-                                  setSuggestions(resp.data || []);
-                                  // Also reload friends list if on contacts tab
-                                  if (filterTab === 'contacts') {
-                                    const friendsResp = await userAPI.getFriends();
-                                    setUsers(friendsResp.data || []);
+                                  e.stopPropagation();
+                                  try {
+                                    const token = localStorage.getItem('token');
+                                    if (token) {
+                                      // use socket command if available
+                                      sendFriendRequest({ target_user_id: u.id, token });
+                                      // optimistic UI: remove suggestion locally
+                                      setSuggestions((prev) => prev.filter(x => x.id !== u.id));
+                                    } else {
+                                      await userAPI.addFriend(u.id);
+                                      const resp = await userAPI.getSuggestions(6);
+                                      setSuggestions(resp.data || []);
+                                    }
+
+                                    // Also reload friends list if on contacts tab (REST) or request socket list
+                                    if (filterTab === 'contacts') {
+                                      const token2 = localStorage.getItem('token');
+                                      if (token2) {
+                                        requestContactsList(token2);
+                                      } else {
+                                        const friendsResp = await userAPI.getFriends();
+                                        setUsers(friendsResp.data || []);
+                                      }
+                                    }
+                                  } catch (err) {
+                                    console.error('Lỗi gửi lời mời:', err);
                                   }
-                                } catch (err) {
-                                  console.error('Lỗi gửi lời mời:', err);
-                                }
-                              }}
+                                }}
                             >
                               ➕ Thêm
                             </button>
@@ -862,11 +1128,12 @@ const ChatBox = () => {
               )}
             </>
           )}
-          {(!searchFocused || searchQuery.trim()) && users.map((user) => (
+          {(!searchFocused || searchQuery.trim()) && filterTab === 'conversations' && users.map((user) => (
             <div
               key={user.id}
               className={`conversation-item ${selectedUser?.id === user.id ? 'active' : ''}`}
               onClick={() => handleSelectUser(user)}
+              style={{position:'relative'}}
             >
               <div className="conv-avatar" onClick={(e) => { e.stopPropagation(); openUserProfile(user.id); }} style={{cursor:'pointer'}}>{user.username[0]?.toUpperCase()}</div>
               <div className="conv-body">
@@ -874,12 +1141,143 @@ const ChatBox = () => {
                   <div className="conv-title" onClick={(e) => { e.stopPropagation(); if (!user.is_group) openUserProfile(user.id); }} style={{cursor: user.is_group ? 'default' : 'pointer'}}>{user.display_name || user.username}</div>
                   <div style={{marginLeft:'auto',display:'flex',alignItems:'center',gap:6}}>
                     <span style={{fontSize:'11px', fontWeight:'500', color: user.status === 'online' ? '#16a34a' : '#9ca3af'}}>{user.status === 'online' ? '🟢 Online' : '⚪ Offline'}</span>
+                    {!user.is_group && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setConfirmDialog({
+                            open: true,
+                            title: `Hủy kết bạn với ${user.display_name || user.username}?`,
+                            onConfirm: async () => {
+                              try {
+                                const token = localStorage.getItem('token');
+                                if (token) {
+                                  // Send unblock or delete friend command via socket if available
+                                  // For now, call REST endpoint to remove friend
+                                  // Note: You may need to implement a removeFriend/unfriend endpoint in the backend
+                                  const resp = await fetch(`/friends/${user.id}/remove`, {
+                                    method: 'DELETE',
+                                    headers: { 'Authorization': `Bearer ${token}` }
+                                  });
+                                  if (resp.ok) {
+                                    // Remove from users list
+                                    setUsers(prev => prev.filter(u => u.id !== user.id));
+                                    alert(`✅ Đã hủy kết bạn với ${user.display_name || user.username}`);
+                                  } else {
+                                    alert('Lỗi khi hủy kết bạn');
+                                  }
+                                } else {
+                                  alert('Chưa đăng nhập');
+                                }
+                              } catch (err) {
+                                console.error('Lỗi hủy kết bạn:', err);
+                                alert('Lỗi khi hủy kết bạn');
+                              }
+                              setConfirmDialog({ open: false, title: '', onConfirm: null });
+                            }
+                          });
+                        }}
+                        style={{
+                          background:'#ef4444',
+                          color:'white',
+                          border:'none',
+                          borderRadius:'4px',
+                          padding:'4px 8px',
+                          fontSize:'11px',
+                          cursor:'pointer',
+                          fontWeight:'600'
+                        }}
+                        title="Hủy kết bạn"
+                      >
+                        ✕ Hủy
+                      </button>
+                    )}
                   </div>
                 </div>
                 <div className="conv-preview" style={{color: user.last_message ? '#1f2937' : '#9ca3af', fontWeight: user.last_message ? '500' : '400'}}>{user.last_message || (user.status === 'online' ? 'Đang online' : 'Chưa có tin nhắn')}</div>
               </div>
             </div>
           ))}
+          
+          {filterTab === 'contacts' && users.length > 0 && (
+            <>
+              <div style={{padding:'12px', borderBottom:'1px solid #e5e7eb'}}>
+                <span style={{fontSize:'12px', fontWeight:'700', color:'#6b7280', textTransform:'uppercase'}}>Danh sách bạn bè</span>
+              </div>
+              {users.map((user) => (
+                <div
+                  key={user.id}
+                  className={`conversation-item ${selectedUser?.id === user.id ? 'active' : ''}`}
+                  onClick={() => handleSelectUser(user)}
+                  style={{position:'relative'}}
+                >
+                  <div className="conv-avatar" onClick={(e) => { e.stopPropagation(); openUserProfile(user.id); }} style={{cursor:'pointer'}}>{user.username[0]?.toUpperCase()}</div>
+                  <div className="conv-body">
+                    <div style={{display:'flex',alignItems:'center',gap:8}}>
+                      <div className="conv-title" onClick={(e) => { e.stopPropagation(); if (!user.is_group) openUserProfile(user.id); }} style={{cursor: user.is_group ? 'default' : 'pointer'}}>{user.display_name || user.username}</div>
+                      <div style={{marginLeft:'auto',display:'flex',alignItems:'center',gap:6}}>
+                        <span style={{fontSize:'11px', fontWeight:'500', color: user.status === 'online' ? '#16a34a' : '#9ca3af'}}>{user.status === 'online' ? '🟢 Online' : '⚪ Offline'}</span>
+                        {!user.is_group && (
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setConfirmDialog({
+                                open: true,
+                                title: `Hủy kết bạn với ${user.display_name || user.username}?`,
+                                onConfirm: async () => {
+                                  try {
+                                    const token = localStorage.getItem('token');
+                                    if (token) {
+                                      const resp = await fetch(`/friends/${user.id}/remove`, {
+                                        method: 'DELETE',
+                                        headers: { 'Authorization': `Bearer ${token}` }
+                                      });
+                                      if (resp.ok) {
+                                        setUsers(prev => prev.filter(u => u.id !== user.id));
+                                        alert(`✅ Đã hủy kết bạn với ${user.display_name || user.username}`);
+                                      } else {
+                                        alert('Lỗi khi hủy kết bạn');
+                                      }
+                                    } else {
+                                      alert('Chưa đăng nhập');
+                                    }
+                                  } catch (err) {
+                                    console.error('Lỗi hủy kết bạn:', err);
+                                    alert('Lỗi khi hủy kết bạn');
+                                  }
+                                  setConfirmDialog({ open: false, title: '', onConfirm: null });
+                                }
+                              });
+                            }}
+                            style={{
+                              background:'#ef4444',
+                              color:'white',
+                              border:'none',
+                              borderRadius:'4px',
+                              padding:'4px 8px',
+                              fontSize:'11px',
+                              cursor:'pointer',
+                              fontWeight:'600'
+                            }}
+                            title="Hủy kết bạn"
+                          >
+                            ✕ Hủy
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                    <div className="conv-preview" style={{color: user.last_message ? '#1f2937' : '#9ca3af', fontWeight: user.last_message ? '500' : '400'}}>{user.last_message || (user.status === 'online' ? 'Đang online' : 'Chưa có tin nhắn')}</div>
+                  </div>
+                </div>
+              ))}
+            </>
+          )}
+          
+          {filterTab === 'contacts' && users.length === 0 && (
+            <div style={{padding:'20px', textAlign:'center', color:'#9ca3af'}}>
+              <p>Chưa có bạn bè</p>
+            </div>
+          )}
         </div>
         <div className="groups-section">
           <div className="groups-header">
@@ -936,6 +1334,37 @@ const ChatBox = () => {
                 <h3>{selectedUser.username}</h3>
                 <p className="status">{selectedUser.status === 'online' ? '🟢 Online' : '⚪ Offline'}</p>
               </div>
+                <div style={{marginLeft:16}}>
+                  {selectedUser && (
+                    <button
+                      onClick={async () => {
+                        try {
+                          const token = localStorage.getItem('token');
+                          if (!token) {
+                            alert('Cần đăng nhập để chặn người dùng');
+                            return;
+                          }
+                          const target = selectedUser.id;
+                          if (blockedTargets.includes(String(target))) {
+                            // unblock
+                            sendUnblockUser({ target, token });
+                            setBlockedTargets(prev => prev.filter(x => x !== String(target)));
+                            alert('Đã bỏ chặn');
+                          } else {
+                            sendBlockUser({ target, token });
+                            setBlockedTargets(prev => [String(target), ...prev]);
+                            alert('Đã chặn người dùng');
+                          }
+                        } catch (e) {
+                          console.error('Block/unblock error', e);
+                        }
+                      }}
+                      style={{marginLeft:8}}
+                    >
+                      {blockedTargets.includes(String(selectedUser.id)) ? '🔓 Bỏ chặn' : '🔒 Chặn'}
+                    </button>
+                  )}
+                </div>
               {/* Show typing indicator in header */}
               {remotePeerIsTyping && (
                 <TypingIndicator userName={selectedUser.display_name || selectedUser.username} isTyping={true} />
@@ -1306,6 +1735,67 @@ const ChatBox = () => {
           </div>
         )}
       </main>
+
+      {/* Confirm Dialog */}
+      {confirmDialog.open && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 9999
+        }}>
+          <div style={{
+            background: 'white',
+            padding: '24px',
+            borderRadius: '8px',
+            minWidth: '300px',
+            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.2)'
+          }}>
+            <h3 style={{margin: '0 0 16px 0', fontSize: '16px', fontWeight: 'bold'}}>
+              {confirmDialog.title}
+            </h3>
+            <div style={{display: 'flex', gap: '8px', justifyContent: 'flex-end'}}>
+              <button
+                onClick={() => setConfirmDialog({ open: false, title: '', onConfirm: null })}
+                style={{
+                  padding: '8px 16px',
+                  border: '1px solid #d1d5db',
+                  background: '#f3f4f6',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  fontWeight: '600'
+                }}
+              >
+                Hủy
+              </button>
+              <button
+                onClick={() => {
+                  if (confirmDialog.onConfirm) {
+                    confirmDialog.onConfirm();
+                  }
+                }}
+                style={{
+                  padding: '8px 16px',
+                  border: 'none',
+                  background: '#ef4444',
+                  color: 'white',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  fontWeight: '600'
+                }}
+              >
+                Xác nhận
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

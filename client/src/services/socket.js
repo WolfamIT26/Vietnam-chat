@@ -77,6 +77,32 @@ export const closeSocket = () => {
   }
 };
 
+// Generic send command (JSON-style): { action: 'SOMETHING', data: {...}, token }
+export const sendCommand = (cmd) => {
+  const sock = getSocket();
+  console.log('[COMMAND] Emitting command:', cmd);
+  sock.emit('command', cmd);
+};
+
+// Convenience: request contacts list via command format
+export const requestContactsList = (token) => {
+  sendCommand({ action: 'GET_CONTACTS_LIST', data: {}, token });
+};
+
+// Listen for generic command responses from server
+export const onCommandResponse = (callback) => {
+  const sock = getSocket();
+  sock.off('command_response');
+  sock.on('command_response', (data) => {
+    console.log('[COMMAND_RESPONSE] Received:', data);
+    try {
+      callback(data);
+    } catch (e) {
+      console.error('Error in command response callback:', e);
+    }
+  });
+};
+
 // Tham gia room chat
 export const joinUserRoom = (userId) => {
   const sock = getSocket();
@@ -201,8 +227,100 @@ export const onUserOffline = (callback) => {
   sock.on('user_offline', callback);
 };
 
+// Lắng nghe user status changed (online/offline)
+export const onUserStatusChanged = (callback) => {
+  const sock = getSocket();
+  sock.off('user_status_changed');
+  sock.on('user_status_changed', (data) => {
+    console.log('[USER_STATUS_CHANGED]', data);
+    callback(data);
+  });
+};
+
 // Lắng nghe user joined
 export const onUserJoined = (callback) => {
   const sock = getSocket();
   sock.on('user_joined', callback);
+};
+
+// Send friend request using the command pattern
+export const sendFriendRequest = ({ target_user_id = null, target_phone = null, token = null }) => {
+  const cmd = { action: 'FRIEND_REQUEST', data: {}, token };
+  if (target_user_id) cmd.data.target_user_id = target_user_id;
+  if (target_phone) cmd.data.target_phone = target_phone;
+  sendCommand(cmd);
+};
+
+// Listen for real-time friend request notifications (when someone sends you a request)
+export const onFriendRequestReceived = (callback) => {
+  const sock = getSocket();
+  sock.off('friend_request_received');
+  sock.on('friend_request_received', (data) => {
+    console.log('[FRIEND_REQUEST_RECEIVED]', data);
+    callback(data);
+  });
+};
+
+// Send friend accept/reject using command pattern
+export const sendFriendAccept = ({ request_id = null, token = null }) => {
+  if (!request_id) return;
+  sendCommand({ action: 'FRIEND_ACCEPT', data: { request_id }, token });
+};
+
+export const sendFriendReject = ({ request_id = null, token = null }) => {
+  if (!request_id) return;
+  sendCommand({ action: 'FRIEND_REJECT', data: { request_id }, token });
+};
+
+// Listen for real-time accepted notifications (when someone accepted your request)
+export const onFriendAccepted = (callback) => {
+  const sock = getSocket();
+  sock.off('friend_request_accepted');
+  sock.on('friend_request_accepted', (data) => {
+    console.log('[FRIEND_REQUEST_ACCEPTED]', data);
+    callback(data);
+  });
+};
+
+export const onFriendRejected = (callback) => {
+  const sock = getSocket();
+  sock.off('friend_request_rejected');
+  sock.on('friend_request_rejected', (data) => {
+    console.log('[FRIEND_REQUEST_REJECTED]', data);
+    callback(data);
+  });
+};
+
+// Block/unblock user
+export const sendBlockUser = ({ target = null, token = null }) => {
+  if (!target) return;
+  sendCommand({ action: 'BLOCK_USER', data: { target }, token });
+};
+
+export const sendUnblockUser = ({ target = null, token = null }) => {
+  if (!target) return;
+  sendCommand({ action: 'UNBLOCK_USER', data: { target }, token });
+};
+
+export const onUserBlocked = (callback) => {
+  const sock = getSocket();
+  sock.off('user_blocked');
+  sock.on('user_blocked', (data) => {
+    console.log('[USER_BLOCKED]', data);
+    callback(data);
+  });
+};
+
+// Contacts sync
+export const requestContactsSync = (contacts = [], token = null) => {
+  sendCommand({ action: 'CONTACTS_SYNC', data: { contacts }, token });
+};
+
+export const onContactUpdated = (callback) => {
+  const sock = getSocket();
+  sock.off('contact_updated');
+  sock.on('contact_updated', (data) => {
+    console.log('[CONTACT_UPDATED]', data);
+    callback(data);
+  });
 };

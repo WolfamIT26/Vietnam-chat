@@ -9,7 +9,9 @@ import { authAPI } from '../../services/api';
 const RegisterForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [displayName, setDisplayName] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -74,26 +76,64 @@ const RegisterForm = () => {
 
           <div className="form-group">
             <label htmlFor="password">Mật khẩu:</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Nhập mật khẩu"
-              required
-            />
+            <div style={{ position: 'relative' }}>
+              <input
+                type={showPassword ? 'text' : 'password'}
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Nhập mật khẩu"
+                required
+                style={{ paddingRight: '36px' }}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                style={{
+                  position: 'absolute',
+                  right: 8,
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: 18,
+                }}
+              >
+                {showPassword ? '👁️' : '👁️‍🗨️'}
+              </button>
+            </div>
           </div>
 
           <div className="form-group">
             <label htmlFor="confirmPassword">Xác nhận mật khẩu:</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="Nhập lại mật khẩu"
-              required
-            />
+            <div style={{ position: 'relative' }}>
+              <input
+                type={showConfirmPassword ? 'text' : 'password'}
+                id="confirmPassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Nhập lại mật khẩu"
+                required
+                style={{ paddingRight: '36px' }}
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                style={{
+                  position: 'absolute',
+                  right: 8,
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: 18,
+                }}
+              >
+                {showConfirmPassword ? '👁️' : '👁️‍🗨️'}
+              </button>
+            </div>
           </div>
 
           {error && <div className="error-message">{error}</div>}

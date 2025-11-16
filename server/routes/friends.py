@@ -76,3 +76,21 @@ def accept_friend(other_id):
     rel.status = 'accepted'
     db.session.commit()
     return jsonify({'success': True})
+
+
+@friends_bp.route('/<int:other_id>/remove', methods=['DELETE'])
+def remove_friend(other_id):
+    """Remove/unfriend another user"""
+    uid = current_user_from_request(request)
+    if not uid:
+        return jsonify({'error': 'Unauthorized'}), 401
+    if uid == other_id:
+        return jsonify({'error':'Cannot remove yourself'}), 400
+    # Find the friendship relationship (either direction)
+    rel = Friend.query.filter(((Friend.user_id==uid)&(Friend.friend_id==other_id))|((Friend.user_id==other_id)&(Friend.friend_id==uid))).first()
+    if not rel:
+        return jsonify({'error':'Not friends'}), 404
+    # Delete the relationship
+    db.session.delete(rel)
+    db.session.commit()
+    return jsonify({'success': True, 'message': 'Friend removed'})

@@ -67,7 +67,8 @@ const mockApiDelay = (ms = 300) => new Promise((res) => setTimeout(res, ms));
 // Log all API requests and responses for debugging
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
+    // Lấy token từ localStorage hoặc sessionStorage
+      const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -123,41 +124,41 @@ export const authAPI = {
     return Promise.resolve();
   },
 
-  forgotPassword: async (username) => {
-    if (!USE_MOCK) return api.post('/forgot-password', { username });
+  forgotPassword: async (contact) => {
+    if (!USE_MOCK) return api.post('/forgot-password', { contact });
     await mockApiDelay();
     const users = readMockUsers();
-    const found = users.find((u) => u.username === username);
+    const found = users.find((u) => u.username === contact || u.phone_number === contact);
     if (!found) {
       return Promise.resolve({ data: { success: false, message: 'User not found' }, status: 400 });
     }
     const otps = readMockOtps();
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    otps[username] = otp;
+    otps[contact] = otp;
     writeMockOtps(otps);
     // In mock mode we return the OTP so testers can reset immediately
     return Promise.resolve({ data: { success: true, otp }, status: 200 });
   },
 
-  resetPassword: async (username, otp, newPassword) => {
+  resetPassword: async (contact, otp, newPassword) => {
     if (!USE_MOCK) return api.post('/forgot-password/reset', {
-      username,
+      contact,
       otp,
       new_password: newPassword,
     });
     await mockApiDelay();
     const otps = readMockOtps();
-    if (otps[username] !== otp) {
+    if (otps[contact] !== otp) {
       return Promise.resolve({ data: { success: false, message: 'Invalid OTP' }, status: 400 });
     }
     const users = readMockUsers();
-    const idx = users.findIndex((u) => u.username === username);
+    const idx = users.findIndex((u) => u.username === contact || u.phone_number === contact);
     if (idx === -1) {
       return Promise.resolve({ data: { success: false, message: 'User not found' }, status: 400 });
     }
     users[idx].password = newPassword;
     writeMockUsers(users);
-    delete otps[username];
+    delete otps[contact];
     writeMockOtps(otps);
     return Promise.resolve({ data: { success: true }, status: 200 });
   },

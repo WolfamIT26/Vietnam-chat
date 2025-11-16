@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { userAPI } from '../../services/api';
 import api from '../../services/api';
+import { sendFriendRequest } from '../../services/socket';
 
 const formatDateVN = (iso) => {
   if (!iso) return '';
@@ -39,6 +40,7 @@ const ProfileModal = ({ isOpen, onClose, user, onUpdated, onOpenEdit, isOwner = 
   const [gender, setGender] = useState(user?.gender || '');
   const [birthdate, setBirthdate] = useState(user?.birthdate || '');
   const [phoneNumber, setPhoneNumber] = useState(user?.phone_number || '');
+  const [sendingFriendRequest, setSendingFriendRequest] = useState(false);
 
   useEffect(() => {
     setDisplayName(user?.display_name || user?.username || '');
@@ -147,19 +149,51 @@ const ProfileModal = ({ isOpen, onClose, user, onUpdated, onOpenEdit, isOwner = 
                   {isOwner ? (
                     <button onClick={() => { setEditing(true); }} className="btn">✎ Cập nhật</button>
                   ) : (
-                    <button
-                      className="btn"
-                      onClick={() => {
-                        try {
-                          if (onStartChat) onStartChat(user);
-                        } catch (e) {
-                          console.error('onStartChat handler error', e);
-                        }
-                        onClose();
-                      }}
-                    >
-                      ✉️ Nhắn tin
-                    </button>
+                    <div style={{display:'flex',gap:8}}>
+                      {!user?.is_friend ? (
+                        <button
+                          className="btn"
+                          disabled={sendingFriendRequest}
+                          onClick={async () => {
+                            const token = localStorage.getItem('token');
+                            try {
+                              setSendingFriendRequest(true);
+                              if (token) {
+                                sendFriendRequest({ target_user_id: user?.id, token });
+                                alert('Đã gửi lời mời kết bạn');
+                              } else {
+                                await userAPI.addFriend(user?.id);
+                                alert('Đã gửi lời mời kết bạn (REST)');
+                              }
+                            } catch (err) {
+                              console.error('Send friend request failed', err);
+                              const msg = err?.response?.data?.error || err?.message || 'Gửi thất bại';
+                              alert(msg);
+                            } finally {
+                              setSendingFriendRequest(false);
+                            }
+                          }}
+                        >
+                          ➕ Thêm
+                        </button>
+                      ) : (
+                        <button className="btn" disabled title="Bạn bè">Bạn bè</button>
+                      )}
+
+                      <button
+                        className="btn"
+                        onClick={() => {
+                          try {
+                            if (onStartChat) onStartChat(user);
+                          } catch (e) {
+                            console.error('onStartChat handler error', e);
+                          }
+                          onClose();
+                        }}
+                      >
+                        ✉️ Nhắn tin
+                      </button>
+                    </div>
                   )}
                 </div>
               </div>
