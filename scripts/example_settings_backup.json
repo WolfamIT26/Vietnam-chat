@@ -1,0 +1,47 @@
+{
+  "general": {
+    "language": "vi",
+    "autoDownloadMedia": true,
+    "saveToGallery": false,
+    "fontSize": "large"
+  },
+  "privacy": {
+    "lastSeen": "contacts",
+    "profilePhoto": "everyone",
+    "about": "everyone",
+    "readReceipts": true,
+    "groupsAddMe": "contacts",
+    "blockedContacts": []
+  },
+  "notifications": {
+    "messageNotifications": true,
+    "messageSound": true,
+    "messageVibrate": false,
+    "groupNotifications": true,
+    "groupSound": false,
+    "callNotifications": true,
+    "callRingtone": "classic",
+    "showPreview": true,
+    "notificationLight": true
+  },
+  "calls": {
+    "videoEnabled": true,
+    "audioEnabled": true,
+    "lowDataMode": false,
+    "callWaiting": true,
+    "speakerphone": false,
+    "videoQuality": "high",
+    "microphoneDevice": "default",
+    "cameraDevice": "default",
+    "speakerDevice": "default"
+  },
+  "appearance": {
+    "theme": "dark",
+    "chatWallpaper": "gradient1",
+    "bubbleStyle": "rounded",
+    "showAvatars": true,
+    "compactMode": false,
+    "animationsEnabled": true,
+    "emojiSize": "large"
+  }
+}

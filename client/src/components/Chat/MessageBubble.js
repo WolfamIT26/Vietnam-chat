@@ -95,91 +95,87 @@ const MessageBubble = ({ message, isSent, onReply, onReaction, onEmojiHover, onR
             />
           </div>
         ) : message.message_type === 'file' || message.file_url ? (
-          // Enhanced file preview with image preview for images
-          <div style={{ marginBottom: '8px', maxWidth: '300px' }}>
-            {/* Show image preview for image files */}
-            {message.file_type && message.file_type.startsWith('image/') && (
-              <a href={message.file_url} target="_blank" rel="noopener noreferrer">
-                <img
-                  src={message.file_url}
-                  alt={message.file_name || message.content}
-                  style={{
-                    maxWidth: '100%',
-                    maxHeight: '200px',
-                    borderRadius: '8px',
-                    marginBottom: '8px',
-                    display: 'block',
-                    cursor: 'pointer',
-                  }}
-                />
-              </a>
-            )}
-            
-            {/* File info card */}
-            <div style={{
-              background: isSent ? 'rgba(255,255,255,0.1)' : 'rgba(102,126,234,0.1)',
-              padding: '8px 12px',
-              borderRadius: '8px',
-              border: '1px solid rgba(0,0,0,0.1)',
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                {/* File icon */}
-                <span style={{ fontSize: '24px' }}>
-                  {message.file_type && message.file_type.startsWith('image/') ? '🖼️' :
-                   message.file_type && message.file_type.startsWith('video/') ? '🎥' :
-                   message.file_type && message.file_type.startsWith('audio/') ? '🎵' :
-                   message.file_type && message.file_type.includes('pdf') ? '📄' :
-                   '📎'}
-                </span>
-                
-                {/* File name and size */}
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <a
-                    href={message.file_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      color: isSent ? '#fff' : '#667eea',
-                      textDecoration: 'none',
-                      fontWeight: '500',
-                      display: 'block',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
-                    }}
-                  >
-                    {message.file_name || message.content}
+          // File preview -- if it's an image, show only the image (no filename/card)
+          (() => {
+            const url = message.file_url;
+            // If backend provides a relative URL (e.g. '/uploads/files/...'),
+            // ensure we open it against the backend origin so the browser
+            // requests the correct server (dev proxy might not be active).
+            const backendBase = (process.env.REACT_APP_BACKEND_URL || '').replace(/\/$/, '');
+            const linkUrl = (typeof url === 'string' && url.startsWith('/'))
+              ? (backendBase || window.location.origin) + url
+              : url;
+            const type = message.file_type || '';
+
+            const isImageByType = type.startsWith && type.startsWith('image/');
+            const isImageByExt = typeof url === 'string' && url.match(/\.(jpg|jpeg|png|gif|webp|svg)(\?.*)?$/i);
+            const isImage = isImageByType || isImageByExt;
+
+              if (isImage) {
+              // Render only the image; clicking opens in new tab using an anchor
+              return (
+                <div style={{ marginBottom: '6px', maxWidth: '360px', background: 'transparent', padding: 0 }}>
+                  <a href={linkUrl} target="_blank" rel="noopener noreferrer" style={{ display: 'block' }}>
+                    <img
+                      src={linkUrl}
+                      alt={message.file_name || 'image'}
+                      style={{
+                        maxWidth: '100%',
+                        maxHeight: '500px',
+                        borderRadius: 0,
+                        display: 'block',
+                        cursor: 'pointer',
+                        border: 'none',
+                        background: 'transparent'
+                      }}
+                    />
                   </a>
-                  {message.file_size && (
-                    <div style={{
-                      fontSize: '11px',
-                      opacity: 0.7,
-                      marginTop: '2px',
-                    }}>
-                      {formatFileSize(message.file_size)}
-                    </div>
-                  )}
                 </div>
-                
-                {/* Download button */}
-                <a
-                  href={message.file_url}
-                  download
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
-                    fontSize: '18px',
-                    padding: '4px',
-                    textDecoration: 'none',
-                  }}
-                  title="Tải xuống"
-                >
-                  ⬇️
-                </a>
+              );
+            }
+
+            // Non-image files: keep legacy file card UI
+            return (
+              <div style={{ marginBottom: '8px', maxWidth: '300px' }}>
+                <div style={{
+                  background: isSent ? 'rgba(255,255,255,0.1)' : 'rgba(102,126,234,0.1)',
+                  padding: '8px 12px',
+                  borderRadius: '8px',
+                  border: '1px solid rgba(0,0,0,0.1)',
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '24px' }}>
+                      {type.startsWith('video/') ? '🎥' : type.startsWith('audio/') ? '🎵' : type.includes('pdf') ? '📄' : '📎'}
+                    </span>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <a
+                        href={linkUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          color: isSent ? '#fff' : '#667eea',
+                          textDecoration: 'none',
+                          fontWeight: '500',
+                          display: 'block',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        {message.file_name || message.content}
+                      </a>
+                      {message.file_size && (
+                        <div style={{ fontSize: '11px', opacity: 0.7, marginTop: '2px' }}>
+                          {formatFileSize(message.file_size)}
+                        </div>
+                      )}
+                    </div>
+                    <a href={linkUrl} download style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '18px', padding: '4px', textDecoration: 'none' }} title="Tải xuống">⬇️</a>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            );
+          })()
         ) : (
           // Render text with Twemoji to make emoji consistent across platforms
           <div>

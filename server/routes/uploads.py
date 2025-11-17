@@ -91,16 +91,21 @@ def generate_presigned_url():
 
     try:
         # Generate presigned POST URL for upload
+        # Include 'acl' field so uploaded objects are public-read and can be viewed
         presigned_post = s3_client.generate_presigned_post(
             Bucket=bucket,
             Key=key,
-            Fields={'Content-Type': content_type},
+            Fields={'Content-Type': content_type, 'acl': 'public-read'},
             Conditions=[
                 {'Content-Type': content_type},
+                {'acl': 'public-read'},
                 ['content-length-range', 0, MAX_FILE_SIZE]
             ],
             ExpiresIn=expiration
         )
+
+        # Ensure the returned fields include the acl so client includes it
+        presigned_post['fields'].setdefault('acl', 'public-read')
 
         # Generate the public file URL
         file_url = f'https://{bucket}.s3.{region}.amazonaws.com/{key}'
