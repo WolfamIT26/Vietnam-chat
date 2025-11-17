@@ -13,12 +13,17 @@ import axios from 'axios';
 // If REACT_APP_API_URL is set, use it. Otherwise default to the current origin so
 // built clients and ngrok-hosted pages call the same host that served the page.
 let API_URL = process.env.REACT_APP_API_URL !== undefined ? process.env.REACT_APP_API_URL : '';
+// In development prefer an explicit backend URL (so the client doesn't accidentally call the dev server)
 if (!API_URL) {
-  // When running in browser, prefer the page origin (works for localhost dev or ngrok public URL).
-  if (typeof window !== 'undefined' && window.location && window.location.origin) {
-    API_URL = window.location.origin;
+  if (process.env.NODE_ENV === 'development') {
+    API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
   } else {
-    API_URL = '';
+    // When running in browser (production), prefer the page origin
+    if (typeof window !== 'undefined' && window.location && window.location.origin) {
+      API_URL = window.location.origin;
+    } else {
+      API_URL = '';
+    }
   }
 }
 
@@ -227,6 +232,7 @@ export const userAPI = {
   },
   getFriends: () => api.get('/friends'),
   getFriendRequests: () => api.get('/friends/requests'),
+  getBlockedUsers: () => api.get('/friends/blocked'),
 };
 
 // Message APIs

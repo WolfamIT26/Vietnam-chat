@@ -73,6 +73,76 @@ def update_me():
         try:
             db.session.add(user)
             db.session.commit()
+            # Debug log for profile update
+            try:
+                current_app.logger.info(f"[USERS] User {user.id} profile updated. avatar_url={user.avatar_url}")
+            except Exception:
+                pass
+            # Emit realtime update to friends so they see new avatar/profile immediately
+            try:
+                # import here to avoid circular imports at module import time
+                from app import socketio
+                from models.friend_model import Friend
+                # collect friend ids in both directions
+                outgoing = Friend.query.filter_by(user_id=user.id, status='accepted').all() or []
+                incoming = Friend.query.filter_by(friend_id=user.id, status='accepted').all() or []
+                friend_ids = set()
+                for f in outgoing:
+                    friend_ids.add(f.friend_id)
+                for f in incoming:
+                    friend_ids.add(f.user_id)
+
+                payload = {
+                    'event': 'PROFILE_UPDATED',
+                    'data': {
+                        'id': user.id,
+                        'username': user.username,
+                        'display_name': user.display_name if getattr(user, 'display_name', None) else user.username,
+                        'avatar_url': user.avatar_url,
+                        'status': user.status,
+                    }
+                }
+
+                # Emit to the user's own room (useful for multi-tab) and to each friend's room
+                # Diagnostic: log current user_sockets mapping so we can tell which users are connected
+                try:
+                    from sockets import chat_events as _chat_events
+                    current_map = getattr(_chat_events, 'user_sockets', {}) or {}
+                    try:
+                        current_app.logger.info(f"[USERS][DIAG] current user_sockets keys={list(current_map.keys())}")
+                        # show a compact mapping of user_id -> sid for debugging
+                        for k, v in list(current_map.items())[:50]:
+                            current_app.logger.debug(f"[USERS][DIAG] mapping {k} -> {v}")
+                    except Exception:
+                        current_app.logger.debug('[USERS][DIAG] failed logging user_sockets mapping')
+                except Exception:
+                    # best-effort only
+                    try:
+                        current_app.logger.debug('[USERS][DIAG] chat_events not importable')
+                    except Exception:
+                        pass
+                try:
+                    current_app.logger.info(f"[USERS] Emitting PROFILE_UPDATED for user {user.id} to user-{user.id} and {len(friend_ids)} friends")
+                    socketio.emit('contact_updated', payload, room=f'user-{user.id}')
+                except Exception as e:
+                    current_app.logger.exception(f"[USERS] Failed emitting to own room: {e}")
+
+                for fid in friend_ids:
+                    try:
+                        current_app.logger.debug(f"[USERS] Emitting PROFILE_UPDATED for user {user.id} to friend room user-{fid}")
+                        socketio.emit('contact_updated', payload, room=f'user-{fid}')
+                    except Exception as e:
+                        current_app.logger.exception(f"[USERS] Failed emitting to friend {fid}: {e}")
+                # As a fallback, also broadcast the update to all connected clients.
+                # This ensures clients that for some reason didn't join rooms still receive profile updates.
+                try:
+                    current_app.logger.info(f"[USERS] Broadcasting PROFILE_UPDATED for user {user.id} to all connected clients as fallback")
+                    socketio.emit('contact_updated', payload)
+                except Exception as e:
+                    current_app.logger.exception(f"[USERS] Failed broadcasting PROFILE_UPDATED: {e}")
+            except Exception:
+                # Do not fail the request if emitting realtime updates fails
+                pass
         except Exception as e:
             # log and return error to client so frontend can show more info
             current_err = str(e)

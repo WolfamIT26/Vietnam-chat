@@ -3,6 +3,7 @@ import { userAPI } from '../../services/api';
 import api, { apiDirect } from '../../services/api';
 import { sendFriendRequest } from '../../services/socket';
 import { showToast, showSystemNotification } from '../../services/notifications';
+import profileSync from '../../services/profileSync';
 
 const formatDateVN = (iso) => {
   if (!iso) return '';
@@ -43,6 +44,8 @@ const ProfileModal = ({ isOpen, onClose, user, onUpdated, onOpenEdit, isOwner = 
   const [phoneNumber, setPhoneNumber] = useState(user?.phone_number || '');
   const [sendingFriendRequest, setSendingFriendRequest] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [showUnfriendConfirm, setShowUnfriendConfirm] = useState(false);
+  const [unfriendProcessing, setUnfriendProcessing] = useState(false);
 
   useEffect(() => {
     setDisplayName(user?.display_name || user?.username || '');
@@ -51,6 +54,7 @@ const ProfileModal = ({ isOpen, onClose, user, onUpdated, onOpenEdit, isOwner = 
     setGender(user?.gender || '');
     setBirthdate(user?.birthdate || '');
     setPhoneNumber(user?.phone_number || '');
+    // no-op: keep local component state in sync with provided `user`
   }, [user, isOpen]);
 
   if (!isOpen) return null;
@@ -153,8 +157,8 @@ const ProfileModal = ({ isOpen, onClose, user, onUpdated, onOpenEdit, isOwner = 
       } catch (e) {}
       onUpdated && onUpdated(resp.data);
       setEditing(false);
-      showToast('Cập nhật', 'Thông tin đã được lưu');
-      showSystemNotification('Cập nhật', 'Thông tin đã được lưu');
+      showToast('Cập nhật thành công', 'Thông tin cá nhân của bạn đã được cập nhật.', { variant: 'success', icon: '✓' });
+      showSystemNotification('Cập nhật thành công', 'Thông tin cá nhân của bạn đã được cập nhật.');
     } catch (err) {
       // Improved diagnostics: log whole axios error and present a clearer toast
       try {
@@ -179,6 +183,43 @@ const ProfileModal = ({ isOpen, onClose, user, onUpdated, onOpenEdit, isOwner = 
         msg = `Cập nhật thất bại: không nhận được phản hồi từ server (${err.message || err.code || 'Network Error'})`;
       } else if (err?.message) {
         msg = `Cập nhật thất bại: ${err.message}`;
+      }
+
+      // If request was made but no response was received, perform an optimistic local update
+      if (err && err.request && !err.response) {
+        const localUser = Object.assign({}, user || {});
+        localUser.display_name = displayName;
+        localUser.gender = gender || null;
+        localUser.birthdate = birthdate || null;
+        localUser.phone_number = phoneNumber || null;
+        // Use avatarPreview which may be a data URL if upload didn't return a server URL
+        if (avatarPreview) localUser.avatar_url = avatarPreview;
+
+        // persist locally and queue pending update
+        profileSync.saveLocalProfile(localUser.id || user?.id || 'local', localUser);
+        profileSync.addPendingUpdate(localUser.id || user?.id || 'local', {
+          display_name: localUser.display_name,
+          avatar_url: localUser.avatar_url,
+          gender: localUser.gender,
+          birthdate: localUser.birthdate,
+          phone_number: localUser.phone_number,
+        });
+
+        // Update local component state so view reflects new values
+        try {
+          setAvatarPreview(localUser.avatar_url || '');
+          setDisplayName(localUser.display_name || '');
+          setGender(localUser.gender || '');
+          setBirthdate(localUser.birthdate || '');
+          setPhoneNumber(localUser.phone_number || '');
+        } catch (e) {}
+
+        onUpdated && onUpdated(localUser);
+        setEditing(false);
+        showToast('Cập nhật thành công (cục bộ)', 'Đã lưu cục bộ — sẽ tự đồng bộ lên server khi có kết nối.', { variant: 'success', icon: '✓' });
+        showSystemNotification('Cập nhật thành công (cục bộ)', 'Đã lưu cục bộ — sẽ tự đồng bộ lên server khi có kết nối.');
+        setSaving(false);
+        return;
       }
 
       showToast('Cập nhật thất bại', msg);
@@ -269,6 +310,8 @@ const ProfileModal = ({ isOpen, onClose, user, onUpdated, onOpenEdit, isOwner = 
                 </div>
               </div>
             )}
+
+                  {/* pending-sync banner removed per user request */}
           </div>
         </div>
 
@@ -304,7 +347,35 @@ const ProfileModal = ({ isOpen, onClose, user, onUpdated, onOpenEdit, isOwner = 
                   }
                 }}>➕ Thêm</button>
               ) : (
-                <button className="btn" disabled title="Bạn bè">Bạn bè</button>
+                <div>
+                  {!showUnfriendConfirm ? (
+                    <button className="btn" onClick={() => setShowUnfriendConfirm(true)}>Bạn bè</button>
+                  ) : (
+                    <div style={{display:'flex',gap:8,alignItems:'center'}}>
+                      <span style={{color:'#b91c1c', fontWeight:600}}>Xác nhận xóa bạn bè?</span>
+                      <button className="btn" disabled={unfriendProcessing} onClick={async () => {
+                        try {
+                          setUnfriendProcessing(true);
+                          await userAPI.removeFriend(user.id);
+                          showToast('Bạn bè', `Đã xóa ${user.display_name || user.username}`);
+                          showSystemNotification('Bạn bè', `Đã xóa ${user.display_name || user.username}`);
+                          // Notify parent that profile changed so lists can refresh
+                          onUpdated && onUpdated(null);
+                          setShowUnfriendConfirm(false);
+                          onClose();
+                        } catch (err) {
+                          console.error('Remove friend failed', err);
+                          const msg = err?.response?.data?.error || err?.message || 'Xóa thất bại';
+                          showToast('Lỗi', msg);
+                          showSystemNotification('Lỗi', msg);
+                        } finally {
+                          setUnfriendProcessing(false);
+                        }
+                      }}>Xác nhận</button>
+                      <button className="btn" onClick={() => setShowUnfriendConfirm(false)}>Hủy</button>
+                    </div>
+                  )}
+                </div>
               )}
 
               <button className="btn" onClick={() => { try { if (onStartChat) onStartChat(user); } catch(e){} onClose(); }}>✉️ Nhắn tin</button>

@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { initializeSocket, getSocket, sendMessage, onReceiveMessage, joinUserRoom, sendReaction, onReaction, sendTyping, onTyping, onMessageSentAck, sendSticker, requestContactsList, onCommandResponse, sendFriendRequest, onFriendRequestReceived, sendFriendAccept, sendFriendReject, onFriendAccepted, onFriendRejected, sendBlockUser, sendUnblockUser, onUserBlocked, requestContactsSync, onContactUpdated } from '../../services/socket';
+import { initializeSocket, getSocket, sendMessage, onReceiveMessage, joinUserRoom, sendReaction, onReaction, sendTyping, onTyping, onMessageSentAck, sendSticker, requestContactsList, onCommandResponse, sendFriendRequest, onFriendRequestReceived, sendFriendAccept, sendFriendReject, onFriendAccepted, onFriendRejected, sendBlockUser, sendUnblockUser, onUserBlocked, requestContactsSync, onContactUpdated, onUserJoined, onUserOffline } from '../../services/socket';
 import { showToast, showSystemNotification, playSound } from '../../services/notifications';
-import { userAPI, messageAPI, groupAPI } from '../../services/api';
+import api, { userAPI, messageAPI, groupAPI } from '../../services/api';
+import profileSync from '../../services/profileSync';
 import { uploadFile } from '../../services/upload';
 import MessageBubble from './MessageBubble';
 import StickerButton from './StickerButton';
@@ -10,6 +11,8 @@ import LogoutButton from '../Auth/LogoutButton';
 import ProfileModal from './ProfileModal';
 import AvatarModal from './AvatarModal';
 import EditProfileModal from './EditProfileModal';
+import AddFriendModal from './AddFriendModal';
+import CreateGroupModal from './CreateGroupModal';
 
 /**
  * ChatBox - Giao diện chat chính
@@ -48,6 +51,45 @@ const ChatBox = () => {
   const [otherProfileOpen, setOtherProfileOpen] = useState(false);
   const [otherProfileUser, setOtherProfileUser] = useState(null);
   
+  // Build absolute avatar URL (prefix relative URLs with API base)
+  const buildAvatarSrc = (avatar_url) => {
+    try {
+      // Basic validation: reject obviously-broken short tokens like 'profile'
+      if (!avatar_url || (typeof avatar_url === 'string' && !avatar_url.includes('/') && !avatar_url.includes('.'))) {
+        return `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUsername||'U')}&background=ffffff&color=0b5ed7`;
+      }
+      if (typeof avatar_url === 'string') {
+        // Data URLs should be used directly (they're already absolute)
+        if (avatar_url.startsWith('data:')) return avatar_url;
+        if (avatar_url.startsWith('http://') || avatar_url.startsWith('https://')) return avatar_url;
+        // If avatar_url is a relative path (e.g. '/uploads/files/...'), prefix with API baseURL when available
+        const base = (api && api.defaults && api.defaults.baseURL) ? api.defaults.baseURL : '';
+        if (String(avatar_url).startsWith('/')) {
+          return `${String(base).replace(/\/$/, '')}${avatar_url}`;
+        }
+        // otherwise, assume it's a relative path missing leading slash
+        return `${String(base).replace(/\/$/, '')}/${avatar_url}`;
+      }
+    } catch (e) {
+      return `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUsername||'U')}&background=ffffff&color=0b5ed7`;
+    }
+  };
+
+  // Append a cache-busting timestamp to avatar URLs so updated images reload.
+  // If URL already contains a `t=` param, replace it. Skip data: URLs.
+  const cacheBustUrl = (url) => {
+    try {
+      if (!url || typeof url !== 'string') return url;
+      if (url.startsWith('data:')) return url;
+      const ts = Date.now();
+      // remove existing t param if present
+      const cleaned = url.replace(/([?&])t=\d+(&)?/, (m, p1, p2) => (p2 ? p1 : ''));
+      return cleaned + (cleaned.includes('?') ? '&' : '?') + 't=' + ts;
+    } catch (e) {
+      return url;
+    }
+  };
+
   // Dialog states
   const [confirmDialog, setConfirmDialog] = useState({ open: false, title: '', onConfirm: null });
   
@@ -77,12 +119,67 @@ const ChatBox = () => {
   const pressResetTimeoutRef = useRef(null);
   const pickerClearTimeoutRef = useRef(null);
   const [pickerCloseSignal, setPickerCloseSignal] = useState(0);
+  // Dev-only debug state to surface last socket payloads and avatar reloads
+  const [lastContactPayload, setLastContactPayload] = useState(null);
+  const [lastAvatarReload, setLastAvatarReload] = useState(null);
   
   // Ref để scroll xuống cuối chat
   const messagesEndRef = useRef(null);
   const fileInputRef = useRef(null);
   const inputRef = useRef(null);
   const isDev = process.env.NODE_ENV === 'development';
+  const [activeNav, setActiveNav] = useState(filterTab);
+  useEffect(() => {
+    // keep nav active in sync when switching tabs programmatically
+    if (filterTab === 'conversations' || filterTab === 'contacts') setActiveNav(filterTab);
+  }, [filterTab]);
+  const [pendingOpen, setPendingOpen] = useState(false);
+  const [pendingExpanded, setPendingExpanded] = useState(false);
+  const [addFriendOpen, setAddFriendOpen] = useState(false);
+  const [createGroupOpen, setCreateGroupOpen] = useState(false);
+
+  const acceptFriendRequest = async (userId) => {
+    try {
+      await userAPI.acceptFriend(userId);
+      // remove from pending list
+      setFriendRequests(prev => prev.filter(r => String(r.user_id) !== String(userId)));
+      // refresh friends list (append newly accepted user)
+      try {
+        const resp = await userAPI.getUserById(userId);
+        if (resp && resp.data) setUsers(prev => [resp.data, ...(prev || [])]);
+      } catch (err) {
+        // ignore
+      }
+      try {
+        const uresp = await userAPI.getUserById(userId);
+        const name = uresp?.data?.display_name || uresp?.data?.username || `Người dùng ${userId}`;
+        showToast('Bạn bè', `Đã chấp nhận lời mời từ ${name}`);
+      } catch (e) {
+        showToast('Bạn bè', `Đã chấp nhận lời mời từ ${userId}`);
+      }
+    } catch (e) {
+      console.error('Accept friend failed', e);
+      showToast('Lỗi', 'Chấp nhận thất bại');
+    }
+  };
+
+  const rejectFriendRequest = async (userId) => {
+    try {
+      // removeFriend endpoint handles deleting pending relations as well
+      await userAPI.removeFriend(userId);
+      setFriendRequests(prev => prev.filter(r => String(r.user_id) !== String(userId)));
+        try {
+          const uresp = await userAPI.getUserById(userId);
+          const name = uresp?.data?.display_name || uresp?.data?.username || `Người dùng ${userId}`;
+          showToast('Bạn bè', `Đã từ chối lời mời từ ${name}`);
+        } catch (e) {
+          showToast('Bạn bè', `Đã từ chối lời mời từ ${userId}`);
+        }
+    } catch (e) {
+      console.error('Reject friend failed', e);
+      showToast('Lỗi', 'Từ chối thất bại');
+    }
+  };
 
   // Gửi sticker trực tiếp
   const handleSendSticker = (sticker) => {
@@ -109,23 +206,31 @@ const ChatBox = () => {
     // Update conversation preview immediately
     updateConversationPreview({ sender_id: currentUserId, receiver_id: selectedUser.id, message_type: 'sticker', sticker_url: sticker.url });
     try { playSound('send'); } catch (e) {}
-    // restore focus after sticker send
-    setTimeout(() => {
-      try {
-        const el = inputRef.current;
-        if (el) {
-          el.focus();
-          const len = el.value?.length || 0;
-          try { el.setSelectionRange(len, len); } catch (e) {}
-        }
-      } catch (e) {}
-    }, 50);
+
+  // restore focus to input after sending
+  setTimeout(() => {
+    try {
+      const el = inputRef.current;
+      if (el) {
+        el.focus();
+        const len = el.value?.length || 0;
+        try { el.setSelectionRange(len, len); } catch (e) {}
+      }
+    } catch (e) {}
+  }, 50);
+
+    const ackTimeout = setTimeout(() => {
+      setMessages((prev) =>
+        prev.map((m) => (m.id === clientMessageId ? { ...m, status: 'failed' } : m))
+      );
+      setIsSending(false);
+      keepScaledRef.current = false;
+      setPressScale(1);
+    }, 3000);
+
+    // Store timeout id on the optimistic message so ACK handling can clear it
+    setMessages((prev) => prev.map((m) => (m.id === clientMessageId ? { ...m, _ackTimeout: ackTimeout } : m)));
   };
-
-  // (Stickers are sent immediately via handleSendSticker; emoji are inserted into input)
-
-  // Prepare a sticker to be sent when the user hits send/enter (don't send immediately)
-  // (stickers are sent immediately via handleSendSticker)
 
   // Thêm emoji vào input; nếu sendNow=true thì gửi ngay lập tức
   const handleAddEmoji = (emoji, sendNow = false) => {
@@ -260,7 +365,13 @@ const ChatBox = () => {
         let result;
         if (idx !== -1) {
           const existing = prev[idx];
-          const updated = { ...existing, last_message: previewText, display_name: existing.display_name || finalDisplay, username: existing.username || username };
+          const updated = {
+            ...existing,
+            last_message: previewText,
+            display_name: existing.display_name || finalDisplay,
+            username: existing.username || username,
+            avatar_url: existing.avatar_url || msg.avatar_url || msg.sender_avatar_url || (username ? `https://ui-avatars.com/api/?name=${encodeURIComponent(username)}&background=667eea&color=fff` : null),
+          };
           // move to top
           const others = prev.filter((_, i) => i !== idx);
           result = [updated, ...others];
@@ -272,6 +383,7 @@ const ChatBox = () => {
             display_name: finalDisplay,
             last_message: previewText,
             is_group: false,
+            avatar_url: msg.avatar_url || msg.sender_avatar_url || (username ? `https://ui-avatars.com/api/?name=${encodeURIComponent(username)}&background=667eea&color=fff` : null),
           };
           result = [newEntry, ...prev];
         }
@@ -294,8 +406,18 @@ const ChatBox = () => {
         const user = resp.data;
         setCurrentUsername(user.username);
         setCurrentUserId(user.id);
-  setCurrentUserProfile(user);
-  localStorage.setItem('username', user.username);
+        // merge with any locally cached profile to reflect optimistic local saves
+        const cached = profileSync.getLocalProfile(String(user.id));
+        const merged = Object.assign({}, user, cached || {});
+        setCurrentUserProfile(merged);
+        localStorage.setItem('username', user.username);
+        if (cached) {
+          // still try to push pending updates in background
+          setTimeout(() => profileSync.retryPendingUpdates(), 1000);
+        } else {
+          // also attempt any pending updates for this user
+          setTimeout(() => profileSync.retryPendingUpdates(), 500);
+        }
         // Join the user's personal socket room by id for reliable delivery
         if (user && user.id) {
           joinUserRoom(user.id);
@@ -315,8 +437,15 @@ const ChatBox = () => {
 
     loadCurrent();
 
+    // Periodic background retry for pending profile updates (attempt every 30s)
+    const retryInterval = setInterval(() => {
+      try {
+        profileSync.retryPendingUpdates();
+      } catch (e) { console.warn('retryPendingUpdates periodic failed', e); }
+    }, 30000);
+
     return () => {
-      // Cleanup khi unmount
+      clearInterval(retryInterval);
     };
   }, []);
 
@@ -381,15 +510,47 @@ const ChatBox = () => {
     // Setup ACK listener for message_sent_ack
     onMessageSentAck((ack) => {
       if (isDev) console.debug('[ACK] Message saved by server:', ack);
-      const { client_message_id, message_id, status } = ack;
-      
-      // Clear timeout and update message status
+      const { client_message_id, message_id, status, blocked_message } = ack;
+
+      // Special-case: blocked by receiver or sender -> show user-friendly message
+      if (status === 'blocked') {
+        // mark optimistic message as blocked and clear its ACK timeout
+        setMessages((prev) =>
+          prev.map((m) => {
+            if (m.id === client_message_id) {
+              if (m._ackTimeout) clearTimeout(m._ackTimeout);
+              return { ...m, status: 'blocked' };
+            }
+            return m;
+          })
+        );
+
+        // Show a toast and a system message in the conversation so the user sees why send failed
+        const human = blocked_message || 'Hiện tại bạn không thể gửi tin nhắn cho người này.';
+        try { showToast('Không thể gửi', human); } catch (e) {}
+
+        const sysMsg = {
+          id: `sys_${Date.now()}`,
+          message_type: 'system',
+          content: human,
+          timestamp: new Date().toISOString(),
+          isSystem: true,
+        };
+        setMessages((prev) => [...prev, sysMsg]);
+
+        setIsSending(false);
+        keepScaledRef.current = false;
+        setPressScale(1);
+        return;
+      }
+
+      // Normal ACK flow: update message id and status
       setMessages((prev) =>
         prev.map((m) => {
           if (m.id === client_message_id) {
             // Clear timeout if exists
             if (m._ackTimeout) clearTimeout(m._ackTimeout);
-            return { ...m, id: message_id, status: status || 'sent' };
+            return { ...m, id: message_id || m.id, status: status || 'sent' };
           }
           return m;
         })
@@ -425,6 +586,91 @@ const ChatBox = () => {
         });
     });
 
+    // Presence: listen for users joining/leaving to update online status in lists
+    try {
+      onUserJoined((payload) => {
+        try {
+          const uid = payload?.user_id || payload?.id || payload?.user_id;
+          if (!uid) return;
+          // Be lenient when matching: compare id, username or display_name
+          setUsers((prev) => prev.map((u) => {
+            try {
+              if (String(u.id) === String(uid) || String(u.username) === String(uid) || String(u.display_name) === String(uid)) {
+                return { ...u, status: 'online' };
+              }
+            } catch (e) {}
+            return u;
+          }));
+          if (selectedUser && String(selectedUser.id) === String(uid)) {
+            setSelectedUser((s) => ({ ...s, status: 'online' }));
+          }
+        } catch (e) { if (isDev) console.debug('onUserJoined handler error', e); }
+      });
+
+      onUserOffline((payload) => {
+        try {
+          const uid = payload?.user_id || payload?.id || payload?.user_id;
+          if (!uid) return;
+          setUsers((prev) => prev.map((u) => {
+            try {
+              if (String(u.id) === String(uid) || String(u.username) === String(uid) || String(u.display_name) === String(uid)) {
+                return { ...u, status: 'offline' };
+              }
+            } catch (e) {}
+            return u;
+          }));
+          if (selectedUser && String(selectedUser.id) === String(uid)) {
+            setSelectedUser((s) => ({ ...s, status: 'offline' }));
+          }
+        } catch (e) { if (isDev) console.debug('onUserOffline handler error', e); }
+      });
+    } catch (e) {
+      if (isDev) console.debug('Presence listeners not attached', e);
+    }
+
+    // Listen for contact/profile updates (e.g. avatar change) from server
+    try {
+      onContactUpdated((payload) => {
+        try {
+          if (!payload) return;
+          try { setLastContactPayload(payload); } catch (e) {}
+          if (payload.event === 'PROFILE_UPDATED' && payload.data) {
+            const p = payload.data;
+              // cache-bust avatar URL so browsers reload updated image
+              const bustedAvatar = cacheBustUrl(p.avatar_url);
+              // update users list entries
+              setUsers((prev) => (prev || []).map((u) => {
+                try {
+                  if (String(u.id) === String(p.id)) {
+                    return { ...u, avatar_url: bustedAvatar, display_name: p.display_name, username: p.username };
+                  }
+                } catch (e) {}
+                return u;
+              }));
+              // update selected user view if currently open
+              if (selectedUser && String(selectedUser.id) === String(p.id)) {
+                setSelectedUser((s) => ({ ...s, avatar_url: bustedAvatar, display_name: p.display_name, username: p.username }));
+              }
+              // persist to local cache so open tabs / reloads reflect change
+              try { profileSync.saveLocalProfile(String(p.id), { ...p, avatar_url: bustedAvatar }); } catch (e) {}
+
+              // Force-update any DOM <img> elements for this user to ensure browser reloads image immediately
+              try {
+                const finalSrc = buildAvatarSrc(bustedAvatar);
+                const imgs = Array.from(document.querySelectorAll(`img[data-user-id="${p.id}"]` || []));
+                imgs.forEach((img) => {
+                  try {
+                    img.src = finalSrc;
+                    try { console.log('[AVATAR] forced reload for user ->', p.id, finalSrc); } catch (e) {}
+                    try { setLastAvatarReload({ id: p.id, url: finalSrc, ts: Date.now() }); } catch (e) {}
+                  } catch (e) {}
+                });
+              } catch (e) {}
+          }
+        } catch (e) { if (isDev) console.debug('onContactUpdated handler error', e); }
+      });
+    } catch (e) { if (isDev) console.debug('onContactUpdated not attached', e); }
+
     // Setup typing listener
     onTyping((data) => {
       if (isDev) console.debug('[TYPING]', data);
@@ -436,29 +682,50 @@ const ChatBox = () => {
       try {
         // payload: { event: 'FRIEND_REQUEST_RECEIVED', from_user: '123' }
         const fromId = payload?.from_user;
-        // Add to friendRequests state so it appears in UI (use minimal shape)
-        setFriendRequests((prev) => {
-          // avoid duplicates by from_user
-          if (prev.some((r) => String(r.user_id) === String(fromId))) return prev;
-          const newReq = { rel_id: `fr_${Date.now()}_${fromId}`, user_id: fromId, username: `User ${fromId}` };
-          return [newReq, ...prev];
-        });
-        // In-app + system notification for friend request
-        const fromLabel = payload?.from_username || payload?.from_user_name || `Người dùng ${fromId}`;
-        showToast('Lời mời kết bạn', `${fromLabel} đã gửi lời mời kết bạn`);
-        showSystemNotification('Lời mời kết bạn', `${fromLabel} đã gửi lời mời kết bạn`);
+        // Add to friendRequests state and try to enrich with the sender's profile immediately
+        (async () => {
+          try {
+            const uresp = await userAPI.getUserById(fromId);
+            const u = uresp.data;
+            const newReq = { rel_id: `fr_${Date.now()}_${fromId}`, user_id: fromId, username: u?.username, display_name: u?.display_name, avatar_url: u?.avatar_url };
+            setFriendRequests((prev) => {
+              if (prev.some((r) => String(r.user_id) === String(fromId))) return prev;
+              return [newReq, ...prev];
+            });
+            const fromLabel = u?.display_name || u?.username || `Người dùng ${fromId}`;
+            showToast('Lời mời kết bạn', `${fromLabel} đã gửi lời mời kết bạn`);
+            showSystemNotification('Lời mời kết bạn', `${fromLabel} đã gửi lời mời kết bạn`);
+          } catch (e) {
+            const newReq = { rel_id: `fr_${Date.now()}_${fromId}`, user_id: fromId, username: `User ${fromId}` };
+            setFriendRequests((prev) => {
+              if (prev.some((r) => String(r.user_id) === String(fromId))) return prev;
+              return [newReq, ...prev];
+            });
+            const fromLabel = payload?.from_username || payload?.from_user_name || `Người dùng ${fromId}`;
+            showToast('Lời mời kết bạn', `${fromLabel} đã gửi lời mời kết bạn`);
+            showSystemNotification('Lời mời kết bạn', `${fromLabel} đã gửi lời mời kết bạn`);
+          }
+        })();
       } catch (e) {
         console.error('Error handling friend_request_received:', e);
       }
     });
 
     // Listen for accepted/rejected notifications (when someone accepts/rejects your outgoing request)
-    onFriendAccepted((payload) => {
+  onFriendAccepted(async (payload) => {
       try {
         // payload: { event: 'FRIEND_ACCEPTED', user_id: '123' }
         const accepterId = payload?.user_id;
-        showToast('Lời mời được chấp nhận', `Người dùng ${accepterId} đã chấp nhận lời mời của bạn`);
-        showSystemNotification('Lời mời được chấp nhận', `Người dùng ${accepterId} đã chấp nhận lời mời của bạn`);
+        try {
+          const uresp = await userAPI.getUserById(accepterId);
+          const u = uresp.data;
+          const name = u?.display_name || u?.username || `Người dùng ${accepterId}`;
+          showToast('Lời mời được chấp nhận', `${name} đã chấp nhận lời mời của bạn`);
+          showSystemNotification('Lời mời được chấp nhận', `${name} đã chấp nhận lời mời của bạn`);
+        } catch (e) {
+          showToast('Lời mời được chấp nhận', `Người dùng ${accepterId} đã chấp nhận lời mời của bạn`);
+          showSystemNotification('Lời mời được chấp nhận', `Người dùng ${accepterId} đã chấp nhận lời mời của bạn`);
+        }
         // refresh friends list if on contacts tab
         if (filterTab === 'contacts') {
           const token = localStorage.getItem('token');
@@ -470,11 +737,18 @@ const ChatBox = () => {
       }
     });
 
-    onFriendRejected((payload) => {
+    onFriendRejected(async (payload) => {
       try {
         const rejectorId = payload?.user_id;
-        showToast('Lời mời bị từ chối', `Người dùng ${rejectorId} đã từ chối lời mời của bạn`);
-        showSystemNotification('Lời mời bị từ chối', `Người dùng ${rejectorId} đã từ chối lời mời của bạn`);
+        try {
+          const uresp = await userAPI.getUserById(rejectorId);
+          const name = uresp?.data?.display_name || uresp?.data?.username || `Người dùng ${rejectorId}`;
+          showToast('Lời mời bị từ chối', `${name} đã từ chối lời mời của bạn`);
+          showSystemNotification('Lời mời bị từ chối', `${name} đã từ chối lời mời của bạn`);
+        } catch (e) {
+          showToast('Lời mời bị từ chối', `Người dùng ${rejectorId} đã từ chối lời mời của bạn`);
+          showSystemNotification('Lời mời bị từ chối', `Người dùng ${rejectorId} đã từ chối lời mời của bạn`);
+        }
       } catch (e) {
         console.error('Error handling friend rejected:', e);
       }
@@ -568,11 +842,93 @@ const ChatBox = () => {
       }
     });
 
-    // Contact updated event
+    // Contact updated / profile update event
     onContactUpdated((payload) => {
       try {
-        // payload: { event: 'CONTACT_UPDATED', data: [...] }
-        if (isDev) console.debug('Contact updated payload', payload);
+        // Always log contact_updated payload to help debug in non-dev builds
+        try { console.log('[SOCKET] contact_updated payload:', payload); } catch (e) {}
+        try { setLastContactPayload(payload); } catch (e) {}
+        if (isDev) console.debug('Contact updated payload (dev)', payload);
+
+        const ev = payload?.event;
+        const data = payload?.data;
+
+        // Server may send a single profile object for PROFILE_UPDATED
+        if (ev === 'PROFILE_UPDATED' && data) {
+          const u = data;
+          const busted = cacheBustUrl(u.avatar_url);
+          // Update users list (replace or prepend)
+          setUsers((prev) => {
+            try {
+              const idx = prev.findIndex((p) => String(p.id) === String(u.id));
+              if (idx !== -1) {
+                const copy = [...prev];
+                copy[idx] = { ...copy[idx], ...u, avatar_url: busted || copy[idx].avatar_url };
+                return copy;
+              }
+              return [{ id: u.id, username: u.username, display_name: u.display_name, avatar_url: busted, status: u.status }, ...prev];
+            } catch (e) {
+              return prev;
+            }
+          });
+
+          // Update selected user view if open
+          try {
+            if (selectedUser && String(selectedUser.id) === String(u.id)) {
+              setSelectedUser((s) => ({ ...s, ...u, avatar_url: busted }));
+            }
+          } catch (e) {}
+
+          // If this is current user, refresh local profile cache
+          try {
+            if (String(currentUserId) === String(u.id)) {
+              setCurrentUserProfile((p) => ({ ...p, ...u, avatar_url: busted }));
+            }
+            // persist to local profile cache so other tabs pick it up
+            try { profileSync.saveLocalProfile(String(u.id), { ...u, avatar_url: busted }); } catch (e) {}
+          } catch (e) {}
+
+          // Force-update any DOM <img> elements for this user to ensure browser reloads image immediately
+          try {
+            const finalSrc = buildAvatarSrc(busted);
+            const imgs = Array.from(document.querySelectorAll(`img[data-user-id="${u.id}"]` || []));
+            imgs.forEach((img) => {
+              try {
+                img.src = finalSrc;
+                try { console.log('[AVATAR] forced reload for user ->', u.id, finalSrc); } catch (e) {}
+                try { setLastAvatarReload({ id: u.id, url: finalSrc, ts: Date.now() }); } catch (e) {}
+              } catch (e) {}
+            });
+          } catch (e) {}
+
+          // Show subtle notification
+          showToast('Hồ sơ', `${u.display_name || u.username} đã cập nhật hồ sơ`);
+          showSystemNotification('Hồ sơ', `${u.display_name || u.username} đã cập nhật hồ sơ`);
+
+          return;
+        }
+
+        // CONTACT_UPDATED may carry an array of matches (from contacts sync)
+        if (ev === 'CONTACT_UPDATED' && Array.isArray(data)) {
+          // merge contacts into users list
+          setUsers((prev) => {
+            const byId = new Map(prev.map((it) => [String(it.id), it]));
+            data.forEach((d) => {
+              const id = String(d.id);
+              const existing = byId.get(id);
+              const name = d.name || d.username || existing?.display_name || existing?.username || `Người dùng ${d.id}`;
+              const avatar = existing?.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=667eea&color=fff`;
+              byId.set(id, { id: d.id, username: d.username || name, display_name: name, avatar_url: d.avatar_url || avatar, status: existing?.status || 'offline' });
+            });
+            return Array.from(byId.values());
+          });
+
+          showToast('Danh bạ', 'Danh bạ đã được cập nhật');
+          showSystemNotification('Danh bạ', 'Danh bạ đã được cập nhật');
+          return;
+        }
+
+        // Generic fallback: show a small notice
         showToast('Danh bạ', 'Danh bạ được cập nhật từ server');
         showSystemNotification('Danh bạ', 'Danh bạ được cập nhật từ server');
       } catch (e) {
@@ -622,9 +978,46 @@ const ChatBox = () => {
     const fetchFriendRequests = async () => {
       try {
         const resp = await userAPI.getFriendRequests();
-        setFriendRequests(resp.data || []);
+        const pending = resp.data || [];
+        if (pending.length === 0) {
+          setFriendRequests([]);
+          return;
+        }
+        // Enrich pending requests with user profiles so we show real names immediately
+        const enriched = await Promise.all(pending.map(async (r) => {
+          try {
+            const uresp = await userAPI.getUserById(r.user_id);
+            const u = uresp.data;
+            return {
+              rel_id: r.rel_id || r.id || `fr_${r.user_id}`,
+              user_id: r.user_id,
+              username: u?.username || r.username,
+              display_name: u?.display_name || r.display_name || u?.username || r.username,
+              avatar_url: u?.avatar_url || null,
+            };
+          } catch (e) {
+            return {
+              rel_id: r.rel_id || r.id || `fr_${r.user_id}`,
+              user_id: r.user_id,
+              username: r.username || null,
+              display_name: r.display_name || r.username || `Người dùng ${r.user_id}`,
+              avatar_url: null,
+            };
+          }
+        }));
+        setFriendRequests(enriched);
       } catch (err) {
         console.error('Lỗi tải lời mời kết bạn:', err);
+      }
+    };
+
+    const fetchBlockedUsers = async () => {
+      try {
+        const resp = await userAPI.getBlockedUsers();
+        const blockedIds = (resp.data || []).map(u => String(u.id));
+        setBlockedTargets(blockedIds);
+      } catch (err) {
+        console.error('Lỗi tải danh sách chặn:', err);
       }
     };
 
@@ -639,7 +1032,7 @@ const ChatBox = () => {
 
     const loadListForTab = async () => {
       try {
-        if (filterTab === 'conversations') {
+          if (filterTab === 'conversations') {
           // fetch conversation summaries for current user
           const resp = await messageAPI.getConversations();
           // map conversations to items for the list
@@ -650,6 +1043,8 @@ const ChatBox = () => {
                 username: c.username,
                 display_name: c.display_name || c.username,
                 last_message: c.last_message,
+                // default to offline until presence events arrive
+                status: c.status || 'offline',
                 is_group: false,
               };
             }
@@ -658,6 +1053,7 @@ const ChatBox = () => {
               username: null,
               display_name: c.group_name || `Group ${c.id}`,
               last_message: c.last_message,
+              status: c.status || 'offline',
               is_group: true,
             };
           });
@@ -668,21 +1064,30 @@ const ChatBox = () => {
           if (token) {
             // send request via socket; global onCommandResponse handler will process the result
             requestContactsList(token);
-          } else {
+            } else {
             // fallback to REST
             const resp = await userAPI.getFriends();
-            setUsers(resp.data || []);
+            setUsers((resp.data || []).map(u => ({
+              ...u,
+              avatar_url: u.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(u.username||u.display_name||'U')}&background=667eea&color=fff`
+            })));
           }
         } else {
           const resp = await userAPI.getUsers();
-          setUsers(resp.data || []);
+          setUsers((resp.data || []).map(u => ({
+            ...u,
+            avatar_url: u.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(u.username||u.display_name||'U')}&background=667eea&color=fff`
+          })));
         }
       } catch (err) {
         console.error('Lỗi tải danh sách cho tab:', err);
         // fallback to all users
         try {
           const resp = await userAPI.getUsers();
-          setUsers(resp.data || []);
+          setUsers((resp.data || []).map(u => ({
+            ...u,
+            avatar_url: u.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(u.username||u.display_name||'U')}&background=667eea&color=fff`
+          })));
         } catch (e) {
           console.error('Fallback users failed', e);
         }
@@ -692,6 +1097,7 @@ const ChatBox = () => {
     // Load common data and the tab-specific list
     fetchGroups();
     fetchFriendRequests();
+    fetchBlockedUsers();
     fetchSuggestions();
     loadListForTab();
   }, [filterTab]);
@@ -1057,27 +1463,42 @@ const ChatBox = () => {
       <aside className="left-nav">
         <div className="profile" style={{position:'relative'}}>
           {/* placeholder profile image or icon */}
-          <img alt="profile" src={`https://ui-avatars.com/api/?name=${encodeURIComponent(currentUsername||'U')}&background=ffffff&color=0b5ed7`} onClick={(e) => {
-            // open avatar modal
-            setAvatarMenuOpen((v)=>!v);
-          }} style={{cursor:'pointer',borderRadius:8}} />
+          <img
+            alt="profile"
+            src={buildAvatarSrc(currentUserProfile?.avatar_url)}
+            data-user-id={currentUserProfile?.id}
+            onClick={(e) => { setAvatarMenuOpen((v) => !v); }}
+            onLoad={() => { try { console.log('[AVATAR] currentUser avatar loaded ->', buildAvatarSrc(currentUserProfile?.avatar_url)); } catch (e) {} }}
+            onError={(e) => {
+              try {
+                console.error('[AVATAR] currentUser avatar failed to load ->', e?.target?.src, e);
+                e.target.onerror = null;
+                e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUsername||'U')}&background=ffffff&color=0b5ed7`;
+              } catch (err) { }
+            }}
+            style={{ cursor: 'pointer', width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }}
+          />
         </div>
         <div className="nav-icons">
           <button
-            className="nav-btn"
+            className={`nav-btn ${activeNav === 'conversations' ? 'active' : ''}`}
             title="Tin nhắn"
             onClick={() => {
               // show conversations (people/groups you've messaged)
               setFilterTab('conversations');
+              setActiveNav('conversations');
             }}
+            style={{ filter: activeNav === 'conversations' ? 'brightness(1.08)' : 'none' }}
           >💬</button>
           <button
-            className="nav-btn"
+            className={`nav-btn ${activeNav === 'contacts' ? 'active' : ''}`}
             title="Bạn bè"
             onClick={() => {
               // show accepted friends/contacts
               setFilterTab('contacts');
+              setActiveNav('contacts');
             }}
+            style={{ filter: activeNav === 'contacts' ? 'brightness(1.08)' : 'none' }}
           >👥</button>
           <button
             className="nav-btn"
@@ -1127,8 +1548,8 @@ const ChatBox = () => {
                 // update users list to reflect change
                 const all = await userAPI.getUsers();
                 setUsers(all.data || []);
-                showToast('Cập nhật', 'Đã cập nhật tên hiển thị');
-                showSystemNotification('Cập nhật', 'Đã cập nhật tên hiển thị');
+                showToast('Cập nhật thành công', 'Tên hiển thị đã được cập nhật.', { variant: 'success', icon: '✓' });
+                showSystemNotification('Cập nhật thành công', 'Tên hiển thị đã được cập nhật.');
               } catch (err) {
                 console.error('Lỗi cập nhật tên:', err);
                 showToast('Cập nhật thất bại', 'Cập nhật thất bại');
@@ -1203,29 +1624,44 @@ const ChatBox = () => {
         }}
       />
 
+      {/* Small action modals triggered from the search box */}
+      <AddFriendModal isOpen={addFriendOpen} onClose={() => setAddFriendOpen(false)} />
+      <CreateGroupModal isOpen={createGroupOpen} onClose={() => setCreateGroupOpen(false)} onCreated={(g) => {
+        if (g) setGroups(prev => [g, ...(prev||[])]);
+        setCreateGroupOpen(false);
+      }} />
+
       {/* Conversation list (center column) */}
       <aside className="chat-sidebar conversation-list">
         <div className="sidebar-header">
           <h2>{filterTab === 'contacts' ? '👥 Bạn bè' : '💬 Danh sách'}</h2>
         </div>
         <div className="search-box" onMouseEnter={() => setSearchContainerActive(true)} onMouseLeave={() => setSearchContainerActive(false)}>
-          <input
-            type="text"
-            placeholder="Tìm kiếm người hoặc cuộc trò chuyện..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onFocus={() => setSearchFocused(true)}
-            onBlur={() => {
-              if (!searchContainerActive) {
-                setTimeout(() => setSearchFocused(false), 100);
-              }
-            }}
-            className="user-search-input"
-          />
+          <div style={{display:'flex', alignItems:'center', gap:8}}>
+            <input
+              type="text"
+              placeholder="Tìm kiếm người hoặc cuộc trò chuyện..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onFocus={() => setSearchFocused(true)}
+              onBlur={() => {
+                if (!searchContainerActive) {
+                  setTimeout(() => setSearchFocused(false), 100);
+                }
+              }}
+              className="user-search-input"
+            />
+            <div style={{display:'flex', gap:8, alignItems:'center'}}>
+              <button aria-label="Thêm bạn" title="Thêm bạn" className="icon-btn" onClick={() => setAddFriendOpen(true)}>
+                <span style={{fontSize:18}}>👤+</span>
+              </button>
+              <button aria-label="Tạo nhóm" title="Tạo nhóm" className="icon-btn" onClick={() => setCreateGroupOpen(true)}>
+                <span style={{fontSize:18}}>👥+</span>
+              </button>
+            </div>
+          </div>
         </div>
         <div className="filter-bar">
-          <button className={`filter ${filterTab==='conversations'?'active':''}`} onClick={() => setFilterTab('conversations')}>💬 Nhắn tin</button>
-          <button className={`filter ${filterTab==='contacts'?'active':''}`} onClick={() => setFilterTab('contacts')}>👥 Bạn bè</button>
           <button className={`filter ${filterTab==='priority'?'active':''}`} onClick={() => setFilterTab('priority')}>Ưu tiên</button>
           <button className={`filter ${filterTab==='others'?'active':''}`} onClick={() => setFilterTab('others')}>Khác</button>
           <button className={`filter ${filterTab==='all'?'active':''}`} onClick={() => setFilterTab('all')}>Tất cả</button>
@@ -1242,11 +1678,14 @@ const ChatBox = () => {
                   <div className="friend-requests-list">
                     {friendRequests.map((r) => (
                       <div key={r.rel_id} className="friend-request-card">
-                        <img 
-                          src={`https://ui-avatars.com/api/?name=${encodeURIComponent(r.username)}&background=667eea&color=fff`}
-                          alt={r.username}
-                          className="friend-avatar"
-                        />
+                            <img 
+                              src={`https://ui-avatars.com/api/?name=${encodeURIComponent(r.username)}&background=667eea&color=fff`}
+                              data-user-id={r.user_id}
+                              alt={r.username}
+                              className="friend-avatar"
+                              onLoad={() => { try { console.log('[AVATAR] friend-request avatar loaded ->', r.user_id); } catch (e) {} }}
+                              onError={(e) => { try { console.error('[AVATAR] friend-request avatar failed ->', r.user_id, e?.target?.src); } catch (err) {} }}
+                            />
                         <div className="friend-info">
                           <div className="friend-name">{r.username}</div>
                           <div className="friend-meta">Muốn kết bạn với bạn</div>
@@ -1350,12 +1789,15 @@ const ChatBox = () => {
                     {suggestions.map((u) => (
                       <div key={u.id} className="suggestion-card">
                         <img 
-                          src={`https://ui-avatars.com/api/?name=${encodeURIComponent(u.username)}&background=667eea&color=fff`}
-                          alt={u.username}
-                          className="suggestion-avatar"
-                          style={{cursor: 'pointer'}}
-                          onClick={() => openUserProfile(u.id)}
-                        />
+                                  src={`https://ui-avatars.com/api/?name=${encodeURIComponent(u.username)}&background=667eea&color=fff`}
+                                  data-user-id={u.id}
+                              alt={u.username}
+                              className="suggestion-avatar"
+                              onLoad={() => { try { console.log('[AVATAR] suggestion avatar loaded ->', u.id); } catch (e) {} }}
+                              onError={(e) => { try { console.error('[AVATAR] suggestion avatar failed ->', u.id, e?.target?.src); } catch (err) {} }}
+                              style={{cursor: 'pointer'}}
+                              onClick={() => openUserProfile(u.id)}
+                            />
                         <div className="suggestion-info">
                           <div className="suggestion-name" style={{cursor: 'pointer'}} onClick={() => openUserProfile(u.id)}>
                             {u.username}
@@ -1422,12 +1864,22 @@ const ChatBox = () => {
               key={user.id}
               className={`conversation-item ${selectedUser?.id === user.id ? 'active' : ''}`}
               onClick={() => handleSelectUser(user)}
-              style={{position:'relative'}}
+              style={{position:'relative', opacity: blockedTargets.includes(String(user.id)) ? 0.6 : 1}}
             >
-              <div className="conv-avatar" onClick={(e) => { e.stopPropagation(); openUserProfile(user.id); }} style={{cursor:'pointer'}}>{((user?.username || user?.display_name || 'U')[0] || 'U').toUpperCase()}</div>
+              <div className="conv-avatar" onClick={(e) => { e.stopPropagation(); openUserProfile(user.id); }} style={{cursor:'pointer'}}>
+                <img
+                  alt={user?.display_name || user?.username}
+                  src={buildAvatarSrc(user?.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.username||'U')}&background=667eea&color=fff`)}
+                  data-user-id={user?.id}
+                  onLoad={() => { try { console.log('[AVATAR] conversation avatar loaded ->', user?.id, buildAvatarSrc(user?.avatar_url)); } catch (e) {} }}
+                  onError={(e) => { try { console.error('[AVATAR] conversation avatar failed ->', user?.id, e?.target?.src, e); e.target.onerror = null; e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.username||'U')}&background=667eea&color=fff`; } catch(err){} }}
+                  style={{width:'40px',height:'40px',borderRadius:20,objectFit:'cover',display:'block'}}
+                />
+              </div>
               <div className="conv-body">
                 <div style={{display:'flex',alignItems:'center',gap:8}}>
                   <div className="conv-title" onClick={(e) => { e.stopPropagation(); if (!user.is_group) openUserProfile(user.id); }} style={{cursor: user.is_group ? 'default' : 'pointer'}}>{user.display_name || user.username}</div>
+                  {blockedTargets.includes(String(user.id)) && <span style={{fontSize:'10px', color:'#ef4444', fontWeight:'600'}}>🚫 Đã chặn</span>}
                   <div style={{marginLeft:'auto',display:'flex',alignItems:'center',gap:6}}>
                     <span style={{fontSize:'11px', fontWeight:'500', color: user.status === 'online' ? '#16a34a' : '#9ca3af'}}>{user.status === 'online' ? '🟢 Online' : '⚪ Offline'}</span>
                     {!user.is_group && (
@@ -1448,8 +1900,7 @@ const ChatBox = () => {
                                       'Content-Type': 'application/json'
                                     }
                                   });
-                                    if (resp.ok) {
-                                    // Remove from users list
+                                  if (resp.ok) {
                                     setUsers(prev => prev.filter(u => u.id !== user.id));
                                     
                                     // Add to suggestions if not already there
@@ -1478,7 +1929,7 @@ const ChatBox = () => {
                                   showToast('Yêu cầu đăng nhập', 'Chưa đăng nhập');
                                   showSystemNotification('Yêu cầu đăng nhập', 'Chưa đăng nhập');
                                 }
-                                } catch (err) {
+                              } catch (err) {
                                 console.error('Lỗi hủy kết bạn:', err);
                                 const msg = `Lỗi khi hủy kết bạn: ${err.message}`;
                                 showToast('Lỗi', msg);
@@ -1512,20 +1963,73 @@ const ChatBox = () => {
           
           {filterTab === 'contacts' && users.length > 0 && (
             <>
-              <div style={{padding:'12px', borderBottom:'1px solid #e5e7eb'}}>
-                <span style={{fontSize:'12px', fontWeight:'700', color:'#6b7280', textTransform:'uppercase'}}>Danh sách bạn bè</span>
+              <div style={{padding:'8px 12px', borderBottom:'1px solid #e5e7eb', display:'flex', alignItems:'center', justifyContent:'space-between'}}>
+                <div style={{display:'flex', alignItems:'center', gap:8}}>
+                  <span style={{fontSize:'12px', fontWeight:'700', color:'#6b7280', textTransform:'uppercase'}}>Bạn bè</span>
+                  {friendRequests && friendRequests.length > 0 && (
+                    <div style={{display:'inline-flex', alignItems:'center', justifyContent:'center'}}>
+                      <div style={{minWidth:18, height:18, borderRadius:9, background:'#ef4444', color:'#fff', fontSize:11, fontWeight:700, display:'flex', alignItems:'center', justifyContent:'center', padding:'0 6px'}}>{friendRequests.length}</div>
+                    </div>
+                  )}
+                </div>
+                <div>
+                  {friendRequests && friendRequests.length > 0 && (
+                    <button onClick={(e) => { e.stopPropagation(); setPendingOpen((v) => !v); }} style={{background:'transparent', border:'none', cursor:'pointer', fontSize:14, padding:6}} title="Xem lời mời">
+                      {pendingOpen ? '▴' : '▾'}
+                    </button>
+                  )}
+                </div>
               </div>
+              {pendingOpen && (
+                <div style={{padding:'8px 12px', borderBottom:'1px solid #e5e7eb', background:'#fff8f8'}}>
+                  {(friendRequests || []).length === 0 ? (
+                    <div style={{color:'#6b7280'}}>Không có lời mời</div>
+                  ) : (
+                    <div style={{display:'flex', flexDirection:'column', gap:8}}>
+                      {(pendingExpanded ? friendRequests : friendRequests.slice(0,5)).map((r) => (
+                        <div key={r.rel_id || r.user_id} style={{display:'flex', alignItems:'center', justifyContent:'space-between'}}>
+                          <div style={{display:'flex', alignItems:'center', gap:8}}>
+                            <div style={{width:34, height:34, borderRadius:18, background:'#6b7280', color:'#fff', display:'flex', alignItems:'center', justifyContent:'center', fontWeight:700}}>{(r.username || (r.display_name || 'U')[0] || 'U').toString()[0].toUpperCase()}</div>
+                            <div style={{display:'flex', flexDirection:'column'}}>
+                              <span style={{fontWeight:600}}>{r.display_name || r.username || `User ${r.user_id}`}</span>
+                              <small style={{color:'#9ca3af'}}>Lời mời kết bạn</small>
+                            </div>
+                          </div>
+                          <div style={{display:'flex', gap:8}}>
+                            <button title="đồng ý" onClick={() => acceptFriendRequest(r.user_id)} style={{background:'#10b981', color:'#fff', border:'none', borderRadius:6, padding:'6px 10px', cursor:'pointer', fontWeight:700}}>đồng ý</button>
+                            <button title="từ chối" onClick={() => rejectFriendRequest(r.user_id)} style={{background:'#ef4444', color:'#fff', border:'none', borderRadius:6, padding:'6px 10px', cursor:'pointer', fontWeight:700}}>từ chối</button>
+                          </div>
+                        </div>
+                      ))}
+                      {friendRequests.length > 5 && (
+                        <button onClick={() => setPendingExpanded(v => !v)} style={{border:'none', background:'transparent', color:'#2563eb', cursor:'pointer', textAlign:'left'}}>
+                          {pendingExpanded ? 'Thu gọn' : `Xem thêm (${friendRequests.length - 5} thêm)`}
+                        </button>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
               {users.map((user) => (
                 <div
                   key={user.id}
                   className={`conversation-item ${selectedUser?.id === user.id ? 'active' : ''}`}
                   onClick={() => handleSelectUser(user)}
-                  style={{position:'relative'}}
+                  style={{position:'relative', opacity: blockedTargets.includes(String(user.id)) ? 0.6 : 1}}
                 >
-                  <div className="conv-avatar" onClick={(e) => { e.stopPropagation(); openUserProfile(user.id); }} style={{cursor:'pointer'}}>{((user?.username || user?.display_name || 'U')[0] || 'U').toUpperCase()}</div>
+                  <div className="conv-avatar" onClick={(e) => { e.stopPropagation(); openUserProfile(user.id); }} style={{cursor:'pointer'}}>
+                    <img
+                      alt={user?.display_name || user?.username}
+                      src={buildAvatarSrc(user?.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.username||'U')}&background=667eea&color=fff`)}
+                      data-user-id={user?.id}
+                      onError={(e) => { try { e.target.onerror = null; e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.username||'U')}&background=667eea&color=fff`; } catch(err){} }}
+                      style={{width:'40px',height:'40px',borderRadius:20,objectFit:'cover',display:'block'}}
+                    />
+                  </div>
                   <div className="conv-body">
                     <div style={{display:'flex',alignItems:'center',gap:8}}>
                       <div className="conv-title" onClick={(e) => { e.stopPropagation(); if (!user.is_group) openUserProfile(user.id); }} style={{cursor: user.is_group ? 'default' : 'pointer'}}>{user.display_name || user.username}</div>
+                      {blockedTargets.includes(String(user.id)) && <span style={{fontSize:'10px', color:'#ef4444', fontWeight:'600'}}>🚫 Đã chặn</span>}
                       <div style={{marginLeft:'auto',display:'flex',alignItems:'center',gap:6}}>
                         <span style={{fontSize:'11px', fontWeight:'500', color: user.status === 'online' ? '#16a34a' : '#9ca3af'}}>{user.status === 'online' ? '🟢 Online' : '⚪ Offline'}</span>
                         {!user.is_group && (
@@ -1823,8 +2327,9 @@ const ChatBox = () => {
                     sendTyping(currentUserId, selectedUser.id, false);
                   }
                 }}
-                placeholder="Nhập tin nhắn..."
+                placeholder={blockedTargets.includes(String(selectedUser?.id)) ? "🚫 Bạn đã chặn người dùng này" : "Nhập tin nhắn..."}
                 className="message-input"
+                disabled={blockedTargets.includes(String(selectedUser?.id))}
               />
               
               {/* File Upload Input */}
@@ -1844,12 +2349,13 @@ const ChatBox = () => {
                   background: 'none',
                   border: 'none',
                   fontSize: '20px',
-                  cursor: 'pointer',
+                  cursor: blockedTargets.includes(String(selectedUser?.id)) ? 'not-allowed' : 'pointer',
                   padding: '8px',
-                  color: '#667eea'
+                  color: blockedTargets.includes(String(selectedUser?.id)) ? '#ccc' : '#667eea',
+                  opacity: blockedTargets.includes(String(selectedUser?.id)) ? 0.5 : 1
                 }}
-                title="Gửi file"
-                disabled={isSending}
+                title={blockedTargets.includes(String(selectedUser?.id)) ? "Bạn đã chặn người dùng này" : "Gửi file"}
+                disabled={isSending || blockedTargets.includes(String(selectedUser?.id))}
                 onMouseDown={(e) => e.preventDefault()}
               >
                 📎
@@ -2063,12 +2569,13 @@ const ChatBox = () => {
                 <button
                   type="submit"
                   className="btn-send"
-                  disabled={isSending}
+                  disabled={isSending || blockedTargets.includes(String(selectedUser?.id))}
                   onMouseDown={(e) => e.preventDefault()}
                   style={{
-                    opacity: isSending ? 0.6 : 1,
-                    cursor: isSending ? 'not-allowed' : 'pointer',
+                    opacity: isSending || blockedTargets.includes(String(selectedUser?.id)) ? 0.6 : 1,
+                    cursor: isSending || blockedTargets.includes(String(selectedUser?.id)) ? 'not-allowed' : 'pointer',
                   }}
+                  title={blockedTargets.includes(String(selectedUser?.id)) ? "Bạn đã chặn người dùng này" : ""}
                 >
                   {isSending ? '⏳' : '📤'} {isSending ? 'Gửi...' : 'Gửi'}
                 </button>
@@ -2142,6 +2649,7 @@ const ChatBox = () => {
           </div>
         </div>
       )}
+      {/* Dev debug panel removed per user request */}
     </div>
   );
 };

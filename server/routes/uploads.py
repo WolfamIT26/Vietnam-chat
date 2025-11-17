@@ -18,11 +18,24 @@ def _uploads_dir():
 def get_s3_client():
     """Get configured S3 client using credentials from config."""
     try:
+        # If credentials are not configured, return None so callers can
+        # gracefully fall back to local storage. Creating a boto3 client
+        # with None/empty credentials can produce malformed Authorization
+        # headers when requests are attempted, which is the root cause of
+        # the "AuthorizationHeaderMalformed" error seen in logs.
+        access_key = current_app.config.get('AWS_ACCESS_KEY_ID')
+        secret_key = current_app.config.get('AWS_SECRET_ACCESS_KEY')
+        region = current_app.config.get('AWS_S3_REGION', 'ap-southeast-1')
+        # If either key is missing or empty, do not create an S3 client
+        if not access_key or not secret_key:
+            current_app.logger.info('S3 credentials not configured; skipping S3 client creation')
+            return None
+
         return boto3.client(
             's3',
-            aws_access_key_id=current_app.config.get('AWS_ACCESS_KEY_ID'),
-            aws_secret_access_key=current_app.config.get('AWS_SECRET_ACCESS_KEY'),
-            region_name=current_app.config.get('AWS_S3_REGION', 'ap-southeast-1')
+            aws_access_key_id=access_key,
+            aws_secret_access_key=secret_key,
+            region_name=region
         )
     except Exception as e:
         current_app.logger.error(f"Error creating S3 client: {e}")
@@ -165,14 +178,14 @@ def upload_file():
             )
             
             file_url = f'https://{bucket}.s3.{region}.amazonaws.com/{key}'
-            current_app.logger.info(f"File uploaded to S3: {key}")
+            current_app.logger.info(f"[UPLOADS] File uploaded to S3: {key} -> {file_url}")
         else:
             # Fallback to local storage
             filename = f'user{user_id}_{timestamp}_{unique_id}_{secure_name}'
             dest = os.path.join(_uploads_dir(), filename)
             file.save(dest)
             file_url = f'/uploads/files/{filename}'
-            current_app.logger.info(f"File saved locally: {filename}")
+            current_app.logger.info(f"[UPLOADS] File saved locally: {filename} -> {file_url}")
         
         return jsonify({
             'file_url': file_url,

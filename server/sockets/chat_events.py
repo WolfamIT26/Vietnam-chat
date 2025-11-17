@@ -225,7 +225,29 @@ def register_chat_events(socketio):
         logger.info("User joined room: %s", room_name)
         logger.debug("Current user_sockets mapping: %s", user_sockets)
         
+        # Notify the user's own room (useful for multi-tab clients)
         socketio.emit('user_joined', {'user_id': user_id, 'room': room_name}, room=room_name)
+
+        # Additionally notify the user's friends that this user is online.
+        # Find all accepted friends and emit `user_joined` to their rooms so they can update presence.
+        try:
+            if user_id:
+                # collect friend ids in both directions
+                outgoing = Friend.query.filter_by(user_id=user_id, status='accepted').all() or []
+                incoming = Friend.query.filter_by(friend_id=user_id, status='accepted').all() or []
+                friend_ids = set()
+                for f in outgoing:
+                    friend_ids.add(f.friend_id)
+                for f in incoming:
+                    friend_ids.add(f.user_id)
+                for fid in friend_ids:
+                    try:
+                        socketio.emit('user_joined', {'user_id': user_id}, room=f'user-{fid}')
+                        logger.debug('Emitted user_joined for user %s to friend room user-%s', user_id, fid)
+                    except Exception:
+                        logger.exception('Error emitting user_joined to friend %s', fid)
+        except Exception:
+            logger.exception('Error while notifying friends about user_joined')
         logger.info("[JOIN] END - SUCCESS user=%s room=%s", user_id, room_name)
 
     @socketio.on('send_message')
@@ -262,18 +284,33 @@ def register_chat_events(socketio):
         try:
             # Debug prints to stdout to make failures visible in dev terminal
             print(f"[DEBUG SEND_MESSAGE] received sender={sender_id} receiver={receiver_id} client_msg_id={client_message_id} content_repr={repr(content)}")
-            # Check block list: if receiver has blocked sender, refuse delivery
+            # Check block list: TWO-WAY check
+            # Kiểm tra: (1) receiver đã chặn sender, (2) sender đã chặn receiver
             try:
-                blocked = Block.query.filter_by(user_id=receiver_id, target_id=sender_id).first()
+                blocked_by_receiver = Block.query.filter_by(user_id=receiver_id, target_id=sender_id).first()
+                blocked_by_sender = Block.query.filter_by(user_id=sender_id, target_id=receiver_id).first()
             except Exception as e:
-                # If the Block table doesn't exist (dev DB schema mismatch), log and continue
                 logger.warning("Block check skipped due to error (schema may be missing): %s", e)
-                blocked = None
-            if blocked:
-                logger.info("Sender %s is blocked by receiver %s - rejecting send", sender_id, receiver_id)
-                # Inform sender that message was blocked
+                blocked_by_receiver = None
+                blocked_by_sender = None
+            
+            if blocked_by_receiver or blocked_by_sender:
+                logger.info("Block detected - rejecting send (blocked_by_receiver=%s, blocked_by_sender=%s)", bool(blocked_by_receiver), bool(blocked_by_sender))
+                # Inform sender that message was blocked and include a human-friendly reason
                 if client_message_id:
-                    ack_data = {'client_message_id': client_message_id, 'status': 'blocked'}
+                    if blocked_by_receiver and not blocked_by_sender:
+                        blocked_message = 'Hiện tại bạn không thể gửi tin nhắn cho người này vì họ đã chặn bạn.'
+                    elif blocked_by_sender and not blocked_by_receiver:
+                        blocked_message = 'Bạn đã chặn người này, nên không thể gửi tin nhắn cho họ.'
+                    else:
+                        blocked_message = 'Tin nhắn bị chặn.'
+                    ack_data = {
+                        'client_message_id': client_message_id,
+                        'status': 'blocked',
+                        'blocked_message': blocked_message,
+                        'blocked_by_receiver': bool(blocked_by_receiver),
+                        'blocked_by_sender': bool(blocked_by_sender),
+                    }
                     socketio.emit('message_sent_ack', ack_data, room=request.sid)
                 return
             # Save message to DB
@@ -493,12 +530,25 @@ def register_chat_events(socketio):
             return
 
         try:
-            # Check block list
-            blocked = Block.query.filter_by(user_id=receiver_id, target_id=sender_id).first()
-            if blocked:
-                logger.info("Sender %s is blocked by receiver %s - rejecting file send", sender_id, receiver_id)
+            # Check block list: TWO-WAY check
+            blocked_by_receiver = Block.query.filter_by(user_id=receiver_id, target_id=sender_id).first()
+            blocked_by_sender = Block.query.filter_by(user_id=sender_id, target_id=receiver_id).first()
+            if blocked_by_receiver or blocked_by_sender:
+                logger.info("Block detected for file send - rejecting")
                 if client_message_id:
-                    ack_data = {'client_message_id': client_message_id, 'status': 'blocked'}
+                    if blocked_by_receiver and not blocked_by_sender:
+                        blocked_message = 'Hiện tại bạn không thể gửi tin nhắn cho người này vì họ đã chặn bạn.'
+                    elif blocked_by_sender and not blocked_by_receiver:
+                        blocked_message = 'Bạn đã chặn người này, nên không thể gửi tin nhắn cho họ.'
+                    else:
+                        blocked_message = 'Tin nhắn bị chặn.'
+                    ack_data = {
+                        'client_message_id': client_message_id,
+                        'status': 'blocked',
+                        'blocked_message': blocked_message,
+                        'blocked_by_receiver': bool(blocked_by_receiver),
+                        'blocked_by_sender': bool(blocked_by_sender),
+                    }
                     socketio.emit('message_sent_ack', ack_data, room=request.sid)
                 return
 
@@ -824,9 +874,31 @@ def register_chat_events(socketio):
         # Remove user_id from mapping on disconnect
         for uid, sid in list(user_sockets.items()):
             if sid == request.sid:
+                # remove mapping and remember uid for notifying friends
                 del user_sockets[uid]
+                removed_uid = uid
                 print(f"[CHAT][NHẬN] ✅ Removed user_id={uid} from mapping")
                 break
-        # Use emit (not socketio.emit) with broadcast=True to broadcast to all
-        emit('user_offline', {'sid': request.sid}, broadcast=True)
+        # Notify friends that the user went offline (if we know which user was removed)
+        try:
+            if 'removed_uid' in locals():
+                # Find friends in both directions
+                outgoing = Friend.query.filter_by(user_id=removed_uid, status='accepted').all() or []
+                incoming = Friend.query.filter_by(friend_id=removed_uid, status='accepted').all() or []
+                friend_ids = set()
+                for f in outgoing:
+                    friend_ids.add(f.friend_id)
+                for f in incoming:
+                    friend_ids.add(f.user_id)
+                for fid in friend_ids:
+                    try:
+                        # emit to each friend's personal room
+                        socketio.emit('user_offline', {'user_id': removed_uid}, room=f'user-{fid}')
+                        print(f"[CHAT][GỬI] user_offline emitted for {removed_uid} to user-{fid}")
+                    except Exception:
+                        print(f"[CHAT][GỬI] Error emitting user_offline to user-{fid}")
+            # also broadcast a generic offline event for compatibility
+            emit('user_offline', {'sid': request.sid}, broadcast=True)
+        except Exception:
+            print('[CHAT] Error while emitting user_offline to friends')
         print("[CHAT][GỬI] [DISCONNECT] END")

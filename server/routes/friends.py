@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify, current_app
 from services.auth_service import decode_token
 from models.user_model import User
 from models.friend_model import Friend
+from models.block_model import Block
 from config.database import db
 
 friends_bp = Blueprint('friends', __name__, url_prefix='/friends')
@@ -50,6 +51,19 @@ def list_friend_requests():
         if u:
             result.append({'rel_id': r.id, 'user_id': u.id, 'username': u.username, 'display_name': getattr(u, 'display_name', None)})
     return jsonify(result)
+
+
+@friends_bp.route('/blocked', methods=['GET'])
+def list_blocked_users():
+    """List users that current user has blocked"""
+    uid = current_user_from_request(request)
+    if not uid:
+        return jsonify({'error': 'Unauthorized'}), 401
+    # Get all users blocked by current user
+    blocks = Block.query.filter_by(user_id=uid).all()
+    target_ids = [b.target_id for b in blocks]
+    users = User.query.filter(User.id.in_(target_ids)).all() if target_ids else []
+    return jsonify([{'id': u.id, 'username': u.username, 'display_name': getattr(u, 'display_name', None), 'avatar_url': u.avatar_url} for u in users])
 
 
 @friends_bp.route('/test', methods=['GET'])

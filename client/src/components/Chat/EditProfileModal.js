@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { userAPI } from '../../services/api';
 import api from '../../services/api';
 import { showToast, showSystemNotification } from '../../services/notifications';
+import profileSync from '../../services/profileSync';
 
 const EditProfileModal = ({ isOpen, onClose, user, onSaved, onBack }) => {
   const [displayName, setDisplayName] = useState(user?.display_name || user?.username || '');
@@ -37,19 +38,60 @@ const EditProfileModal = ({ isOpen, onClose, user, onSaved, onBack }) => {
       if (file) {
         const form = new FormData();
         form.append('avatar', file);
-        const upResp = await api.post('/uploads/avatar', form, { headers: { 'Content-Type': 'multipart/form-data' } });
-        avatar_url = upResp.data.avatar_url;
+        // Let the browser set the Content-Type (including boundary) for FormData
+        const upResp = await api.post('/uploads/avatar', form);
+        avatar_url = upResp.data.avatar_url || upResp.data.file_url || avatar_url;
       }
       const payload = { display_name: displayName };
-      if (avatar_url) payload.avatar_url = avatar_url;
+      // avoid sending data URLs as avatar_url (only send server-hosted paths)
+      if (avatar_url && !avatar_url.startsWith('data:')) payload.avatar_url = avatar_url;
       if (gender) payload.gender = gender;
       if (birthdate) payload.birthdate = birthdate;
       if (phoneNumber) payload.phone_number = phoneNumber;
       const resp = await userAPI.updateMe(payload);
       onSaved && onSaved(resp.data);
+      // show polished success toast
+      showToast('Cập nhật thành công', 'Thông tin cá nhân của bạn đã được cập nhật.', { variant: 'success', icon: '✓' });
+      showSystemNotification('Cập nhật thành công', 'Thông tin cá nhân của bạn đã được cập nhật.');
       onClose();
     } catch (err) {
-      console.error('Save profile failed', err);
+      // Detailed logging to help debug network/CORS issues
+      console.error('Save profile failed', {
+        message: err?.message,
+        config: err?.config,
+        request: err?.request,
+        response: err?.response,
+      });
+
+      // If there's no response from server it's likely a network/CORS error.
+      if (!err || !err.response) {
+        // Perform an optimistic local update so the UI reflects user's changes immediately.
+        const localUser = Object.assign({}, user || {});
+        localUser.display_name = displayName;
+        localUser.gender = gender || null;
+        localUser.birthdate = birthdate || null;
+        localUser.phone_number = phoneNumber || null;
+        // Use preview avatar for local display (may be data URL)
+        if (avatarPreview) localUser.avatar_url = avatarPreview;
+
+        // persist locally and add to pending updates so it survives reloads
+        profileSync.saveLocalProfile(localUser.id || user?.id || 'local', localUser);
+        profileSync.addPendingUpdate(localUser.id || user?.id || 'local', {
+          display_name: localUser.display_name,
+          avatar_url: localUser.avatar_url,
+          gender: localUser.gender,
+          birthdate: localUser.birthdate,
+          phone_number: localUser.phone_number,
+        });
+
+        onSaved && onSaved(localUser);
+        onClose();
+
+        showToast('Cập nhật thành công (cục bộ)', 'Đã lưu cục bộ — sẽ tự đồng bộ lên server khi có kết nối.', { variant: 'success', icon: '✓' });
+        showSystemNotification('Cập nhật thành công (cục bộ)', 'Đã lưu cục bộ — sẽ tự đồng bộ lên server khi có kết nối.');
+        return;
+      }
+
       const serverMsg = err?.response?.data?.error || err?.response?.data?.message || err?.message;
       const msg = serverMsg ? `Lưu thất bại: ${serverMsg}` : 'Lưu thất bại';
       showToast('Lưu hồ sơ thất bại', msg);

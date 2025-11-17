@@ -8,11 +8,13 @@ import io from 'socket.io-client';
 // Auto-detect socket URL: if REACT_APP_SOCKET_URL is set, use it; otherwise build from current host
 let SOCKET_URL = process.env.REACT_APP_SOCKET_URL;
 
+// In development prefer an explicit backend socket URL so sockets connect to the backend (not to the CRA dev server)
 if (!SOCKET_URL) {
-  // Default: use the same origin (hostname + protocol + port) where the app is loaded from
-  // This way: localhost:3000 -> localhost:3000 (via proxy), ngrok URL -> ngrok URL
-  // Only if specifically needed (e.g., dev server behind proxy), override REACT_APP_SOCKET_URL
-  SOCKET_URL = window.location.origin;
+  if (process.env.NODE_ENV === 'development') {
+    SOCKET_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+  } else {
+    SOCKET_URL = window.location.origin;
+  }
 }
 const isDev = process.env.NODE_ENV === 'development';
 
