@@ -186,12 +186,20 @@ export const userAPI = {
   removeFriend: (otherId) => api.delete(`/friends/${otherId}/remove`),
 };
 
-// Group APIs (Đoạn bị thiếu khiến hệ thống lỗi)
+// Group APIs
 export const groupAPI = {
   getGroups: () => api.get('/groups'),
   createGroup: (name, members) => api.post('/groups', { name, members }),
   getGroupMessages: (groupId) => api.get(`/groups/${groupId}/messages`),
   sendGroupMessage: (groupId, content) => api.post(`/groups/${groupId}/messages`, { content }),
+};
+
+// Message APIs (Bổ sung phần thiếu này)
+export const messageAPI = {
+  getConversations: () => api.get('/messages/conversations'),
+  getMessages: (userId) => api.get(`/messages/${userId}`),
+  sendMessage: (userId, content) => api.post(`/messages/${userId}`, { content }),
+  markAsRead: (userId) => api.post(`/messages/${userId}/read`),
 };
 
 export default api;
