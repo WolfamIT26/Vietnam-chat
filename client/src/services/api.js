@@ -12,7 +12,7 @@ import axios from 'axios';
 // If you set REACT_APP_API_URL explicitly, it will be used (useful for production).
 // If REACT_APP_API_URL is set, use it. Otherwise default to the current origin so
 // built clients and ngrok-hosted pages call the same host that served the page.
-let API_URL = process.env.REACT_APP_API_URL !== undefined ? process.env.REACT_APP_API_URL : '';
+let API_URL = 'https://onrender.com';
 // In development prefer an explicit backend URL (so the client doesn't accidentally call the dev server)
 if (!API_URL) {
   if (process.env.NODE_ENV === 'development') {
@@ -40,7 +40,7 @@ const api = axios.create({
 
 // Direct backend instance: use explicit backend host when proxying causes method issues.
 // Use REACT_APP_BACKEND_URL to override (e.g. http://localhost:5000). Defaults to http://localhost:5000.
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+const BACKEND_URL = 'https://onrender.com';
 const apiDirect = axios.create({ baseURL: BACKEND_URL });
 
 // Simple in-browser mock storage for demoing auth when backend is unavailable.
