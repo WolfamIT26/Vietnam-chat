@@ -185,3 +185,4 @@ export const userAPI = {
   acceptFriend: (otherId) => api.post(`/friends/${otherId}/accept`),
   removeFriend: (otherId) => api.delete(`/friends/${otherId}/remove`),
 };
+export default api;
