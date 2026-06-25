@@ -5,7 +5,7 @@ import axios from 'axios';
  * Sử dụng axios để gọi các endpoint /register, /login, /users, /messages
  */
 
-let API_URL = 'https://vietnam-chat.onrender.com';
+let API_URL = 'https://vietnam-chat.onrender.com/api';
 
 // If REACT_APP_MOCK_API is set to 'true', use an in-memory mock implementation
 const USE_MOCK = process.env.REACT_APP_MOCK_API === 'true';
@@ -16,7 +16,7 @@ export const api = axios.create({
 });
 
 // Direct backend instance
-const BACKEND_URL = 'https://vietnam-chat.onrender.com';
+const BACKEND_URL = 'https://vietnam-chat.onrender.com/api';
 export const apiDirect = axios.create({ baseURL: BACKEND_URL });
 
 // Simple in-browser mock storage for demoing auth when backend is unavailable.
