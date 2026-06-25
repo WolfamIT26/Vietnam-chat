@@ -11,13 +11,13 @@ let API_URL = 'https://onrender.com';
 const USE_MOCK = process.env.REACT_APP_MOCK_API === 'true';
 
 // Tạo instance axios với base URL (bình thường)
-const api = axios.create({
+export const api = axios.create({
   baseURL: API_URL,
 });
 
 // Direct backend instance
 const BACKEND_URL = 'https://onrender.com';
-const apiDirect = axios.create({ baseURL: BACKEND_URL });
+export const apiDirect = axios.create({ baseURL: BACKEND_URL });
 
 // Simple in-browser mock storage for demoing auth when backend is unavailable.
 const mockStorageKey = 'mock_users';
@@ -185,4 +185,13 @@ export const userAPI = {
   acceptFriend: (otherId) => api.post(`/friends/${otherId}/accept`),
   removeFriend: (otherId) => api.delete(`/friends/${otherId}/remove`),
 };
+
+// Group APIs (Đoạn bị thiếu khiến hệ thống lỗi)
+export const groupAPI = {
+  getGroups: () => api.get('/groups'),
+  createGroup: (name, members) => api.post('/groups', { name, members }),
+  getGroupMessages: (groupId) => api.get(`/groups/${groupId}/messages`),
+  sendGroupMessage: (groupId, content) => api.post(`/groups/${groupId}/messages`, { content }),
+};
+
 export default api;
