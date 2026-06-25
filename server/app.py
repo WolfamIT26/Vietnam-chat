@@ -1,5 +1,6 @@
 from flask import Flask, request, make_response, send_from_directory
 from flask_socketio import SocketIO
+from flask_cors import CORS
 import sys, os
 
 # Ensure the server package directory is on sys.path so imports like
@@ -26,79 +27,11 @@ app.config.from_object(Config)
 # Initialize extensions
 socketio = SocketIO(app, cors_allowed_origins="*")
 
-# Simple CORS handling for development: allow React dev server + ngrok + localhost origins
-# We avoid adding a new dependency so this works out-of-the-box.
-# Include both localhost and any ngrok/public URL for flexibility
-ALLOWED_ORIGINS = {
-    "http://localhost:3000", 
-    "http://127.0.0.1:3000",
-    "http://localhost:5000",
-    "http://127.0.0.1:5000",
-}
-# For ngrok URLs, we'll check in the handler and allow them (see add_cors_headers below)
+# Enable official Flask-CORS for production deployment
+CORS(app, supports_credentials=True, origins=["http://localhost:3000", "https://vietnam-chat-1qte-e5ocjphaf-pducviet.vercel.app"])
 
-
-@app.after_request
-def add_cors_headers(response):
-    # For development convenience allow the React dev server origin.
-    # If you want to tighten this, set specific origins using ALLOWED_ORIGINS above.
-    origin = request.headers.get("Origin")
-    if origin in ALLOWED_ORIGINS:
-        response.headers["Access-Control-Allow-Origin"] = origin
-    else:
-        # fallback to permissive during local development
-        response.headers["Access-Control-Allow-Origin"] = "*"
-    response.headers["Access-Control-Allow-Credentials"] = "true"
-    response.headers["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,OPTIONS"
-    response.headers["Access-Control-Allow-Headers"] = "Content-Type,Authorization"
-    return response
-
-
-@app.before_request
-def handle_preflight():
-    # Respond to preflight OPTIONS requests with CORS headers immediately.
-    if request.method == 'OPTIONS':
-        resp = make_response()
-        origin = request.headers.get('Origin')
-        if origin in ALLOWED_ORIGINS:
-            resp.headers['Access-Control-Allow-Origin'] = origin
-        else:
-            resp.headers['Access-Control-Allow-Origin'] = '*'
-        resp.headers['Access-Control-Allow-Credentials'] = 'true'
-        resp.headers['Access-Control-Allow-Methods'] = 'GET,POST,PUT,DELETE,OPTIONS'
-        resp.headers['Access-Control-Allow-Headers'] = 'Content-Type,Authorization'
-        return resp
-    
-# WSGI middleware fallback to ensure CORS headers are present on all responses
-class _CORSMiddleware:
-    def __init__(self, wsgi_app):
-        self.wsgi_app = wsgi_app
-
-    def __call__(self, environ, start_response):
-        def _start_response(status, headers, exc_info=None):
-            # Add permissive CORS headers for local development, but avoid
-            # duplicating headers that may have been set earlier by
-            # Flask handlers (after_request / preflight responses).
-            # Browsers reject responses where Access-Control-Allow-Origin
-            # contains multiple values like "http://localhost:3000, *".
-            header_names = {name.lower() for name, _ in headers}
-            if 'access-control-allow-origin' not in header_names:
-                headers.append(('Access-Control-Allow-Origin', '*'))
-            if 'access-control-allow-credentials' not in header_names:
-                headers.append(('Access-Control-Allow-Credentials', 'true'))
-            if 'access-control-allow-methods' not in header_names:
-                headers.append(('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS'))
-            if 'access-control-allow-headers' not in header_names:
-                headers.append(('Access-Control-Allow-Headers', 'Content-Type,Authorization'))
-            return start_response(status, headers, exc_info)
-
-        return self.wsgi_app(environ, _start_response)
-
-
-app.wsgi_app = _CORSMiddleware(app.wsgi_app)
 db.init_app(app)
 migrate.init_app(app, db)
-
 
 # Register blueprints
 from routes.auth.register import auth_register_bp
