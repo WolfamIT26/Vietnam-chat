@@ -5,41 +5,17 @@ import axios from 'axios';
  * Sử dụng axios để gọi các endpoint /register, /login, /users, /messages
  */
 
-// Default to localhost:5000 (Flask backend) when env var is not provided.
-// Previously defaulted to 8000 which caused "Lỗi kết nối server" when
-// the backend is actually running on 5000. Keep environment override.
-// In development we prefer using a relative base URL so CRA's proxy can avoid CORS.
-// If you set REACT_APP_API_URL explicitly, it will be used (useful for production).
-// If REACT_APP_API_URL is set, use it. Otherwise default to the current origin so
-// built clients and ngrok-hosted pages call the same host that served the page.
 let API_URL = 'https://onrender.com';
-// In development prefer an explicit backend URL (so the client doesn't accidentally call the dev server)
-if (!API_URL) {
-  if (process.env.NODE_ENV === 'development') {
-    API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
-  } else {
-    // When running in browser (production), prefer the page origin
-    if (typeof window !== 'undefined' && window.location && window.location.origin) {
-      API_URL = window.location.origin;
-    } else {
-      API_URL = '';
-    }
-  }
-}
-
 
 // If REACT_APP_MOCK_API is set to 'true', use an in-memory mock implementation
 const USE_MOCK = process.env.REACT_APP_MOCK_API === 'true';
 
 // Tạo instance axios với base URL (bình thường)
-// Do not set a global 'Content-Type' here so multipart/form-data
-// requests (FormData) let the browser set proper boundaries.
 const api = axios.create({
   baseURL: API_URL,
 });
 
-// Direct backend instance: use explicit backend host when proxying causes method issues.
-// Use REACT_APP_BACKEND_URL to override (e.g. http://localhost:5000). Defaults to http://localhost:5000.
+// Direct backend instance
 const BACKEND_URL = 'https://onrender.com';
 const apiDirect = axios.create({ baseURL: BACKEND_URL });
 
@@ -74,11 +50,9 @@ const writeMockOtps = (map) => {
 const mockApiDelay = (ms = 300) => new Promise((res) => setTimeout(res, ms));
 
 // Thêm JWT token vào header nếu tồn tại
-// Log all API requests and responses for debugging
 api.interceptors.request.use(
   (config) => {
-    // Lấy token từ localStorage hoặc sessionStorage
-      const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -102,7 +76,6 @@ api.interceptors.response.use(
   }
 );
 
-// Mirror auth header + logging on direct instance so fallbacks carry the token.
 apiDirect.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
@@ -173,7 +146,6 @@ export const authAPI = {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     otps[contact] = otp;
     writeMockOtps(otps);
-    // In mock mode we return the OTP so testers can reset immediately
     return Promise.resolve({ data: { success: true, otp }, status: 200 });
   },
 
@@ -206,58 +178,10 @@ export const userAPI = {
   getUsers: () => api.get('/users'),
   searchUsers: (q) => api.get('/users/search', { params: { q } }),
   getSuggestions: (limit = 10) => api.get('/users/suggestions', { params: { limit } }),
-  
   getUserById: (userId) => api.get(`/users/${userId}`),
   getCurrent: () => api.get('/users/me'),
   updateMe: (payload) => api.patch('/users/me', payload),
   addFriend: (otherId) => api.post(`/friends/${otherId}/add`),
   acceptFriend: (otherId) => api.post(`/friends/${otherId}/accept`),
-  removeFriend: async (otherId) => {
-    // Try DELETE first; if that fails (405 or proxy issues), try direct backend POST fallback.
-    try {
-      return await api.delete(`/friends/${otherId}/remove`);
-    } catch (err) {
-      // If DELETE was rejected (Method Not Allowed or proxy removed it), attempt a direct POST to backend.
-      try {
-        return await apiDirect.post(`/friends/${otherId}/remove`);
-      } catch (err2) {
-        // If direct also failed, but server originally responded 405, try POST via proxied api as last resort
-        if (err?.response?.status === 405) {
-          return api.post(`/friends/${otherId}/remove`);
-        }
-        // Re-throw the first error if nothing worked (preserve original failure details)
-        throw err;
-      }
-    }
-  },
-  getFriends: () => api.get('/friends'),
-  getFriendRequests: () => api.get('/friends/requests'),
-  getBlockedUsers: () => api.get('/friends/blocked'),
+  removeFriend: (otherId) => api.delete(`/friends/${otherId}/remove`),
 };
-
-// Message APIs
-export const messageAPI = {
-  getMessages: (senderId, receiverId) =>
-    api.get('/messages', {
-      params: { sender_id: senderId, receiver_id: receiverId },
-    }),
-  
-  sendMessage: (senderId, receiverId, content) =>
-    api.post('/messages', { sender_id: senderId, receiver_id: receiverId, content }),
-  
-  sendFile: (formData) =>
-    api.post('/messages/upload', formData),
-  
-  getConversations: () => api.get('/messages/conversations'),
-};
-
-// Group APIs
-export const groupAPI = {
-  createGroup: (name) => api.post('/groups', { name }),
-  joinGroup: (groupId) => api.post(`/groups/${groupId}/join`),
-  getMyGroups: () => api.get('/groups'),
-  getGroupMembers: (groupId) => api.get(`/groups/${groupId}/members`),
-};
-
-export default api;
-export { apiDirect };
